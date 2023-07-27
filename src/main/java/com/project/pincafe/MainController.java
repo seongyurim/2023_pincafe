@@ -24,7 +24,14 @@ public class MainController {
     UserDAO userDAO;
     
     @GetMapping("/index")
-    public String index() {
+    public String index(Model model) throws Exception {
+        // 1. 요청한 주체에게 세션(사용자 정보)이 존재하는가?
+        UserTblVO userTblVO = (UserTblVO)SessionUtil.getAttribute("USER");
+
+        // 2. 만약에 세션이 존재한다면 Model에 사용자 정보를 저장하여 index.jsp로 전송한다.
+        if (userTblVO != null) {
+            model.addAttribute("vo", userTblVO);
+        }
         return "index";
     }
 
