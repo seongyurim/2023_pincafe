@@ -14,11 +14,15 @@
     <result property="userpic"   column="userpic"/>
 </resultMap>
 
-<select id="selectOneUser" resultMap="userMap">
+<select id="selectOneUserForLogin" resultMap="userMap">
     SELECT id FROM USER_TBL
     WHERE id=#{id}
-    <if test="password != null and password != ''">
-    AND password=#{password}</if>
+    AND password=#{password}
+</select>
+
+<select id="selectOneUserForId" resultMap="userMap">
+    SELECT id FROM USER_TBL
+    WHERE id=#{id}
 </select>
 
 <insert id="insertUser">

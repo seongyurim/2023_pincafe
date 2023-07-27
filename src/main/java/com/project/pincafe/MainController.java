@@ -44,7 +44,7 @@ public class MainController {
                       HttpServletResponse response) throws Exception
     {
         
-        UserTblVO resultVO = userDAO.selectOneUser(vo);
+        UserTblVO resultVO = userDAO.selectOneUserForLogin(vo);
 
         if (resultVO == null)
         {
@@ -75,7 +75,7 @@ public class MainController {
     @ResponseBody
     public String checkId(@RequestBody UserTblVO vo) throws Exception {
         
-        UserTblVO resultVO = userDAO.selectOneUser(vo);
+        UserTblVO resultVO = userDAO.selectOneUserForId(vo);
 
         if (resultVO == null) {
             return "OK";
