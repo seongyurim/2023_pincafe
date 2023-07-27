@@ -45,20 +45,27 @@
 
     //////////////////////////////////////////////////////////////////////////
     // 이벤트 핸들러
-    btnLogin.addEventListener('click', ()=>{
+    btnLogin.addEventListener('click', () => {
         const frmLogin = document.querySelector('#frmLogin');
         frmLogin.submit();
 
         const userId = document.querySelector('#id').value;
         const userPw = document.querySelector('#password').value;
-        
-        if (!userId || !userPw) {
-          alert('아이디와 패스워드를 입력해주세요!');
 
-          return;
+        // 아이디와 패스워드를 입력하지 않았을 경우 경고 메시지
+        if (!userId || !userPw) {
+            alert('아이디와 패스워드를 입력해주세요!');
+            return;
         }
+        
+
+        
     });
 
+
+
+
+/////////////////////////////////////////////////////////////////////
 
     btnIndex.addEventListener('click', ()=>{
         console.log("메인화면");
@@ -76,6 +83,8 @@
     btnFindPw.addEventListener('click', ()=>{
         console.log("비밀번호 찾기");
     });
+
+
 
 
 })(); 

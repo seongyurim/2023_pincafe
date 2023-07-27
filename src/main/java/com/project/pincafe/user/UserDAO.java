@@ -10,8 +10,12 @@ public class UserDAO {
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 
-    public UserTblVO selectOneUser(UserTblVO vo) throws Exception {
-        return sqlSessionTemplate.selectOne("selectOneUser", vo);
+    public UserTblVO selectOneUserForLogin(UserTblVO vo) throws Exception {
+        return sqlSessionTemplate.selectOne("selectOneUserForLogin", vo);
+    }
+
+    public UserTblVO selectOneUserForId(UserTblVO vo) throws Exception {
+        return sqlSessionTemplate.selectOne("selectOneUserForId", vo);
     }
 
     public int insertUser(UserTblVO vo) throws Exception {
