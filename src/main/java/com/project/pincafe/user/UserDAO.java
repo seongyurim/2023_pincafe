@@ -18,6 +18,10 @@ public class UserDAO {
         return sqlSessionTemplate.selectOne("selectOneUserForId", vo);
     }
 
+    public UserTblVO selectOneUserForNick(UserTblVO vo) throws Exception {
+        return sqlSessionTemplate.selectOne("selectOneUserForNick", vo);
+    }
+
     public int insertUser(UserTblVO vo) throws Exception {
         return sqlSessionTemplate.insert("insertUser", vo);
     }
