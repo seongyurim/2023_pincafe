@@ -40,8 +40,8 @@ public class MainController {
     // 아이디 패스워드를 넘겨서 로그인을 실제로 처리해달라는 요청.
     @PostMapping("/login")
     public void login(@ModelAttribute("UserTblVO") UserTblVO vo,
-                      HttpServletRequest request, 
-                      HttpServletResponse response) throws Exception
+                    HttpServletRequest request, 
+                    HttpServletResponse response) throws Exception
     {
         
         UserTblVO resultVO = userDAO.selectOneUserForLogin(vo);
@@ -66,7 +66,7 @@ public class MainController {
 
     @GetMapping("/join")
     public String join(@ModelAttribute("UserTblVO") UserTblVO vo,
-                       Model model) throws Exception {
+                        Model model) throws Exception {
 
         return "join";
     }
@@ -171,5 +171,13 @@ public class MainController {
 
             return "$OK";
         }
+    }
+
+    ////// 새글 작성 ////////////////////////////////////////////////////////////////
+
+    // GET newarticle 
+    @GetMapping("/bbs/newarticle")
+    public String newArticle() {
+        return "/bbs/newarticle";
     }
 }
