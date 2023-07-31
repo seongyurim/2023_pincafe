@@ -172,4 +172,9 @@ public class MainController {
             return "$OK";
         }
     }
+
+    @GetMapping("/cafehomepage")
+    public String cafehomepage() {
+        return "cafehomepage";
+    }
 }
