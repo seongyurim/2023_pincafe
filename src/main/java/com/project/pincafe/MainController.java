@@ -132,10 +132,8 @@ public class MainController {
      
     @PostMapping("/join")
     public ResponseEntity<String> join(@ModelAttribute("UserTblVO") UserTblVO vo) throws Exception
-    {
-        
+    {        
         FileVO fileVO = null;
-        // String returnMessage = "JOIN_OK";
         
         // 섬네일이 있는 경우 파일처리를 수행한다.
         if (vo.getThumbnail() != null)
@@ -150,13 +148,9 @@ public class MainController {
             vo.setFileCode(fileVO.getFileCode());
         }
         // 프로필 사진이 없는 경우 디폴트 이미지를 사용
-        else
-        {
+        else {
             vo.setFileCode("0000");
         }
-            
-            
-            
 
         int insertCount = userDAO.insertUser(vo);
         System.out.println(vo);
