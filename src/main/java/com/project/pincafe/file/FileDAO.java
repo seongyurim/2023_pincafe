@@ -10,10 +10,6 @@ public class FileDAO
     @Autowired
     private SqlSessionTemplate sqlSessionTemplate;
 
-    public int insertFileTbl(FileVO vo) throws Exception {
-		 return sqlSessionTemplate.insert("insertFileTbl", vo);
-	}
-
     public FileVO getFileByCode(String fileCode) throws Exception {
         return sqlSessionTemplate.selectOne("getFileByCode", fileCode);
     }
