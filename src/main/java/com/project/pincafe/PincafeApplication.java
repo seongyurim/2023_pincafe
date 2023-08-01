@@ -9,5 +9,4 @@ public class PincafeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PincafeApplication.class, args);
 	}
-
 }

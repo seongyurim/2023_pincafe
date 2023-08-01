@@ -16,9 +16,8 @@
 </resultMap>
 
 <select id="selectOneUserForLogin" resultMap="userMap">
-    SELECT id, password, nickname FROM USER_TBL
-    WHERE id=#{id}
-    AND password=#{password}
+    SELECT * FROM USER_TBL
+    WHERE id=#{id} AND password=#{password}
 </select>
 
 <select id="selectOneUserForId" resultMap="userMap">

@@ -83,9 +83,6 @@
         location.href = '/pwinquiry';
     });
 
-
-
-
 })(); 
 </script>
         
