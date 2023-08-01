@@ -11,11 +11,12 @@
     <result property="password"  column="password"/>
     <result property="email"     column="email"/>
     <result property="address"   column="address"/>
-    <result property="userpic"   column="userpic"/>
+    <result property="fileCode"  column="file_code"/>
+
 </resultMap>
 
 <select id="selectOneUserForLogin" resultMap="userMap">
-    SELECT id FROM USER_TBL
+    SELECT id, password, nickname FROM USER_TBL
     WHERE id=#{id}
     AND password=#{password}
 </select>
@@ -25,9 +26,14 @@
     WHERE id=#{id}
 </select>
 
+<select id="selectOneUserForNick" resultMap="userMap">
+    SELECT nickname FROM USER_TBL
+    WHERE nickname=#{nickname}
+</select>
+
 <insert id="insertUser">
-    INSERT INTO USER_TBL (id, nickname, password, email, address, userpic)
-    VALUES (#{id}, #{nickname}, #{password}, #{email}, #{address}, ${userpic})
+    INSERT INTO USER_TBL (id, nickname, password, email, address, file_code)
+    VALUES (#{id}, #{nickname}, #{password}, #{email}, #{address}, #{fileCode})
 </insert>
 
 <select id="getIdByNnEmail" resultMap="userMap">
