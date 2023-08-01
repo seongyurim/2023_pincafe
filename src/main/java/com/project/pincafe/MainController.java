@@ -153,7 +153,6 @@ public class MainController {
         else
         {
             vo.setFileCode("0000");
-
         }
             
             
