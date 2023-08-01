@@ -190,22 +190,22 @@
                 return false;
             }
 
-            // 7. 이메일의 정규표현식 검증
-            let regex = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/);
-            let testResult = regex.test(txtEmail.value);
-            if (testResult === false) {
-                // console.log("REGEX FOR EMAIL = " + testResult);
-                alert('올바른 이메일 형태를 입력해주세요.');
-                txtEmail.focus();
-                return false;
-            }
+            // // 7. 이메일의 정규표현식 검증 // 테스트 후 주석 해제할 것 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // let regex = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/);
+            // let testResult = regex.test(txtEmail.value);
+            // if (testResult === false) {
+            //     // console.log("REGEX FOR EMAIL = " + testResult);
+            //     alert('올바른 이메일 형태를 입력해주세요.');
+            //     txtEmail.focus();
+            //     return false;
+            // }
 
-            // 8. 주소를 입력했는지 확인
-            if (finalAddress.length === 0) {
-                alert('주소를 입력해주세요.');
-                kakaoZip.focus();
-                return false;
-            }
+            // // 8. 주소를 입력했는지 확인
+            // if (finalAddress.length === 0) {
+            //     alert('주소를 입력해주세요.');
+            //     kakaoZip.focus();
+            //     return false;
+            // }
 
             // 9. 위의 검사를 모두 통과했으면 true
             return true;
@@ -324,23 +324,23 @@
                 return;
             }
 
-            // 2. 값이 범위를 넘는 경우
-            if ((txtUserId.value.length < 6) || (txtUserId.value.length > 12)) {
-                alert('아이디 길이는 6~12자만 가능합니다.');
-                idChecking = false;
-                txtUserId.focus();
-                return;
-            }
+            // // 2. 값이 범위를 넘는 경우
+            // if ((txtUserId.value.length < 6) || (txtUserId.value.length > 12)) {
+            //     alert('아이디 길이는 6~12자만 가능합니다.');
+            //     idChecking = false;
+            //     txtUserId.focus();
+            //     return;
+            // }
 
-            // 3. 허용되지 않은 값이 있는 경우: 특수문자, 영대문자, 공백
-            let regex = new RegExp(/^[a-z0-9]+$/);
-            let testResult = regex.test(txtUserId.value);
-            if (testResult == false) {
-                alert('아이디는 영소문자와 숫자만 사용할 수 있습니다.');
-                idChecking = false;
-                txtUserId.focus();
-                return;
-            }
+            // // 3. 허용되지 않은 값이 있는 경우: 특수문자, 영대문자, 공백
+            // let regex = new RegExp(/^[a-z0-9]+$/);
+            // let testResult = regex.test(txtUserId.value);
+            // if (testResult == false) {
+            //     alert('아이디는 영소문자와 숫자만 사용할 수 있습니다.');
+            //     idChecking = false;
+            //     txtUserId.focus();
+            //     return;
+            // }
 
             // 4. 서버로 데이터를 전송한다.
             let requestData = {
@@ -454,40 +454,7 @@
         // 회원가입 버튼
         btnJoin.addEventListener('click', ()=>{
 
-            // // 데이터를 검사한다.
-            // if (false === checkJoinData()) {
-            //     // alert('error');
-            //     return;
-            // }
-
-            // // 가입을 위한 요청 데이터
-            // let requestData = {
-            //     id : txtUserId.value, 
-            //     password : txtUserPw.value,
-            //     nickname : txtNick.value,
-            //     email : txtEmail.value,
-            //     address : finalAddress
-            // };
-            // console.log(requestData); // 꼭 확인해보자.
-
-            // $.ajax({
-            //     url : '/join',
-            //     type : 'POST',
-            //     data : requestData,
-            //     success : function(data) {
-            //         if (data === "OK") {
-            //             alert('정상적으로 가입되었어요!');
-            //             location.href = "/login";
-            //         }
-            //         else {
-            //             alert('회원가입에 실패했어요.');
-            //             resetPage();
-            //         }
-            //     }
-            // });
-
-
-            // FormData + XMLHttpRequest() 사용으로 코드 변경! ////////////
+            // requestData & $ajax ==> FormData & XMLHttpRequest() 코드 변경하였음
             let formData = new FormData();
         
             formData.append('id', txtUserId.value);

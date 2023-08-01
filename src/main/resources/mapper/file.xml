@@ -7,4 +7,8 @@
     VALUES(#{fileCode}, #{filePath}, #{storedName}, #{originName})
 </insert>
 
+<select id="getFileByCode" resultType="com.project.pincafe.file.FileVO">
+    SELECT * FROM FILE_TBL WHERE file_code = #{fileCode}
+</select>
+
 </mapper>

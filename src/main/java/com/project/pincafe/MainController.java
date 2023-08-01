@@ -132,35 +132,29 @@ public class MainController {
 
     @PostMapping("/join")
     public ResponseEntity<String> join(@ModelAttribute("UserTblVO") UserTblVO vo) throws Exception
-    {
-        System.out.println(vo);
-        
-
-        
-        
-
+    {        
         FileVO fileVO = null;
-        // String returnMessage = "JOIN_OK";
-
+        
         // 섬네일이 있는 경우 파일처리를 수행한다.
         if (vo.getThumbnail() != null)
-        {
+        {   
             fileVO = new FileVO();
-
             // fileVO에 전송받은 thumbnail, path 를 넣어준다.
             fileVO.setFile(vo.getThumbnail());
             fileVO.setFilePath(uploadDir + "member/thumbnail");
-
+            
             fileVO = fileService.createFile(fileVO);
             fileService.insertFileTbl(fileVO);
             vo.setFileCode(fileVO.getFileCode());
         }
-
+        // 프로필 사진이 없는 경우 디폴트 이미지를 사용
+        else {
+            vo.setFileCode("0000");
+        }
 
         int insertCount = userDAO.insertUser(vo);
-
-
-
+        System.out.println(vo);
+        
         if (insertCount == 1) {
             return new ResponseEntity<>("OK", HttpStatus.OK);
         }
