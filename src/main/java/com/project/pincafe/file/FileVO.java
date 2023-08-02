@@ -13,6 +13,5 @@ public class FileVO
     private String originName;
 
     @JsonIgnore
-    private MultipartFile file;
-        
+    private MultipartFile file;     
 }

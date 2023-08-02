@@ -24,6 +24,9 @@
         <img src="/imgs/member/thumbnail/${vo.fileCode}.jpg" alt="Profile Image" class="profileImg">
     </p>
 
+    <ul id="feedBBS" class="feed-BBS">
+
+    </ul>
 
 
 
@@ -33,6 +36,17 @@
     <script>
     (()=>{
         let sessionState = false;
+
+        // row..
+        let rowCount = 0;        // 전체 건수
+
+        // page..
+        let rowsPerPage = 5;     // 페이지 당 건수(테이블에서 보여지는 최대 건수)
+        let curPage = 0;         // 현재 페이지 위치
+
+        // section..
+        let curSection = 0;      // 현재 섹션
+        let pagesPerSection = 5; // 섹션당 페이지 수(버튼 수와 동일)
 
         const welcomMsg = document.querySelector('#welcomMsg');
         const btnLogin  = document.querySelector('#btnLogin');
@@ -74,6 +88,66 @@
             if (sessionState === true) {
                 btnJoin.style.display = 'none';
             }
+        }
+
+        // 피드형 게시판 생성
+        const setBBS = function(page) {
+            // BBS 세팅을 위한 데이터를 오브젝트에 담기
+            let requestData = {
+                // divi : 'C',
+                page: page,
+                rowsPerPage: rowsPerPage // 현재 전역변수에 5로 설정되어 있음
+            };
+
+            // 오브젝트를 DB로 전달하기
+            $.ajax({
+                url: 'bbs/list',
+                type: 'POST',
+                data: requestData,
+                success: function(data) {
+                    // 여기서 받는 데이터: rowCount, bbsList
+                    const feedBBS = document.querySelector('#feedBBS');
+
+                    // 전체 카운트를 저장한다.
+                    rowCount = data.rowCount;
+
+                    // 피드형 게시판을 채워준다.
+                    feedBBS.innerHTML = '';
+
+                    for (let i = 0; i < data.bbsList.length; i++) {
+                        const feedItem = document.createElement('li');
+                        feedItem.classList.add('feed-item');
+
+                        const imageLink = document.createElement('a');
+                        imageLink.href = '/bbs/content?userId=' + data.bbsList[i].userId + '&seq=' + data.bbsList[i].seq;
+
+                        const image = document.createElement('img');
+                        image.src = data.bbsList[i].imageUrl;
+                        image.alt = '피드 이미지';
+
+                        const titleLink = document.createElement('a');
+                        titleLink.href = '/bbs/content?userId=' + data.bbsList[i].userId + '&seq=' + data.bbsList[i].seq;
+                        titleLink.textContent = data.bbsList[i].title;
+
+                        const userId = document.createElement('p');
+                        userId.textContent = data.bbsList[i].userId;
+
+                        const regdate = document.createElement('p');
+                        regdate.textContent = data.bbsList[i].regdate;
+
+                        // 피드 항목에 요소들을 추가합니다.
+                        imageLink.appendChild(image);
+                        feedItem.appendChild(imageLink);
+                        feedItem.appendChild(titleLink);
+                        feedItem.appendChild(userId);
+                        feedItem.appendChild(regdate);
+
+                        // 피드 항목을 피드 게시판에 추가합니다.
+                        feedBBS.appendChild(feedItem);
+                    }
+                }
+            });
+            // console.log(requestData);
         }
 
 
