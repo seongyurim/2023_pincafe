@@ -236,13 +236,4 @@ public class MainController {
             return "$OK";
         }
     }
-
-    ////// 새글 작성 ////////////////////////////////////////////////////////////////
-
-    // GET newarticle 
-    @GetMapping("/bbs/newarticle")
-    public String newArticle() {
-        return "/bbs/newarticle";
-    }
-    
 }

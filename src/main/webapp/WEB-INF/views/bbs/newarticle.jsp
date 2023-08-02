@@ -186,9 +186,15 @@
                 </div>
             </div>
         </div>
+
+    <script src="/JS/jquery-3.7.0.min.js"></script>
+
+
     <script>
     (()=>{
+        // =========================================================================================
         // DOM 객체
+        // 미리보기
         const $btnInsert = document.getElementById('btnInsert');
         const $btnUndo = document.getElementById('btnUndo');
         const $fileInput = document.getElementById('fileInput');
@@ -196,11 +202,85 @@
         const $previewBoxes = document.querySelectorAll('.previewBox');
         const $uploadForm = document.getElementById('uploadForm');
 
+        // 후기 글
+        const title = document.querySelector('#txtTitle');
+        const content = document.querySelector('#txtContent');
+
+        // =========================================================================================
+        // 함수 설정
+        // value값 체크 함수 (제목, 내용 둘 중 하나라도 0이면 안 됨)
+        const checkValues = function()
+        {   
+            if ((title.value.length == 0) || (content.value.length == 0))
+            {
+                return false;
+            }
+            return true;
+        }
+
+
         // 이벤트 핸들러
         $btnInsert.addEventListener ('click', ()=>
         {
-            console.log("등록");
-            // location.href = "";
+            // console.log("등록");
+            // value 값 체크
+            if (false === checkValues())
+            {
+                alert ("제목이나 내용을 작성하세요.")
+                return;
+            }
+
+            // 던질 데이터를 마련한다. (id, title, content, divi)
+            let submitData = {
+                    // nickname : '${nickname}',
+                    nickname : '빨강',
+                    title : title.value ,
+                    content : content.value 
+                };
+
+                // 등록 클릭 시
+                if (confirm('등록 하시겠습니까?'))
+                {
+                    $.ajax
+                    ({
+                        url : '/bbs/newarticle', 
+                        type : 'POST',
+                        data : submitData,
+                        success : function(data)
+                        {
+                            // controller 로 data 보냄 (postmapping)으로 받도록
+                            console.log(data);
+                            if (data === "OK")
+                            {
+                                alert ("등록되었습니다.");
+                                // index로 돌아가게 하기
+                                location.href = "/index" ;
+                            }
+                            else
+                            {
+                                alert ("등록에 실패하였습니다.")
+                            }
+                        }
+                    })
+                }
+
+            // // formData 객체 생성
+            // const formData = new FormData();
+            // formData.append('title', title.value);
+            // formData.append('content', content.value);
+
+            // console.log(formData);    // 확인 코드
+
+            // // ajax 요청으로 서버에 데이터 전송
+            // const xhr = new XMLHttpRequest();
+            // xhr.open('POST', 'bbs/newarticle', true);
+            // xhr.onload = function ()
+            // {
+            //     if (xhr.status === 200)
+            //     {
+            //         alert ("게시글 등록 완료");
+            //     }
+            // }
         });
 
         $btnUndo.addEventListener ('click', ()=>
@@ -228,25 +308,21 @@
                 };
                 reader.readAsDataURL($fileInput.files[i]);
             }
-            // else 
-            // {
-            //     $previewBoxes[i].style.display = 'none';
-            // }
         });
 
-        function resetForm() 
-        {
-            $uploadForm.reset();
-            clearPreviewBoxes();
-        }
+        // function resetForm() 
+        // {
+        //     $uploadForm.reset();
+        //     clearPreviewBoxes();
+        // }
 
-        function clearPreviewBoxes()
-        {
-            for (let i = 0; i < 4; i++)
-            {
-                $previewBoxes[i].style.display = 'none';
-            }
-        }
+        // function clearPreviewBoxes()
+        // {
+        //     for (let i = 0; i < 4; i++)
+        //     {
+        //         $previewBoxes[i].style.display = 'none';
+        //     }
+        // }
     })();
     </script>
 </body>
