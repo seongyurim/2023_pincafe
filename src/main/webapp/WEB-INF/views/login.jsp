@@ -8,7 +8,7 @@
 <body>
     <h1>Login</h1>
 
-    <form action="/login" method="post" id="frmLogin">
+    <form action="/login" method="POST" id="frmLogin">
         <table>
             <tr>
                 <td><label for="id">아이디</label></td>
@@ -24,7 +24,7 @@
     
     <div>
         <button type="button" id="btnLogin">로그인</button>
-        <button type="button" id="btnIndex">첫화면</button>    
+        <button type="button" id="btnIndex">메인으로</button>    
     </div>
     <hr>    
     <div>
@@ -36,9 +36,9 @@
 <script>
 (()=>{   
     
-    const btnLogin = document.querySelector('#btnLogin');
-    const btnIndex = document.querySelector('#btnIndex');
-    const btnJoin = document.querySelector('#btnJoin');
+    const btnLogin  = document.querySelector('#btnLogin');
+    const btnIndex  = document.querySelector('#btnIndex');
+    const btnJoin   = document.querySelector('#btnJoin');
     const btnFindId = document.querySelector('#btnFindId');
     const btnFindPw = document.querySelector('#btnFindPw');
 
@@ -68,24 +68,20 @@
 /////////////////////////////////////////////////////////////////////
 
     btnIndex.addEventListener('click', ()=>{
-        console.log("메인화면");
-        
+        location.href = '/index';
     });
 
     btnJoin.addEventListener('click', ()=>{
-        console.log("로그인");
+        location.href = '/join';
     });
 
     btnFindId.addEventListener('click', ()=>{
-        console.log("아이디찾기");
+        location.href = '/idinquiry';
     });
 
     btnFindPw.addEventListener('click', ()=>{
-        console.log("비밀번호 찾기");
+        location.href = '/pwinquiry';
     });
-
-
-
 
 })(); 
 </script>

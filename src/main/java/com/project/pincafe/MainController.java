@@ -4,6 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.pincafe.common.GmailSender;
 import com.project.pincafe.common.SessionUtil;
+import com.project.pincafe.file.FileService;
+import com.project.pincafe.file.FileVO;
 import com.project.pincafe.user.UserDAO;
 import com.project.pincafe.user.UserTblVO;
 
@@ -22,9 +27,22 @@ public class MainController {
 
     @Autowired
     UserDAO userDAO;
+
+    @Value("${file.upload-dir}")
+    private String uploadDir;
+
+    @Autowired
+    FileService fileService;
     
     @GetMapping("/index")
-    public String index() {
+    public String index(Model model) throws Exception {
+        // 1. 요청한 주체에게 세션(사용자 정보)이 존재하는가?
+        UserTblVO resultVO = (UserTblVO)SessionUtil.getAttribute("USER");
+
+        // 2. 만약에 세션이 존재한다면 Model에 사용자 정보를 저장하여 index.jsp로 전송한다.
+        if (resultVO != null) {
+            model.addAttribute("vo", resultVO);
+        }
         return "index";
     }
 
@@ -40,8 +58,8 @@ public class MainController {
     // 아이디 패스워드를 넘겨서 로그인을 실제로 처리해달라는 요청.
     @PostMapping("/login")
     public void login(@ModelAttribute("UserTblVO") UserTblVO vo,
-                      HttpServletRequest request, 
-                      HttpServletResponse response) throws Exception
+                    HttpServletRequest request, 
+                    HttpServletResponse response) throws Exception
     {
         
         UserTblVO resultVO = userDAO.selectOneUserForLogin(vo);
@@ -61,16 +79,28 @@ public class MainController {
     }
 
 
+    ////// 로그아웃 ////////////////////////////////////////////////////////
+
+    @GetMapping("/logout")
+    public void logout(HttpServletRequest request,
+                       HttpServletResponse response) throws Exception {
+        // 로그아웃으로 왔다는 것은 현재 로그인이 되어있다는 의미
+        // 즉 세션에 사용자 정보가 존재한다는 의미이므로 세션을 비워야 한다.
+        SessionUtil.remove(request, "USER");
+        response.sendRedirect("index"); // 세션이 비워진 채로 index()로 이동
+    }
+    
+
 
     ////// 회원가입 ///////////////////////////////////////////////////////////
 
     @GetMapping("/join")
-    public String join(@ModelAttribute("UserTblVO") UserTblVO vo,
-                       Model model) throws Exception {
+    public String join() {
 
         return "join";
     }
 
+    // 아이디 중복확인
     @PostMapping("/checkId")
     @ResponseBody
     public String checkId(@RequestBody UserTblVO vo) throws Exception {
@@ -85,19 +115,53 @@ public class MainController {
         }
     }
 
-    @PostMapping("/join")
+    // 닉네임 중복확인
+    @PostMapping("/checkNick")
     @ResponseBody
-    public String join(@ModelAttribute("UserTblVO") UserTblVO vo) throws Exception {
+    public String checkNick(@RequestBody UserTblVO vo) throws Exception
+    {        
+        UserTblVO resultVO = userDAO.selectOneUserForNick(vo);
 
-        int insertCount = userDAO.insertUser(vo);
-
-        if (insertCount == 1) {
+        if (resultVO == null) {
             return "OK";
         }
         else {
             return "FAIL";
         }
     }
+
+    @PostMapping("/join")
+    public ResponseEntity<String> join(@ModelAttribute("UserTblVO") UserTblVO vo) throws Exception
+    {        
+        FileVO fileVO = null;
+        
+        // 섬네일이 있는 경우 파일처리를 수행한다.
+        if (vo.getThumbnail() != null)
+        {   
+            fileVO = new FileVO();
+            // fileVO에 전송받은 thumbnail, path 를 넣어준다.
+            fileVO.setFile(vo.getThumbnail());
+            fileVO.setFilePath(uploadDir + "member/thumbnail");
+            
+            fileVO = fileService.createFile(fileVO);
+            fileService.insertFileTbl(fileVO);
+            vo.setFileCode(fileVO.getFileCode());
+        }
+        // 프로필 사진이 없는 경우 디폴트 이미지를 사용
+        else {
+            vo.setFileCode("0000");
+        }
+
+        int insertCount = userDAO.insertUser(vo);
+        System.out.println(vo);
+        
+        if (insertCount == 1) {
+            return new ResponseEntity<>("OK", HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>("FAIL", HttpStatus.OK);
+        }
+    }    
 
 
     
@@ -173,8 +237,17 @@ public class MainController {
         }
     }
 
+  
     @GetMapping("/cafehomepage")
     public String cafehomepage() {
         return "cafehomepage";
+    }
+  
+    ////// 새글 작성 ////////////////////////////////////////////////////////////////
+
+    // GET newarticle 
+    @GetMapping("/bbs/newarticle")
+    public String newArticle() {
+        return "/bbs/newarticle";
     }
 }

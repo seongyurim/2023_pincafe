@@ -32,15 +32,15 @@
         <tr> </label>
             <td><label for="txtUserId">아이디</label></td>
             <td>
-                <input type="text" id="txtUserId" name="id" placeholder="아이디 입력(6~12자)">
-                <button type="button" id="btnCheckId">중복확인</button>
+                <input type="text" id="txtUserId" name="id" placeholder="ID">
+                <button type="button" id="btnCheckId">아이디 중복확인</button>
             </td>
         </tr>
 
         <tr>
             <td><label for="txtUserPw">비밀번호</label></td>            
             <td>
-                <input type="password" id="txtUserPw" name="password" placeholder="비밀번호 입력(6~20자)"> 
+                <input type="password" id="txtUserPw" name="password" placeholder="Password"> 
                 <span id="isPwCorrect"></span>
             </td>            
         </tr>
@@ -48,40 +48,50 @@
         <tr>
             <td><label for="txtCheckPw">비밀번호 확인</label></td>
             <td>
-                <input type="password" id="txtCheckPw" placeholder="비밀번호 재입력"> 
+                <input type="password" id="txtCheckPw" placeholder="Password Check"> 
                 <span id="isPwSame"></span>
             </td>
         </tr>
 
         <tr>
-            <td><label for="txtNickname">닉네임</label></td>
-            <td><input type="text" id="txtNickname" name="nickname" placeholder="이름 입력"></td>
+            <td><label for="txtNick">닉네임</label></td>
+            <td><input type="text" id="txtNick" name="nickname" placeholder="Nickname">
+            <button type="button" id="btnCheckNick">닉네임 중복확인</button></td>
         </tr>
         <tr>
             <td><label for="txtEmail">이메일</label></td>
-            <td><input type="email" id="txtEmail" name="email" placeholder="이메일 입력(ex. id@domain.com)"></td>
+            <td><input type="email" id="txtEmail" name="email" placeholder="Email"></td>
+        </tr>
+
+        <tr>
+            <td><label for="thumbnail">프로필사진</label></td>
+            <td>
+                <input type="file" name="file_code" id="thumbnail">
+            </td>           
         </tr>
 
         <tr>
             <td><label for="kakaoZip">주소</label></td>
             <td>
-                <input type="text" id="kakaoZip" placeholder="우편번호">
+                <input type="text" id="kakaoZip" placeholder="Zipcode">
                 <button type="button" id="kakaoFindZipBtn">우편번호 찾기</button>
             </td>
         </tr>
         <tr>
             <td></td>
-            <td><input type="text" id="kakaoAddress" name="address" placeholder="주소"></td>
+            <td><input type="text" id="kakaoAddress" name="address" placeholder="Address"></td>
         </tr>
         <tr>
             <td></td>
-            <td><input type="text" id="kakaoDetailAddress" placeholder="상세주소"></td>
+            <td><input type="text" id="kakaoDetailAddress" placeholder="Detail Address"></td>
         </tr>
         <tr>
             <td></td>
-            <td><input type="text" id="kakaoExtraAddress" placeholder="참고항목"></td>
+            <td><input type="text" id="kakaoExtraAddress" placeholder="Extra Address"></td>
         </tr>
     </table>
+
+
     <p>
         <button type="button" id="btnJoin" class="btns">회원가입</button>
         <button type="button" id="btnIndex" class="btns">메인으로</button>
@@ -93,18 +103,20 @@
     <script>
     (()=>{   
 
-        const txtUserId   = document.querySelector('#txtUserId');   // 아이디 입력
-        const txtUserPw   = document.querySelector('#txtUserPw');   // 비밀번호 입력
-        const txtName     = document.querySelector('#txtName');     // 이름 입력
-        const txtEmail    = document.querySelector('#txtEmail');    // 이메일 입력
+        const txtUserId     = document.querySelector('#txtUserId');    // 아이디
+        const txtUserPw     = document.querySelector('#txtUserPw');    // 비밀번호
+        const txtNick       = document.querySelector('#txtNick');      // 닉네임
+        const txtEmail      = document.querySelector('#txtEmail');     // 이메일
+        const thumbnail     = document.querySelector('#thumbnail');    // 프로필사진
         
-        const txtCheckPw  = document.querySelector('#txtCheckPw');  // 비밀번호 확인
-        const btnCheckId  = document.querySelector('#btnCheckId');  // 아이디 중복확인 버튼
-        const isPwCorrect = document.querySelector('#isPwCorrect'); // 비밀번호 글자수 확인 메세지
-        const isPwSame    = document.querySelector('#isPwSame');    // 비밀번호 일치여부 확인 메세지
+        const txtCheckPw    = document.querySelector('#txtCheckPw');   // 비밀번호 확인
+        const btnCheckId    = document.querySelector('#btnCheckId');   // 아이디 중복확인 버튼
+        const btnCheckNick  = document.querySelector('#btnCheckNick'); // 닉네임 중복확인 버튼
+        const isPwCorrect   = document.querySelector('#isPwCorrect');  // 비밀번호 글자수 확인 메세지
+        const isPwSame      = document.querySelector('#isPwSame');     // 비밀번호 일치여부 확인 메세지
         
-        const btnJoin     = document.querySelector('#btnJoin');     // 회원가입 버튼
-        const btnIndex    = document.querySelector('#btnIndex');    // 메인으로 버튼
+        const btnJoin       = document.querySelector('#btnJoin');     // 회원가입 버튼
+        const btnIndex      = document.querySelector('#btnIndex');    // 메인으로 버튼
         
         // 카카오 주소 API 관련
         const kakaoZip           = document.querySelector('#kakaoZip');           // 우편번호
@@ -114,8 +126,11 @@
         const kakaoFindZipBtn    = document.querySelector('#kakaoFindZipBtn');    // 우편번호 찾기 버튼
         let finalAddress = ''; // 카카오에서 가져온 주소 문자열을 한 필드에 최종저장
         
-        let idChecking = false; // 중복확인을 통과하면 true로 변경된다.
-        let checkedId  = '';    // 중복확인이 통과된 아이디가 저장된다.
+        let idChecking   = false; // 중복확인을 통과하면 true로 변경된다.
+        let checkedId    = '';    // 중복확인이 통과된 아이디가 저장된다.
+        let nickChecking = false; // 중복확인을 통과하면 true로 변경된다.
+        let checkedNick  = '';    // 중복확인이 통과된 닉네임이 저장된다.
+
 
 
 
@@ -128,14 +143,14 @@
             if ((txtUserId.value.length === 0) &&
                 (txtUserPw.value.length === 0) &&
                 (txtCheckPw.value.length === 0) &&
-                (txtName.value.length === 0) &&
+                (txtNick.value.length === 0) &&
                 (txtEmail.value.length === 0)) {
                     alert('회원가입 양식을 작성해주세요.')
                     txtUserId.focus();
                     return false;
                 }
 
-            // 2.아이디 중복여부 확인
+            // 2. 아이디 중복여부 확인
             if ((idChecking == false) || (checkedId != txtUserId.value)) { 
                 alert('아이디 중복확인이 필요합니다.');
                 txtUserId.value = '';
@@ -160,10 +175,11 @@
                 return false;
             }
 
-            // 5. 이름을 입력했는지 확인
-            if (txtName.value.length === 0) {
-                alert('이름을 입력해주세요.');
-                txtName.focus();
+            // 5. 닉네임 중복여부 확인
+            if ((nickChecking == false) || (checkedNick != txtNick.value)) { 
+                alert('닉네임 중복확인이 필요합니다.');
+                txtNick.value = '';
+                txtNick.focus();
                 return false;
             }
 
@@ -174,17 +190,24 @@
                 return false;
             }
 
-            // 7. 이메일의 정규표현식 검증
-            let regex = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/);
-            let testResult = regex.test(txtEmail.value);
-            if (testResult === false) {
-                // console.log("REGEX FOR EMAIL = " + testResult);
-                alert('올바른 이메일 형태를 입력해주세요.');
-                txtEmail.focus();
-                return false;
-            }
+            // // 7. 이메일의 정규표현식 검증 // 테스트 후 주석 해제할 것 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // let regex = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/);
+            // let testResult = regex.test(txtEmail.value);
+            // if (testResult === false) {
+            //     // console.log("REGEX FOR EMAIL = " + testResult);
+            //     alert('올바른 이메일 형태를 입력해주세요.');
+            //     txtEmail.focus();
+            //     return false;
+            // }
 
-            // 8. 위의 검사를 모두 통과했으면 true
+            // // 8. 주소를 입력했는지 확인
+            // if (finalAddress.length === 0) {
+            //     alert('주소를 입력해주세요.');
+            //     kakaoZip.focus();
+            //     return false;
+            // }
+
+            // 9. 위의 검사를 모두 통과했으면 true
             return true;
         }
 
@@ -273,14 +296,16 @@
 
         // 회원가입 실패 시 입력된 값 리셋
         const resetPage = function() {
-            txtUserId = '';
-            txtUserPw = '';
-            txtCheckPw = '';
-            txtName = '';
-            txtEmail = '';
+            txtUserId.value = '';
+            txtUserPw.value = '';
+            txtCheckPw.value = '';
+            txtNick.value = '';
+            txtEmail.value = '';
 
             idChecking = false;
             checkedId = '';
+            nickChecking = false;
+            checkedNick = '';
             txtUserId.focus();
         }
 
@@ -299,25 +324,25 @@
                 return;
             }
 
-            // 2. 값이 범위를 넘는 경우
-            if ((txtUserId.value.length < 6) || (txtUserId.value.length > 12)) {
-                alert('아이디 길이는 6~12자만 가능합니다.');
-                idChecking = false;
-                txtUserId.focus();
-                return;
-            }
+            // // 2. 값이 범위를 넘는 경우
+            // if ((txtUserId.value.length < 6) || (txtUserId.value.length > 12)) {
+            //     alert('아이디 길이는 6~12자만 가능합니다.');
+            //     idChecking = false;
+            //     txtUserId.focus();
+            //     return;
+            // }
 
-            // 3. 허용되지 않은 값이 있는 경우: 특수문자, 영대문자, 공백
-            let regex = new RegExp(/^[a-z0-9]+$/);
-            let testResult = regex.test(txtUserId.value);
-            if (testResult == false) {
-                alert('아이디는 영소문자와 숫자만 사용할 수 있습니다.');
-                idChecking = false;
-                txtUserId.focus();
-                return;
-            }
+            // // 3. 허용되지 않은 값이 있는 경우: 특수문자, 영대문자, 공백
+            // let regex = new RegExp(/^[a-z0-9]+$/);
+            // let testResult = regex.test(txtUserId.value);
+            // if (testResult == false) {
+            //     alert('아이디는 영소문자와 숫자만 사용할 수 있습니다.');
+            //     idChecking = false;
+            //     txtUserId.focus();
+            //     return;
+            // }
 
-            // 4. 
+            // 4. 서버로 데이터를 전송한다.
             let requestData = {
                 id : txtUserId.value
             }
@@ -353,44 +378,127 @@
 
             let dat = JSON.stringify(requestData);
             console.log(dat);
-            xhr.send(dat);
-   
+            xhr.send(dat);   
         });
+
+        // 닉네임 검증: 빈 값, 범위 외의 값, 중복 값
+        btnCheckNick.addEventListener('click', ()=>{
+
+            // 1. 값이 비어 있는 경우
+            if (txtNick.value.length === 0) {
+                alert('닉네임을 입력해주세요.');
+                nickChecking = false;
+                txtNick.focus();
+                return;
+            }
+
+            // 2. 값이 범위를 넘는 경우
+            if ((txtNick.value.length < 2) || (txtNick.value.length > 10)) {
+                alert('아이디 길이는 2~10자만 가능합니다.');
+                nickChecking = false;
+                txtNick.focus();
+                return;
+            }
+
+            // 3. 허용되지 않은 값이 있는 경우: 한글 초성, 모음
+            let regex = new RegExp(/^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,10}$/);
+            let testResult = regex.test(txtNick.value);
+            if (testResult == false) {
+                alert('닉네임은 2~10자의 한글, 영문, 숫자로만 사용할 수 있습니다.');
+                nickChecking = false;
+                txtNick.value = '';
+                txtNick.focus();
+                return;
+            }
+
+            // 4. 서버로 데이터를 전송한다.
+            let requestData = {
+                nickname : txtNick.value
+            }
+            console.log(requestData);
+
+            let xhr = new XMLHttpRequest(); // 서버와 통신을 수행하는 객체
+            xhr.open('POST', '/checkNick', true);
+            xhr.setRequestHeader('Content-Type', 'application/json'); // 컨텐트타입을 json으로 설정
+
+            xhr.onreadystatechange = function() {
+                // 서버와 통신하는 객체의 상태가 변하였다. (즉 서버에서 새로운 데이터가 왔다는 의미)
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        let data = xhr.responseText;
+                        if (data == 'FAIL') {
+                            alert('이미 존재하는 닉네임입니다.');
+                            nickChecking = false;
+                            txtNick.value = '';
+                            txtNick.focus();
+                        }
+                        else {
+                            alert('사용 가능한 닉네임입니다.');
+                            nickChecking = true;
+                            checkedNick = txtNick.value;
+                            txtEmail.focus();
+                        }
+                    }
+                    else {
+                        console.error('Request failed with status: ', xhr.status);
+                    }
+                }
+            };
+
+            let dat = JSON.stringify(requestData);
+            console.log(dat);
+            xhr.send(dat);   
+            });
+
 
         // 회원가입 버튼
         btnJoin.addEventListener('click', ()=>{
 
-            // 데이터를 검사한다.
-            if (false === checkJoinData()) {
-                // alert('error');
-                return;
+            // requestData & $ajax ==> FormData & XMLHttpRequest() 코드 변경하였음
+            let formData = new FormData();
+        
+            formData.append('id', txtUserId.value);
+            formData.append('password', txtUserPw.value);
+            formData.append('nickname', txtNick.value);
+            formData.append('email', txtEmail.value);
+            formData.append('address', finalAddress);
+
+            // 사용자가 프로필 사진을 첨부하였다면
+            if (thumbnail.files[0] !== undefined) {
+                formData.append('thumbnail', thumbnail.files[0]); // 파일이 선택되어 있지 않다면 undefined
             }
 
-            // 가입을 위한 요청 데이터
-            let requestData = {
-                userId : txtUserId.value, 
-                userPw : txtUserPw.value,
-                name : txtName.value,
-                email : txtEmail.value,
-                address : finalAddress
-            };
-            console.log(requestData); // 꼭 확인해보자.
+            console.log("-----------Added data in FormData:-----------");
+            formData.forEach((value, key) => {
+                    console.log(key + ' : ' + value);
+            });
 
-            $.ajax({
-                url : '/join',
-                type : 'POST',
-                data : requestData,
-                success : function(data) {
-                    if (data === "OK") {
+
+
+
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "/join", true);
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) 
+                {
+                    if (xhr.status === 200) 
+                    {
+                        console.log('회원 가입 성공');
+                        console.log(xhr.responseText);
                         alert('정상적으로 가입되었어요!');
                         location.href = "/login";
-                    }
-                    else {
+                    } 
+                    else 
+                    {
+                        console.error("일단 망함 :", xhr.status);
+                        console.log(xhr.responseText);
                         alert('회원가입에 실패했어요.');
-                        resetPage();
+                        // resetPage();
                     }
                 }
-            });
+            };
+            xhr.send(formData);
         });
 
         // 비밀번호의 유효성을 클라이언트가 직접 확인할 수 있도록 메세징
