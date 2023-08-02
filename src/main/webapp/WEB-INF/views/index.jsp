@@ -11,7 +11,7 @@
     <div id="navi">
         <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
         <div id="sessionInfo">
-            <div><img src="/imgs/member/thumbnail/${vo.fileCode}.jpg" alt="Profile Image" id="profileImg"></div>
+            <div><img src="" alt="Profile Image" id="profileImg"></div>
             <div id="welcomeMsg"></div>
             <div><button type="button" id="btnLogin">로그인</button></div>
             <div><button type="button" id="btnJoin">회원가입</button></div>            
@@ -72,6 +72,7 @@
                 welcomeMsg.textContent = '${vo.nickname}님 반갑습니다.';
                 btnLogin.textContent = '로그아웃';
                 btnJoin.style.display = 'none';
+                profileImg.setAttribute('src', '/imgs/member/thumbnail/${vo.fileCode}.jpg');
 
 
             }
