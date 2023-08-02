@@ -21,25 +21,8 @@
         </form>
     </p>
     <p>
-        <img src="/thumbnail/${vo.fileCode}.jpg" alt="">
+        <img src="/imgs/member/thumbnail/${vo.fileCode}.jpg" alt="Profile Image" class="profileImg">
     </p>
-
-    <c:choose>
-        <c:when test="${not empty vo.fileCode}">
-
-            <img src="/member/thumbnail/${vo.fileCode}.jpeg" alt="Profile Image">
-        </c:when>
-        <c:otherwise>
-            
-            <img src="/imgs/member/thumbnail/0000.jpeg" alt="Default Image">
-        </c:otherwise>
-    </c:choose>
-
-
-
-
-
-
 
 
     <script>
