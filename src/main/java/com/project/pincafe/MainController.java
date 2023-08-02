@@ -237,6 +237,12 @@ public class MainController {
         }
     }
 
+  
+    @GetMapping("/cafehomepage")
+    public String cafehomepage() {
+        return "cafehomepage";
+    }
+  
     ////// 새글 작성 ////////////////////////////////////////////////////////////////
 
     // GET newarticle 
@@ -244,5 +250,4 @@ public class MainController {
     public String newArticle() {
         return "/bbs/newarticle";
     }
-    
 }
