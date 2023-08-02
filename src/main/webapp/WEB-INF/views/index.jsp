@@ -28,11 +28,6 @@
 
     </ul>
 
-
-
-
-
-
     <script>
     (()=>{
         let sessionState = false;
