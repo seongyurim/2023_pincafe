@@ -21,20 +21,8 @@
         </form>
     </p>
     <p>
-        <img src="/thumbnail/${vo.fileCode}.jpg" alt="">
+        <img src="/imgs/member/thumbnail/${vo.fileCode}.jpg" alt="Profile Image" class="profileImg">
     </p>
-
-    <c:choose>
-        <c:when test="${not empty vo.fileCode}">
-            <%-- 프로필 이미지가 있는 경우 --%>
-            <img src="/member/thumbnail/${vo.fileCode}.jpeg" alt="Profile Image">
-        </c:when>
-        <c:otherwise>
-            <%-- 프로필 이미지가 없는 경우 디폴트 이미지 보여주기 --%>
-            <img src="/imgs/member/thumbnail/0000.jpeg" alt="Default Image">
-        </c:otherwise>
-    </c:choose>
-
 
 
 
