@@ -236,12 +236,13 @@ public class MainController {
             return "$OK";
         }
     }
-
-  
+    /////////////카페관련 //////////////////////////////////////////////////////////////////
+    
     @GetMapping("/cafehomepage")
     public String cafehomepage() {
         return "cafehomepage";
     }
+    
   
     ////// 새글 작성 ////////////////////////////////////////////////////////////////
 
