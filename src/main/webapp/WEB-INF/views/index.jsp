@@ -4,24 +4,30 @@
 <head>
 <meta charset="UTF-8">
 <title>Pincafe</title>
+<link rel="stylesheet" href="/css/reset.css">
+<link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-    <h1>Welcome!</h1>
+    <div id="navi">
+        <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
+        <div id="sessionInfo">
+            <div><img src="/imgs/member/thumbnail/${vo.fileCode}.jpg" alt="Profile Image" id="profileImg"></div>
+            <div id="welcomeMsg"></div>
+            <div><button type="button" id="btnLogin">로그인</button></div>
+            <div><button type="button" id="btnJoin">회원가입</button></div>            
+        </div>
+    </div>
     <p>
-        <span id="welcomMsg"></span>
     </p>
     <p>
-        <button type="button" id="btnLogin">로그인</button>
-        <button type="button" id="btnJoin">회원가입</button>
     </p>
-    <p>
+    <div id="searchSet">
         <form action="/search" method="GET">
             <input type="text" name="keyword" placeholder="카페 이름을 검색해보세요.">
             <button type="submit">검색</button>
         </form>
-    </p>
+    </div>
     <p>
-        <img src="/imgs/member/thumbnail/${vo.fileCode}.jpg" alt="Profile Image" class="profileImg">
     </p>
 
     <ul id="feedBBS" class="feed-BBS">
@@ -43,9 +49,10 @@
         let curSection = 0;      // 현재 섹션
         let pagesPerSection = 5; // 섹션당 페이지 수(버튼 수와 동일)
 
-        const welcomMsg = document.querySelector('#welcomMsg');
-        const btnLogin  = document.querySelector('#btnLogin');
-        const btnJoin   = document.querySelector('#btnJoin');
+        const profileImg = document.querySelector('#profileImg');
+        const welcomeMsg = document.querySelector('#welcomeMsg');
+        const btnLogin   = document.querySelector('#btnLogin');
+        const btnJoin    = document.querySelector('#btnJoin');
 
         ////// 함수부 ////////////////////////////////////////////////////////////////////////
 
@@ -58,32 +65,49 @@
                 sessionState = true;
             }
         }
-
-        // 메인 화면의 웰컴 메세지를 설정한다.
-        const setWelcomeMsg = function() {
+        
+        // 로그인인포 설정
+        const setSessionInfo = function() {
             if (sessionState === true) {
-                welcomMsg.textContent = '${vo.nickname}님 반갑습니다.';
-            }
-            else {
-                welcomMsg.textContent = '로그인이 필요한 서비스입니다.';
-            }
-        }
-
-        // 로그인 여부에 따라 버튼을 다르게 설정한다.
-        const setLoginButton = function() {
-            if (sessionState === true) {
+                welcomeMsg.textContent = '${vo.nickname}님 반갑습니다.';
                 btnLogin.textContent = '로그아웃';
+                btnJoin.style.display = 'none';
+
+
             }
             else {
+                welcomeMsg.textContent = '로그인이 필요한 서비스입니다.';
                 btnLogin.textContent = '로그인';
+                profileImg.style.display = 'none';
+
             }
         }
 
-        const setJoinButton = function() {
-            if (sessionState === true) {
-                btnJoin.style.display = 'none';
-            }
-        }
+        // // 메인 화면의 웰컴 메세지를 설정한다.
+        // const setWelcomeMsg = function() {
+        //     if (sessionState === true) {
+        //         welcomeMsg.textContent = '${vo.nickname}님 반갑습니다.';
+        //     }
+        //     else {
+        //         welcomeMsg.textContent = '로그인이 필요한 서비스입니다.';
+        //     }
+        // }
+
+        // // 로그인 여부에 따라 버튼을 다르게 설정한다.
+        // const setLoginButton = function() {
+        //     if (sessionState === true) {
+        //         btnLogin.textContent = '로그아웃';
+        //     }
+        //     else {
+        //         btnLogin.textContent = '로그인';
+        //     }
+        // }
+
+        // const setJoinButton = function() {
+        //     if (sessionState === true) {
+        //         btnJoin.style.display = 'none';
+        //     }
+        // }
 
         // 피드형 게시판 생성
         const setBBS = function(page) {
@@ -174,9 +198,10 @@
         ////// 호출부 ////////////////////////////////////////////////////////////////////////
 
         setSessionState(); // 세션이 있는지 없는지 상태값을 저장한다.
-        setWelcomeMsg();   // 로그인한 사용자에게 웰컴 메세지를 설정한다.
-        setLoginButton();  // 로그인 여부에 따라 버튼을 로그인/로그오프로 설정한다.
-        setJoinButton();   // 로그인이 되었다면 회원가입 버튼을 숨긴다.
+        setSessionInfo();
+        // setWelcomeMsg();   // 로그인한 사용자에게 웰컴 메세지를 설정한다.
+        // setLoginButton();  // 로그인 여부에 따라 버튼을 로그인/로그오프로 설정한다.
+        // setJoinButton();   // 로그인이 되었다면 회원가입 버튼을 숨긴다.
 
         
     })();
