@@ -1,5 +1,7 @@
 package com.project.pincafe;
 
+
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -237,12 +239,11 @@ public class MainController {
         }
     }
     /////////////카페관련 //////////////////////////////////////////////////////////////////
-    
-    @GetMapping("/cafehomepage")
+
+    @GetMapping("/cafe/cafehomepage")
     public String cafehomepage() {
-        return "cafehomepage";
+        return "/cafe/cafehomepage";
     }
-    
   
     ////// 새글 작성 ////////////////////////////////////////////////////////////////
 

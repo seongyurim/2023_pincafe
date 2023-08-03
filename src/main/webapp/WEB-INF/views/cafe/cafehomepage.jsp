@@ -243,13 +243,7 @@
                 <ul>3</ul>
           </div>
 
-          <div id="footer2">
-                <ul id="postList"></ul>
-                <ul>4</ul>
-                <ul>5</ul>
-                <ul>6</ul>
-                <ul>7</ul>
-            </div>
+          <div class="cafe-container" id="cafe-container"></div>
         </div>
         
         
@@ -356,7 +350,7 @@
       updateLikeCount();
 
       // 백엔드 API의 엔드포인트 URL을 적절하게 변경해주세요
-    const endpoint = 'http://localhost:9090/cafehomepage';
+    const endpoint = 'http://localhost:9090/cafe/cafehomepage';
 
         $.ajax({
           url: endpoint,
@@ -381,6 +375,45 @@
     likeButton.addEventListener('click', likeCafe);
     });
 
+    /////////////////////////////////////////////////////////////////////////////
+    //이미지 게시판 구현부
+
+    const getCafeData = function(page) {
+        let requestData = {
+            divi: 'C',
+            page: page,
+            rowsPerPage: rowsPerPage
+        };
+
+        $.ajax({
+            url: 'cafe/list', // 서버의 주소를 적절히 변경해야 함
+            type: 'POST',
+            data: requestData,
+            success: function(data) { // data: rowCount, cafeList
+              let bstr = '';
+            const tblBody = document.querySelector('#tblBBS > tbody');
+
+            // 전체 카운트를 저장.
+            rowCount = data.rowCount;
+
+            // 테이블 body를 채워준다.
+            tblBody.innerHTML = '';
+
+            // 처음 4개의 데이터만 화면에 보여줌
+            for (let i = 0; i < 4; i++) {
+                bstr = '';
+                bstr += '<tr>';
+                bstr += '<td>' + data.cafeList[i].cafe_no + '</td>';
+                bstr += '<td>' + data.cafeList[i].cafe_name + '</td>';
+                bstr += '<td>' + data.cafeList[i].cafe_addr + '</td>';
+                bstr += '<td>' + data.cafeList[i].cafe_like + '</td>';
+                bstr += '</tr>';
+
+                tblBody.innerHTML += bstr;
+            }
+        }
+    });
+}
 
     
         
