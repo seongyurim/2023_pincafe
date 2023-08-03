@@ -19,8 +19,8 @@
     SELECT COUNT(*) FROM BBS_TBL
 </select>
 
-<select id="selectBbsList" resultMap="bbsMap">
-    SELECT * FROM (SELECT rownum RN, BBS_TBL.* FROM BBS_TBL)
+<select id="selectBbsList" resultMap="bbsMap" useCache="false">
+    SELECT * FROM (SELECT rownum RN, BBS_TBL.* FROM BBS_TBL ORDER BY regdate ASC)
     WHERE RN <![CDATA[>=]]> (#{page} * #{rowsPerPage}) + 1 AND
           RN <![CDATA[<=]]> (#{page} + 1) * #{rowsPerPage}
 </select>

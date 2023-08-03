@@ -4,14 +4,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Pincafe</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="/css/reset.css">
 <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-    <div id="navi">
+    <div id="navi" class="container-md">
         <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
         <div id="sessionInfo">
-            <div><img src="" alt="Profile Image" id="profileImg"></div>
+            <div><img alt="Profile Image" id="profileImg"></div>
             <div id="welcomeMsg"></div>
             <div><button type="button" id="btnLogin">로그인</button></div>
             <div><button type="button" id="btnJoin">회원가입</button></div>
@@ -23,35 +24,37 @@
     </p>
     <div id="searchSet">
         <form action="/search" method="GET">
-            <input type="text" name="keyword" placeholder="카페 이름을 검색해보세요.">
-            <button type="submit">검색</button>
+            <input type="text" name="keyword" class="container-md"  id="searchName" placeholder="카페 이름을 검색해보세요.">
+            <button type="submit" id="btnSearch">검색</button>
         </form>
     </div>
     <p>
     </p>
 
-    <table border="1" id="tblBBS">
+    <table border="1" id="tblBBS" class="table container-sm table-hover">
         <thead>
-            <th>순번</th>
-            <th>제목</th>
-            <th>아이디</th>
-            <th>날짜</th>
+            <th id="col1" style="width: 10%">순번</th>
+            <th id="col2" style="width: 40%">제목</th>
+            <th id="col3" style="width: 20%">아이디</th>
+            <th id="col4" style="width: 30%">날짜</th>
         </thead>
         <tbody>            
         </tbody>
     </table>
-    <p>
-        <button type="button" id="btnPrev">이전</button>
-        <button type="button" id="btn1" class="btns">1</button>
-        <button type="button" id="btn2" class="btns">2</button>
-        <button type="button" id="btn3" class="btns">3</button>
-        <button type="button" id="btn4" class="btns">4</button>
-        <button type="button" id="btn5" class="btns">5</button>
-        <button type="button" id="btnNext">다음</button>
-        <button type="button" id="btnWrite">글쓰기</button>
-    </p>
+
+    <div id="btnSet">
+        <button type="button" id="btnPrev" class="myBtn btn btn-outline-dark">이전</button>
+        <button type="button" id="btn1" class="btns myBtn btn btn-outline-dark">1</button>
+        <button type="button" id="btn2" class="btns myBtn btn btn-outline-dark">2</button>
+        <button type="button" id="btn3" class="btns myBtn btn btn-outline-dark">3</button>
+        <button type="button" id="btn4" class="btns myBtn btn btn-outline-dark">4</button>
+        <button type="button" id="btn5" class="btns myBtn btn btn-outline-dark">5</button>
+        <button type="button" id="btnNext" class="myBtn btn btn-outline-dark">다음</button>
+        <button type="button" id="btnWrite" class="myBtn btn btn-outline-dark">글쓰기</button>
+    </div>
 
     <script src="/JS/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
     (()=>{
@@ -61,7 +64,7 @@
         let rowCount = 0;        // 전체 건수
 
         // page..
-        let rowsPerPage = 5;     // 페이지 당 건수(테이블에서 보여지는 최대 건수)
+        let rowsPerPage = 10;     // 페이지 당 건수(테이블에서 보여지는 최대 건수)
         let curPage = 0;         // 현재 페이지 위치
 
         // section..
