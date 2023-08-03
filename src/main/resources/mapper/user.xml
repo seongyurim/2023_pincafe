@@ -6,9 +6,9 @@
 
 <!-- resultMap = 얻어온 결과를 저장할 곳. 즉 VO 정보 -->
 <resultMap type="com.project.pincafe.user.UserTblVO" id="userMap">
-    <result property="id"        column="id"/>
-    <result property="nickname"  column="nickname"/>
-    <result property="password"  column="password"/>
+    <result property="userId"    column="userId"/>
+    <result property="userPw"    column="userPw"/>
+    <result property="name"      column="name"/>
     <result property="email"     column="email"/>
     <result property="address"   column="address"/>
     <result property="fileCode"  column="file_code"/>
@@ -17,30 +17,32 @@
 
 <select id="selectOneUserForLogin" resultMap="userMap">
     SELECT * FROM USER_TBL
-    WHERE id=#{id} AND password=#{password}
+    WHERE userId=#{userId} AND userPw=#{userPw}
 </select>
 
 <select id="selectOneUserForId" resultMap="userMap">
-    SELECT id FROM USER_TBL
-    WHERE id=#{id}
+    SELECT userId FROM USER_TBL
+    WHERE userId=#{userId}
 </select>
 
 <select id="selectOneUserForNick" resultMap="userMap">
-    SELECT nickname FROM USER_TBL
-    WHERE nickname=#{nickname}
+    SELECT name FROM USER_TBL
+    WHERE name=#{name}
 </select>
 
 <insert id="insertUser">
-    INSERT INTO USER_TBL (id, nickname, password, email, address, file_code)
-    VALUES (#{id}, #{nickname}, #{password}, #{email}, #{address}, #{fileCode})
+    INSERT INTO USER_TBL (userId, userPw, name, email, address, file_code)
+    VALUES (#{userId}, #{userPw}, #{name}, #{email}, #{address}, #{fileCode})
 </insert>
 
 <select id="getIdByNnEmail" resultMap="userMap">
-    SELECT id, nickname, password, email FROM USER_TBL WHERE email = #{email} AND nickname = #{nickname}
+    SELECT userId, userPw, name, email FROM USER_TBL
+    WHERE email = #{email} AND name = #{name}
 </select>
 
 <select id="getPwByIdEmail" resultMap="userMap">
-    SELECT id, nickname, password, email FROM USER_TBL WHERE id = #{id} AND email = #{email}   
+    SELECT userId, userPw, name, email FROM USER_TBL
+    WHERE userId = #{userId} AND email = #{email}
 </select>
 
 </mapper>
