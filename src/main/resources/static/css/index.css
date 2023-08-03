@@ -1,0 +1,56 @@
+@charset 'utf-8';
+
+html {
+    font-size : 14px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+    letter-spacing: -0.05em;
+}
+
+a {
+    text-decoration: none;
+}
+
+#navi {
+    margin: 20px auto;
+    width: 70vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+#profileImg {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+#sessionInfo {
+    display: flex;
+    align-items: center;
+}
+
+#sessionInfo div {
+    margin-left: 10px;
+}
+
+#searchSet {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+}
+
+#searchSet form > input {
+    height: 40px;
+    width: 500px;
+    /* border-radius: 10px; */
+}
+
+#searchSet form > button {
+    height: 40px;
+    width: 80px;
+}

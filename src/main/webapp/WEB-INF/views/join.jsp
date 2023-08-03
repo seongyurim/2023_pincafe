@@ -32,7 +32,7 @@
         <tr> </label>
             <td><label for="txtUserId">아이디</label></td>
             <td>
-                <input type="text" id="txtUserId" name="id" placeholder="ID">
+                <input type="text" id="txtUserId" name="userId" placeholder="ID">
                 <button type="button" id="btnCheckId">아이디 중복확인</button>
             </td>
         </tr>
@@ -40,7 +40,7 @@
         <tr>
             <td><label for="txtUserPw">비밀번호</label></td>            
             <td>
-                <input type="password" id="txtUserPw" name="password" placeholder="Password"> 
+                <input type="password" id="txtUserPw" name="UserPw" placeholder="Password"> 
                 <span id="isPwCorrect"></span>
             </td>            
         </tr>
@@ -54,8 +54,8 @@
         </tr>
 
         <tr>
-            <td><label for="txtNick">닉네임</label></td>
-            <td><input type="text" id="txtNick" name="nickname" placeholder="Nickname">
+            <td><label for="txtName">닉네임</label></td>
+            <td><input type="text" id="txtName" name="name" placeholder="Nickname">
             <button type="button" id="btnCheckNick">닉네임 중복확인</button></td>
         </tr>
         <tr>
@@ -105,7 +105,7 @@
 
         const txtUserId     = document.querySelector('#txtUserId');    // 아이디
         const txtUserPw     = document.querySelector('#txtUserPw');    // 비밀번호
-        const txtNick       = document.querySelector('#txtNick');      // 닉네임
+        const txtName       = document.querySelector('#txtName');      // 닉네임
         const txtEmail      = document.querySelector('#txtEmail');     // 이메일
         const thumbnail     = document.querySelector('#thumbnail');    // 프로필사진
         
@@ -143,7 +143,7 @@
             if ((txtUserId.value.length === 0) &&
                 (txtUserPw.value.length === 0) &&
                 (txtCheckPw.value.length === 0) &&
-                (txtNick.value.length === 0) &&
+                (txtName.value.length === 0) &&
                 (txtEmail.value.length === 0)) {
                     alert('회원가입 양식을 작성해주세요.')
                     txtUserId.focus();
@@ -176,10 +176,10 @@
             }
 
             // 5. 닉네임 중복여부 확인
-            if ((nickChecking == false) || (checkedNick != txtNick.value)) { 
+            if ((nickChecking == false) || (checkedNick != txtName.value)) { 
                 alert('닉네임 중복확인이 필요합니다.');
-                txtNick.value = '';
-                txtNick.focus();
+                txtName.value = '';
+                txtName.focus();
                 return false;
             }
 
@@ -299,7 +299,7 @@
             txtUserId.value = '';
             txtUserPw.value = '';
             txtCheckPw.value = '';
-            txtNick.value = '';
+            txtName.value = '';
             txtEmail.value = '';
 
             idChecking = false;
@@ -344,7 +344,7 @@
 
             // 4. 서버로 데이터를 전송한다.
             let requestData = {
-                id : txtUserId.value
+                userId : txtUserId.value
             }
             console.log(requestData);
 
@@ -375,7 +375,6 @@
                     }
                 }
             };
-
             let dat = JSON.stringify(requestData);
             console.log(dat);
             xhr.send(dat);   
@@ -385,35 +384,35 @@
         btnCheckNick.addEventListener('click', ()=>{
 
             // 1. 값이 비어 있는 경우
-            if (txtNick.value.length === 0) {
+            if (txtName.value.length === 0) {
                 alert('닉네임을 입력해주세요.');
                 nickChecking = false;
-                txtNick.focus();
+                txtName.focus();
                 return;
             }
 
             // 2. 값이 범위를 넘는 경우
-            if ((txtNick.value.length < 2) || (txtNick.value.length > 10)) {
+            if ((txtName.value.length < 2) || (txtName.value.length > 10)) {
                 alert('아이디 길이는 2~10자만 가능합니다.');
                 nickChecking = false;
-                txtNick.focus();
+                txtName.focus();
                 return;
             }
 
             // 3. 허용되지 않은 값이 있는 경우: 한글 초성, 모음
             let regex = new RegExp(/^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,10}$/);
-            let testResult = regex.test(txtNick.value);
+            let testResult = regex.test(txtName.value);
             if (testResult == false) {
                 alert('닉네임은 2~10자의 한글, 영문, 숫자로만 사용할 수 있습니다.');
                 nickChecking = false;
-                txtNick.value = '';
-                txtNick.focus();
+                txtName.value = '';
+                txtName.focus();
                 return;
             }
 
             // 4. 서버로 데이터를 전송한다.
             let requestData = {
-                nickname : txtNick.value
+                name : txtName.value
             }
             console.log(requestData);
 
@@ -429,13 +428,13 @@
                         if (data == 'FAIL') {
                             alert('이미 존재하는 닉네임입니다.');
                             nickChecking = false;
-                            txtNick.value = '';
-                            txtNick.focus();
+                            txtName.value = '';
+                            txtName.focus();
                         }
                         else {
                             alert('사용 가능한 닉네임입니다.');
                             nickChecking = true;
-                            checkedNick = txtNick.value;
+                            checkedNick = txtName.value;
                             txtEmail.focus();
                         }
                     }
@@ -457,9 +456,9 @@
             // requestData & $ajax ==> FormData & XMLHttpRequest() 코드 변경하였음
             let formData = new FormData();
         
-            formData.append('id', txtUserId.value);
-            formData.append('password', txtUserPw.value);
-            formData.append('nickname', txtNick.value);
+            formData.append('userId', txtUserId.value);
+            formData.append('userPw', txtUserPw.value);
+            formData.append('name', txtName.value);
             formData.append('email', txtEmail.value);
             formData.append('address', finalAddress);
 
@@ -468,13 +467,10 @@
                 formData.append('thumbnail', thumbnail.files[0]); // 파일이 선택되어 있지 않다면 undefined
             }
 
-            console.log("-----------Added data in FormData:-----------");
+            console.log("----------- Added data in FormData: -----------");
             formData.forEach((value, key) => {
                     console.log(key + ' : ' + value);
             });
-
-
-
 
             let xhr = new XMLHttpRequest();
             xhr.open("POST", "/join", true);

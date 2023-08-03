@@ -11,13 +11,13 @@
     <form action="/login" method="POST" id="frmLogin">
         <table>
             <tr>
-                <td><label for="id">아이디</label></td>
-                <td><input type="text" name="id" id="id"></td>
+                <td><label for="txtUserId">아이디</label></td>
+                <td><input type="text" name="userId" id="txtUserId"></td>
             </tr>
     
             <tr>
-                <td><label for="password">패스워드</label></td>
-                <td><input type="password" name="password" id="password"></td>
+                <td><label for="txtUserPw">패스워드</label></td>
+                <td><input type="password" name="userPw" id="txtUserPw"></td>
             </tr>
         </table>
     </form>
@@ -49,24 +49,18 @@
         const frmLogin = document.querySelector('#frmLogin');
         frmLogin.submit();
 
-        const userId = document.querySelector('#id').value;
-        const userPw = document.querySelector('#password').value;
+        const txtUserId = document.querySelector('#txtUserId').value;
+        const txtUserPw = document.querySelector('#txtUserPw').value;
 
         // 아이디와 패스워드를 입력하지 않았을 경우 경고 메시지
-        if (!userId || !userPw) {
+        if (!txtUserId || !txtUserPw) {
             alert('아이디와 패스워드를 입력해주세요!');
             return;
-        }
-        
-
-        
+        }    
     });
 
 
-
-
-/////////////////////////////////////////////////////////////////////
-
+    /////////////////////////////////////////////////////////////////////
     btnIndex.addEventListener('click', ()=>{
         location.href = '/index';
     });

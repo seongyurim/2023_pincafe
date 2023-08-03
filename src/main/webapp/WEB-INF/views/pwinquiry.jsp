@@ -9,10 +9,10 @@
     <h1>비밀번호 찾기</h1>
     <hr>
     <p>
-        <label for="txtId">아이디</label>
-        <input type="txt" name="id" id="txtId"><br>
+        <label for="txtUserId">아이디</label>
+        <input type="text" name="userId" id="txtUserId"><br>
         <label for="txtEmail">이메일</label>
-        <input type="txt" name="email" id="txtEmail">
+        <input type="text" name="email" id="txtEmail">
         <button type="button" id="btnSubmit">확인</button>        
     </p>
     <p>
@@ -26,8 +26,8 @@
     <script>
     (()=>{
         
-        const txtId  = document.querySelector('#txtId');
-        const txtEmail  = document.querySelector('#txtEmail');
+        const txtUserId  = document.querySelector('#txtUserId');
+        const txtEmail   = document.querySelector('#txtEmail');
         const btnSubmit  = document.querySelector('#btnSubmit');
         const btnLogin   = document.querySelector('#btnLogin');
         const btnIndex   = document.querySelector('#btnIndex');
@@ -35,15 +35,15 @@
         btnSubmit.addEventListener('click', ()=>{
 
             // 값을 전부 입력하지 않고 버튼을 클릭하는 경우
-            if ((txtId.value.length === 0) || (txtEmail.value.length === 0)) {
+            if ((txtUserId.value.length === 0) || (txtEmail.value.length === 0)) {
                 alert('아이디와 이메일을 입력해주세요.');
-                txtId.focus();
+                txtUserId.focus();
                 return;
             }
 
             // DB로 전송할 데이터
             let requestData = {
-                id : txtId.value,
+                userId : txtUserId.value,
                 email : txtEmail.value
             }
             console.log(requestData);
