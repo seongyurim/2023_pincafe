@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- DAO 정보 -->
+<mapper namespace="com.project.pincafe.bbs.BbsDAO">
+
+<!-- resultMap = 얻어온 결과를 저장할 곳. 즉 VO 정보 -->
+<resultMap type="com.project.pincafe.bbs.BbsTblVO" id="bbsMap">
+    <result property="rowNum"   column="RN"/>
+    <result property="userId"   column="USERID"/>
+    <result property="seq"      column="SEQ"/>
+    <result property="title"    column="TITLE"/>
+    <result property="content"  column="CONTENT"/>
+    <result property="divi"     column="DIVI"/>
+    <result property="regdate"  column="REGDATE"/>
+</resultMap>
+
+<select id="selectBbsRowCount" resultType="integer"> <!-- 결과가 하나이므로 Type -->
+    SELECT COUNT(*) FROM BBS_TBL
+</select>
+
+<select id="selectBbsList" resultMap="bbsMap">
+    SELECT * FROM (SELECT rownum RN, BBS_TBL.* FROM BBS_TBL)
+    WHERE RN <![CDATA[>=]]> (#{page} * #{rowsPerPage}) + 1 AND
+          RN <![CDATA[<=]]> (#{page} + 1) * #{rowsPerPage}
+</select>
+
+<select id="selectBbsContent" resultMap="bbsMap">
+    SELECT * FROM BBS_TBL WHERE USERID=#{userId} AND SEQ=#{seq}
+</select>
+
+<update id="updateBbsContent">
+    UPDATE BBS_TBL SET TITLE=#{title}, CONTENT=#{content}
+    WHERE USERID=#{userId} AND SEQ=#{seq}
+</update>
+
+<!-- <insert id="insertBbsContent">
+    INSERT INTO BBS_TBL (USERID, SEQ, TITLE, CONTENT, DIVI, REGDATE)
+    VALUES (#{userId}, (SELECT MAX(SEQ)+1 FROM BBS_TBL WHERE USERID=#{userId}),
+            #{title}, #{content}, #{divi}, sysdate)
+</insert> -->
+
+<!-- SEQ 속성에 NVL 함수를 사용하여 NULL이 뜨는 경우 0으로 치환 -->
+<insert id="insertBbsContent">
+    INSERT INTO BBS_TBL (USERID, SEQ, TITLE, CONTENT, DIVI, REGDATE)
+    VALUES (#{userId}, (SELECT NVL(MAX(SEQ), 0)+1 FROM BBS_TBL WHERE USERID=#{userId}),
+           #{title}, #{content}, #{divi}, sysdate)
+</insert>
+
+</mapper>

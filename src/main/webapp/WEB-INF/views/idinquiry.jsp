@@ -9,8 +9,8 @@
     <h1>아이디 찾기</h1>
     <hr>
     <p>
-        <label for="txtNickname">닉네임</label>
-        <input type="text" name="nickname" id="txtNickname"><br>
+        <label for="txtName">닉네임</label>
+        <input type="text" name="name" id="txtName"><br>
         <label for="txtEmail">이메일</label>
         <input type="email" name="email" id="txtEmail">
         <button type="button" id="btnSubmit">확인</button>        
@@ -25,7 +25,7 @@
     <script>
     (()=>{
         
-        const txtNickname  = document.querySelector('#txtNickname');
+        const txtName   = document.querySelector('#txtName');
         const txtEmail  = document.querySelector('#txtEmail');
         const btnSubmit = document.querySelector('#btnSubmit');
         const btnLogin  = document.querySelector('#btnLogin');
@@ -34,7 +34,7 @@
         btnSubmit.addEventListener('click', ()=>{
 
             // 값을 입력하지 않고 버튼을 클릭하는 경우
-            if ((txtNickname.value.length === 0) || (txtEmail.value.length === 0)) {
+            if ((txtName.value.length === 0) || (txtEmail.value.length === 0)) {
                 alert('닉네임과 이메일을 입력해주세요.');
                 txtEmail.focus();
                 return;
@@ -42,8 +42,8 @@
 
             // DB로 전송할 데이터
             let requestData = {
-                email : txtEmail.value,
-                nickname : txtNickname.value
+                name : txtName.value,
+                email : txtEmail.value
             }
             console.log(requestData);
 

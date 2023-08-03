@@ -188,7 +188,7 @@ public class MainController {
         if (accountVO != null)
         {
             // accountVO의 userId를 변수에 저장
-            String userId = accountVO.getId();
+            String userId = accountVO.getUserId();
 
             // 가져온 userId 끝 세 자리를 마스킹해서 변수에 저장
             String maskedUserId = userId.substring(0, userId.length() - 3) + "***";
@@ -229,7 +229,7 @@ public class MainController {
         else {
             // 비밀번호를 메일로 전송한다.
             gmailSender = new GmailSender(senderName, senderPasswd);
-            gmailSender.sendEmail(accountVO.getEmail(), "비밀번호 전송", "비밀번호: " + accountVO.getPassword());
+            gmailSender.sendEmail(accountVO.getEmail(), "비밀번호 전송", "비밀번호: " + accountVO.getUserPw());
             // sendEmail의 파라미터(3개)
             // param 1. 받을 사람의 이메일 주소
             // param 2. 이메일의 제목
