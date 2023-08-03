@@ -3,6 +3,9 @@ package com.project.pincafe.bbs;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.pincafe.common.SessionUtil;
+import com.project.pincafe.file.FileService;
+import com.project.pincafe.file.FileVO;
 import com.project.pincafe.user.UserTblVO;
 
 
@@ -19,7 +24,18 @@ public class BbsController {
 
     @Autowired
     BbsDAO bbsDAO;
+
     
+    // system에 config 객체를 뒤지게끔
+    @Value("${file.upload-dir}")
+    private String uploadDir;
+
+    // fileService 의존성 주입
+    @Autowired
+    FileService fileService;
+    
+    //////////////////////////////////////////////////////////////////////////////////////////
+
     @PostMapping("/bbs/list")
     @ResponseBody // divi, page, rosPerPage
     public BbsMstVO bbsList(@ModelAttribute("BbsTblVO") BbsTblVO vo) throws Exception {
@@ -45,7 +61,7 @@ public class BbsController {
 
     @GetMapping("/bbs/content")
     public String content(@ModelAttribute("BbsTblVO") BbsTblVO vo,
-                          Model model) throws Exception {
+                            Model model) throws Exception {
         // vo로 userId, seq 값을 받았다.
 
         // 게시물 정보(userId, seq)에 맞는 게시물을 가지고 온다.
@@ -88,7 +104,7 @@ public class BbsController {
 
     @GetMapping("/bbs/newcontent")
     public String newcontent(@ModelAttribute("BbsTblVO") BbsTblVO vo,
-                             Model model) throws Exception {
+                                Model model) throws Exception {
         UserTblVO userTblVO = (UserTblVO)SessionUtil.getAttribute("USER");
         model.addAttribute("session", userTblVO);
         return "/bbs/newcontent";
@@ -96,19 +112,38 @@ public class BbsController {
 
     @PostMapping("/bbs/newcontent")
     @ResponseBody // userId, title, content, divi
-    public String newcontent(@ModelAttribute("BbsTblVO") BbsTblVO vo) throws Exception {
+    public ResponseEntity<String> newcontent(@ModelAttribute("BbsTblVO") BbsTblVO vo) throws Exception {
         System.out.println(vo.getUserId());
         System.out.println(vo.getTitle());
         System.out.println(vo.getContent());
         System.out.println(vo.getDivi());
 
-        int insertCount = bbsDAO.insertBbsContent(vo);
+        // 1. 받은 파일 데이터를 원하는 위치에 파일로 저장
+        FileVO fileVO = null;
+        
+        // 파일을 전송 받았다면 파일을 저장하고 FILE_TBL에 INSERT 시키기
+        if (vo.getThumbnail() != null)
+        {
+            fileVO = new FileVO();
+            fileVO.setFile(vo.getThumbnail());
+            fileVO.setFilePath(uploadDir + "member/thumbnail");
 
-        if (insertCount == 1) {
-            return "OK";
+            // fileVO 생성
+            fileVO = fileService.createFile(fileVO);
+
+            // 생성한 file정보 DB(FILE_TBL)에 저장
+            fileService.insertFileTbl(fileVO);
+
+            // memberVO 에 FileCode 설정
+            vo.setFileCode(fileVO.getFileCode());
         }
-        else {
-            return "FAIL";
-        }
+        
+        // 이제 여기서 insert 쿼리를 실행해주면 됨
+        bbsDAO.insertBbsContent(vo);
+
+        // 성공 시 서버가 전송한 메세지 "INSERT_SUCCESS"가 출력되는 것
+        return new ResponseEntity<String> ("INSERT_SUCCESS", HttpStatus.OK);
     }
+
 }
+

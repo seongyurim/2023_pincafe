@@ -1,5 +1,9 @@
 package com.project.pincafe.bbs;
 
+import org.springframework.web.multipart.MultipartFile;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
@@ -16,4 +20,8 @@ public class BbsTblVO {
     private String content;
     private String divi;
     private String regdate;
+    private String fileCode;
+
+    @JsonIgnore 
+    private MultipartFile thumbnail;
 }

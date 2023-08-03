@@ -13,6 +13,7 @@
     <result property="content"  column="CONTENT"/>
     <result property="divi"     column="DIVI"/>
     <result property="regdate"  column="REGDATE"/>
+    <result property="fileCode"  column="FILECODE"/>
 </resultMap>
 
 <select id="selectBbsRowCount" resultType="integer"> <!-- 결과가 하나이므로 Type -->
@@ -42,9 +43,10 @@
 
 <!-- SEQ 속성에 NVL 함수를 사용하여 NULL이 뜨는 경우 0으로 치환 -->
 <insert id="insertBbsContent">
-    INSERT INTO BBS_TBL (USERID, SEQ, TITLE, CONTENT, DIVI, REGDATE)
+    INSERT INTO BBS_TBL (USERID, SEQ, TITLE, CONTENT, DIVI, REGDATE, FILECODE)
     VALUES (#{userId}, (SELECT NVL(MAX(SEQ), 0)+1 FROM BBS_TBL WHERE USERID=#{userId}),
-           #{title}, #{content}, #{divi}, sysdate)
+        #{title}, #{content}, #{divi}, sysdate, #{fileCode, jdbcType=VARCHAR})
+<!-- jdbcType=VARCHAR를 붙여줌으로써 타입매핑을 명시적으로 설정해주고 사진 없이 글 올리는 기능을 허용시킴 -->
 </insert>
 
 </mapper>
