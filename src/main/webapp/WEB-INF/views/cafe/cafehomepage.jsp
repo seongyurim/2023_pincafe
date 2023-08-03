@@ -5,6 +5,8 @@
 <meta charset="UTF-8">
 <title>Cafe Binder</title>
 <style>
+
+  
     * {box-sizing: border-box}
     body {font-family: Verdana, sans-serif; margin:0}
     .mySlides {display: none}
@@ -86,25 +88,42 @@
     .h_container:hover {
         color: red;
     }
+
+    #heart.is-liked {
+      color: red;
+    }
+
+
     #jb-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     }
+    
     #jb_header {
-      padding: 20px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #bcbcbc;
+    font-size: 30px;
+    justify-content: flex-start; /* 요소들을 왼쪽으로 정렬 */
+    } 
+
+    #jb_main {
+    flex: 0 0 auto; /* 가로 공간을 고정하여 너비를 유지 */
+    }
+
+    #jp_header_title {
       display: flex;
       align-items: center;
-      border: 1px solid #bcbcbc;
-      font-size: 30px;
-      
+      justify-content: center; /* 요소들을 가운데로 정렬 */
+      flex: 1; /* 남은 가로 공간을 차지하여 너비를 조절 */
     }
-  
 
     #Cafe_name {
-      flex: 1;
-      text-align: center;
+      font-size: 24px;
     }
+
     #likeCount {
     margin-left: 5px; /* 좋아요 아이콘과 좋아요 갯수 사이의 간격 조정 */
     }
@@ -137,23 +156,39 @@
       clear: both;
       padding: 20px;
       border: 1px solid #bcbcbc;
-        width: 100%; /* 가로 폭 100%로 설정 */
-        box-sizing: border-box; /* 테두리를 기준으로 크기 설정 */
+      width: 100%; /* 가로 폭 100%로 설정 */
+      box-sizing: border-box; /* 테두리를 기준으로 크기 설정 */
     }
+
+    #footer1 {
+      float: left;
+      width: 50%;
+      border: 1px solid #bcbcbc;
+    }
+    
+    #footer2{
+      display: flex;
+      width: 50%;
+      border: 1px solid #bcbcbc;
+    }
+
 </style>
 
 </head>
 <body>
 
-    <div id="jb_header">
-        <a href="/index">
-          <span id="jb_main">Cafe Binder</span>
-        </a>
-        <span id="Cafe_name">임시 카페이름</span>
-        <div class="h_container">
-            <i id="heart" class="far fa-heart" onclick="likeCafe()"></i><span id="likeCount">0</span>
-        </div>
-    </div>
+  <div id="jb_header">
+    <a href="/index">
+      <span id="jb_main">Cafe Binder</span>
+    </a>
+
+  <div id="jp_header_title">
+    <span id="Cafe_name">임시 카페이름</span>
+    <div class="h_container">
+      <i id="heart" class="far fa-heart" onclick="likeCafe()"></i><span id="likeCount">0</span>
+      </div>
+  </div>
+</div>
 
 
     <div id="jb-container">
@@ -199,17 +234,22 @@
             </ul>
         </div>
 
+
         <div id="jb-footer">
-            <div>
+            <div id="footer1">
                 <ul id="commentList"></ul>
                 <ul>1</ul>
-              </div>
-            
-              <div>
-                <ul id="postList"></ul>
                 <ul>2</ul>
                 <ul>3</ul>
-              </div>
+          </div>
+
+          <div class="cafe-container" id="cafe-container"></div>
+
+          <div id="modal-container" style="display:none;">
+            <h2 id="modal-title"></h2>
+            <p id="modal-description"></p>
+          </div>
+
         </div>
         
         
@@ -225,6 +265,7 @@
 
 
     <script>
+
 
         const jb_header = document.getElementById('jb_header');
         const jb_main = document.getElementById('jb_main');
@@ -291,15 +332,62 @@
 
     }
 
+    (()=>{
     //////////////////////////////////////////////////////////////////
     //좋아요 관련 구현부
 
-    let isLiked = false; // 좋아요 상태를 저장하는 변수
-    let likeCount = 0; // 현재 좋아요 수를 저장하는 변수
+      document.addEventListener('DOMContentLoaded', function () {
+      const likeButton = document.getElementById('heart');
+      let isLiked = false;
+      let likeCount = 0;
 
+    // 좋아요 수를 업데이트하는 함수입니다
+    function updateLikeCount() {
+      const likeCountElement = document.getElementById('likeCount');
+      likeCountElement.textContent = likeCount.toString();
+    }
 
+    // 좋아요 버튼 클릭을 처리하는 함수입니다
+    function likeCafe() {
+      isLiked = !isLiked;
+      if (isLiked) {
+        likeCount++;
+      } else {
+        likeCount--;
+      }
+      updateLikeCount();
+
+      // 백엔드 API의 엔드포인트 URL을 적절하게 변경해주세요
+    const endpoint = 'http://localhost:9090/cafe/cafehomepage';
+
+        $.ajax({
+          url: endpoint,
+          type: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({
+            user_id: 'red123', // 사용자 아이디를 문자열로 변경
+            cafe_no: '6', // 카페 아이디를 문자열로 변경
+            cafe_like: isLiked ? 1 : 0, // 좋아요 상태를 1 또는 0으로 전송
+          }),
+          success: function (data) {
+            // 서버에서 성공적인 응답을 받은 경우 (옵션)
+            // 필요에 따라 서버 응답을 처리할 수 있습니다.
+          },
+          error: function () {
+            // 에러 처리 (옵션)
+            console.error('서버 응답 실패');
+          },
+        });
+      }
+    // 좋아요 버튼에 클릭 이벤트를 추가합니다
+    likeButton.addEventListener('click', likeCafe);
+    });
+
+    /////////////////////////////////////////////////////////////////////////////
+    //이미지 게시판 구현부
+
+  
     
-        
     ///////////////////////////////////////////////////////////////////////////////
     //이벤트 리스너
 
@@ -319,7 +407,7 @@
     ///////////////////////////////////////////////////////////////////////
     //호출부
     
-
+  })();
     </script>
 </body>
 </html>
