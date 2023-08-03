@@ -244,6 +244,12 @@
           </div>
 
           <div class="cafe-container" id="cafe-container"></div>
+
+          <div id="modal-container" style="display:none;">
+            <h2 id="modal-title"></h2>
+            <p id="modal-description"></p>
+          </div>
+
         </div>
         
         
@@ -259,6 +265,7 @@
 
 
     <script>
+
 
         const jb_header = document.getElementById('jb_header');
         const jb_main = document.getElementById('jb_main');
@@ -325,6 +332,7 @@
 
     }
 
+    (()=>{
     //////////////////////////////////////////////////////////////////
     //좋아요 관련 구현부
 
@@ -378,45 +386,8 @@
     /////////////////////////////////////////////////////////////////////////////
     //이미지 게시판 구현부
 
-    const getCafeData = function(page) {
-        let requestData = {
-            divi: 'C',
-            page: page,
-            rowsPerPage: rowsPerPage
-        };
-
-        $.ajax({
-            url: 'cafe/list', // 서버의 주소를 적절히 변경해야 함
-            type: 'POST',
-            data: requestData,
-            success: function(data) { // data: rowCount, cafeList
-              let bstr = '';
-            const tblBody = document.querySelector('#tblBBS > tbody');
-
-            // 전체 카운트를 저장.
-            rowCount = data.rowCount;
-
-            // 테이블 body를 채워준다.
-            tblBody.innerHTML = '';
-
-            // 처음 4개의 데이터만 화면에 보여줌
-            for (let i = 0; i < 4; i++) {
-                bstr = '';
-                bstr += '<tr>';
-                bstr += '<td>' + data.cafeList[i].cafe_no + '</td>';
-                bstr += '<td>' + data.cafeList[i].cafe_name + '</td>';
-                bstr += '<td>' + data.cafeList[i].cafe_addr + '</td>';
-                bstr += '<td>' + data.cafeList[i].cafe_like + '</td>';
-                bstr += '</tr>';
-
-                tblBody.innerHTML += bstr;
-            }
-        }
-    });
-}
-
+  
     
-        
     ///////////////////////////////////////////////////////////////////////////////
     //이벤트 리스너
 
@@ -436,7 +407,7 @@
     ///////////////////////////////////////////////////////////////////////
     //호출부
     
-
+  })();
     </script>
 </body>
 </html>
