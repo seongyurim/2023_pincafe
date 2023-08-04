@@ -1,0 +1,22 @@
+#photoContainer {
+    position: relative;
+    background-color: gray;
+    width: 300px;
+    /* height: 300px; */
+    margin: 30px 0;
+
+}
+
+#imgPreview {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+}
+
+/* .thumbnailLabel {
+    padding: 6px 25px;
+    background-color:#212529;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+} */
