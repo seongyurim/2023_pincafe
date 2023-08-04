@@ -57,4 +57,9 @@
     WHERE userId = #{userId} AND email = #{email}
 </select>
 
+<delete id="deleteUser">
+    DELETE FROM USER_TBL
+    WHERE userId = #{userId} AND userPw = #{userPw}
+</delete>
+
 </mapper>

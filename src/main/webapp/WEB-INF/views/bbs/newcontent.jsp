@@ -20,7 +20,7 @@
         align-items: center;
         flex-direction: column;
         justify-content: space-between;
-        max-width: 1200px;
+        max-width: 700px;
         height: 100%;
         margin: 0 auto;
     }
@@ -63,29 +63,6 @@
     background-color: #f0f0f0;
     }
 
-
-    /* 이미지가 들어갈 박스 */  
-    /*
-    .previewBox 
-    {
-        flex: 0 0 calc(50% - 30px); */ /* 이미지 박스들이 한 줄에 2개씩 정렬되도록 너비 설정 */
-        /*
-        width: 100px; 
-        height: 150px;
-        margin: 10px;
-        box-sizing: border-box;
-        border: 1px solid gray;
-        border-radius: 15%;
-        
-
-        /* 이미지 꽉 차고 중앙정렬하고 기본 백그라운드컬러 설정 */
-        /*
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-color: #f0f0f0;
-    } */
-
     /* 이미지가 들어갈 박스 */       
     .previewBox 
     {
@@ -110,7 +87,7 @@
         text-align: center;
         padding: 12px 15px; /* 버튼의 여백 조정 */
         width: 200px; 
-        background-color: #4CAF50;
+        background-color: #699fbe;
         color: white;
         border: none;
         border-radius: 8px;
@@ -118,7 +95,7 @@
     }
 
     .custom-file-button:hover {
-        background-color: #45a049;
+        background-color: #7fb3d4;
     }
 
     /* ========================================================================*/
@@ -128,13 +105,6 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
-
-        /* display: flex;
-        align-items: center; 
-        flex-direction: column;
-        width: 100%;
-        max-width: 800px;
-        height: 100%; */
     }
 
     /* 글 작성 영역 (제목, 글) */
@@ -143,6 +113,7 @@
         display: flex;
         flex-direction: column;  
         align-items: center;
+        width: 100%;
     }
 
     /* 제목 */
@@ -153,6 +124,10 @@
         border: 1px solid gray;
         font-size: 16px; /* 글자 크기 조정 */
         border-radius: 5px;
+    }
+
+    .mb-3 {
+        width: 100%; /* 100% 너비를 사용하여 수평으로 늘어나도록 함 */
     }
 
     /* 본문 영역 */
@@ -170,60 +145,72 @@
     /* 글 영역 버튼 컨테이너 */
     .btn-container {
         margin-top: 20px;
-        margin-left: 30px;
         display: flex;
+        justify-content: center; /* 가로 방향 가운데 정렬 */
     }
 
     /* 글작성 버튼 스타일 */
-    .btnAtc {
-        padding: 15px 12px; /* 버튼의 여백 조정 */
-        width: 80px; 
-        background-color: #4CAF50;
+    .btn-dark {
+        padding: 12px 20px; /* 버튼의 여백 조정 */
+        width: 98px; 
         color: white;
         border: none;
         border-radius: 8px;
-        margin-bottom: 10px; /* 버튼 간 수직 간격 조정 */
+        margin-right: 5px; /* 버튼 간 수평 간격 조정 */
     }
 
-    .btnAtc:hover {
-        background-color: #45a049;
-    }
+    .btn-dark:last-child {
+      margin-right: 0; /* 마지막 버튼 오른쪽 간격 제거 */
+    } 
 
 </style>
 </head>
 <body>
-    <h1 class="title-nav">PinCafe</h1>
+    <div class="title-nav">
+        <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
+    </div>
     <hr>
 
     <div class="container-sm">  <!-- 부트스트랩 컨테이너 -->
         <div class="upload-block">
             <div class="atc-upload">
-                    <input type="text" id="txtTitle" maxlength="150">
-                    <select name="divi" id="divi" value="${divi}">
+                <div class="mb-3">
+                    <!-- <label for="txtTitle" class="form-label">Email address</label> -->
+                    <input type="text" class="form-control" id="txtTitle" placeholder="title">
+                </div>
+                    <!-- <input type="text" id="txtTitle" maxlength="150"> -->
+                    <select name="divi" id="divi" class="form-select" value="${divi}" aria-label="Default select example">
+                        <option selected>선택하세요</option>
                         <option value="C">일반(Common)</option>
                         <option value="R">필독(Required)</option>
                         <option value="N">공지(Notice)</option>
                     </select>
                 </p>
-                <p><textarea id="txtContent" cols="40" rows="10" maxlength="1000"></textarea></p>    
+                <p>
+                    <div class="mb-3">
+                        <!-- <label for="txtContent" class="form-label">Example textarea</label> -->
+                        <textarea class="form-control" id="txtContent" cols="40" rows="10" placeholder="contents"></textarea>
+                    </div>
+                </p>    
             </div> <!-- atc-upload -->
             <div class="img-upload">
                 <div class="image-container">
                     <img class="image-box previewBox" id="previewBox">                   
                 </div>  <!-- image-container -->
                 <form id="uploadForm">
-                    <label for="fileInput" class="custom-file-button">사진 업로드</label>
+                    <label for="fileInput" class="custom-file-button">사진 첨부</label>
                     <input type="file" id="fileInput" accept="image/*" style="display:none;" multiple='multiple'>                 
                 </form>
             </div>  <!-- img-upload -->
             
             <div class="btn-container">
-                <button type="button" id="btnList">목록으로</button>
-                <button type="button" id="btnInsert">등록하기</button>
+                <button type="button" id="btnList" class="btn btn-dark">목록</button>
+                <button type="button" id="btnInsert" class="btn btn-dark">등록</button>
             </div> <!-- btn-container -->
 
         </div>  <!-- upload-block -->
     </div>  <!-- 부트스트랩 컨테이너 -->
+    <br><br><br>
 
 
     <script src="/JS/jquery-3.7.0.min.js"></script>

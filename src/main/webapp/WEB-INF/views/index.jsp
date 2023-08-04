@@ -48,6 +48,7 @@
         <button type="button" id="btn5" class="btns myBtn btn btn-outline-dark">5</button>
         <button type="button" id="btnNext" class="myBtn btn btn-outline-dark">다음</button>
         <button type="button" id="btnWrite" class="myBtn btn btn-outline-dark">글쓰기</button>
+        <button type="button" id="btnWithdraw" class="myBtn btn btn-outline-dark">회원탈퇴</button>
     </div>
 
     <div id="instaFeed" class="container-sm">
@@ -86,6 +87,8 @@
         const btn3 = document.querySelector('#btn3');
         const btn4 = document.querySelector('#btn4');
         const btn5 = document.querySelector('#btn5');
+
+        const btnWithdraw   = document.querySelector('#btnWithdraw');
 
         ////// 함수부 ////////////////////////////////////////////////////////////////////////
 
@@ -299,12 +302,6 @@
                 location.href = "/bbs/newcontent";
             }
         });
-
-        // 정보수정 버튼
-        btnInfoUpdate.addEventListener('click', ()=> {
-            location.href = "/infoupdate";
-        });
-
 
         ////// 호출부 ////////////////////////////////////////////////////////////////////////
 
