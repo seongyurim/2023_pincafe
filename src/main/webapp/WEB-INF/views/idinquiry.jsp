@@ -4,22 +4,91 @@
 <head>
 <meta charset="UTF-8">
 <title>FIND ID</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+<style>
+    .master-container {
+        margin: 30px auto;
+    }
+
+    /* title영역 */
+    .title-nav {
+        text-align: center;
+    }
+    
+    .title {
+        font-weight: bold;
+    }
+
+    /* 상위 박스 */
+    .default-box {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: space-between;
+        max-width: 1000px;
+        height: 100%;
+        margin: 50px auto;
+    }
+
+    .inputForms {
+        width: 350px;
+    }
+
+    .btnSubmit {
+        display: flex;
+        margin-top: 30px;
+        align-items: center;
+        padding: 15px 158px; /* 버튼의 여백 조정 */
+        text-align: center;
+    }
+
+    .btnBox {
+        display: flex;
+        align-items: flex-start;
+        text-align: center;
+        margin-top: 25px;
+    }
+
+    .mybtn {
+        padding: 12px 60px; /* 버튼의 여백 조정 */
+        margin: 0 5px;
+    }
+</style>
+
 </head>
 <body>
-    <h1>아이디 찾기</h1>
-    <hr>
-    <p>
-        <label for="txtName">닉네임</label>
-        <input type="text" name="name" id="txtName"><br>
-        <label for="txtEmail">이메일</label>
-        <input type="email" name="email" id="txtEmail">
-        <button type="button" id="btnSubmit">확인</button>        
+    <div class="container-md master-container">
+        <!-- 타이틀 영역 : 로고 & 아이디 찾기  -->
+        <div class="title-nav">
+            <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
+            <hr class="border border-primary border-1 opacity-35">
+            <h2 class="title">아이디 찾기</h2>
+        </div>
+    
+    <!-- 닉네임, 이메일 인풋 및 확인 영역 -->
+    <div class="default-box">
+        <div class="form-floating mb-3">
+            <input type="text" class="inputForms form-control" id="txtName" placeholder="nickname">
+            <label for="txtName">Nickname</label>
+        </div>
+        <div class="form-floating">
+            <input type="email" class="inputForms form-control" id="txtEmail" placeholder="user@email.com">
+            <label for="txtEmail">Email</label>
+        </div>
+        <button type="button" id="btnSubmit" class="btnSubmit btn btn-secondary">확인</button>    
+    
+    <!-- etc 버튼영역 -->
+    <p class="btnBox">
+        <button type="button" id="btnLogin" class="mybtn btn btn-light">로그인</button>
+        <button type="button" id="btnIndex" class="mybtn btn btn-light">첫화면</button>
     </p>
-    <p>
-        <button type="button" id="btnLogin">로그인</button>
-        <button type="button" id="btnIndex">첫화면</button>
-    </p>
+    
+    </div> <!-- default-box -->
+    </div> <!-- container-md -->
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="/JS/jquery-3.7.0.min.js"></script>
 
     <script>
@@ -51,8 +120,8 @@
             $.ajax({
                 url : '/idinquiry',
                 type : 'POST',
-                data : requestData,             // 아이디를 보냈으니
-                success : function(data) {      // 이메일을 주겠지
+                data : requestData,             
+                success : function(data) {      
                     if (data === "$FAIL") {
                         alert('등록된 이메일이 아닙니다.');
                         txtEmail.value = '';

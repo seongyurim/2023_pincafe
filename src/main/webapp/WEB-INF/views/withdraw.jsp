@@ -31,6 +31,13 @@
         margin: 60px auto;
     }
 
+    .btnCheck { 
+        padding: 12px 20px; /* 버튼의 여백 조정 */
+        margin-right: 20px; /* 버튼 간 수평 간격 조정 */
+        text-align: center;
+        margin-left: 20px
+    }
+
 </style>
 </head>
 <body>
@@ -61,10 +68,10 @@
                     <input type="password" class="form-control" id="inputPw" placeholder="Password">
                 </div>
                 <div class="col-auto">
-                    <button type="submit" id="btnPwCheck" class="btn btn-dark mb-3">확인</button>
+                    <button type="submit" id="btnPwCheck" class="btnCheck btn btn-dark mb-3">확인</button>
                 </div>
 
-                <button type="button" id="btnRealWithdraw" class="btn btn-danger">탈퇴</button>
+                <button type="button" id="btnRealWithdraw" class="btnWD btn btn-danger">탈퇴</button>
             </form>
         </div>
 
@@ -138,13 +145,16 @@
                 const xhr = new XMLHttpRequest();
 
                 // POST 요청으로 '/withdraw' URL에 탈퇴 요청
+                // 여기서 true는 비동기적 요청 여부(boolean)에 대한 값 (즉, true이므로 비동기요청)
                 xhr.open('POST', '/withdraw', true);
+                // setRequestHeader(a,b) => a = 헤더 이름, b = 헤더의 값
                 xhr.setRequestHeader('Content-Type', 'application/json'); // JSON 형식으로 데이터 전송
 
                 // 서버로 보낼 데이터는 따로 필요하지 않을 수도 있음
+                // 딱히 데이터가 없이 빈 객체로 가게 되면 그냥 요청을 보내는 용도로만 사용됨
                 const data = JSON.stringify({});
 
-                // 서버로 데이터 전송
+                // 서버로 데이터(요청) 전송
                 xhr.send(data);
 
                 // 서버 응답 처리

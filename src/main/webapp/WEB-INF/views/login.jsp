@@ -4,34 +4,104 @@
 <head>
 <meta charset="UTF-8">
 <title>Login</title>
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+<style>
+    .master-container {
+        margin: 30px auto;
+    }
+
+    /* title영역 */
+    .title-nav {
+        text-align: center;
+    }
+    
+    .title {
+        font-weight: bold;
+    }
+
+    
+    /* 상위 박스 */
+    .default-box {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: space-between;
+        max-width: 1000px;
+        height: 100%;
+        margin: 50px auto;
+    }
+
+    /* 인풋폼 */
+    .inputForms {
+        width: 350px;
+    }
+
+    .btnSubmit {
+        display: flex;
+        margin-top: 30px;
+        align-items: center;
+        padding: 15px 60px; /* 버튼의 여백 조정 */
+        text-align: center;
+    }
+
+    /* 버튼 박스 */
+    .btnBox {
+        max-width: 100%;
+        display: flex;
+        align-items: flex-start;
+        text-align: center;
+        margin-top: 25px;
+    }
+
+    .mybtn {
+        padding: 12px 60px; /* 버튼의 여백 조정 */
+        margin: 0 5px;
+    }
+
+</style>
+
 </head>
 <body>
-    <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
+    <div class="container-md master-container">
+        <!-- 타이틀 영역 : 로고 & 아이디 찾기  -->
+        <div class="title-nav">
+            <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
+            <hr class="border border-primary border-1 opacity-35">
+            <h1 class="title">Login</h1>
+        </div>
 
+        
+    <!-- 아이디, 이메일 인풋 및 확인 영역 -->
     <form action="/login" method="POST" id="frmLogin">
-        <table>
-            <tr>
-                <td><label for="txtUserId">아이디</label></td>
-                <td><input type="text" name="userId" id="txtUserId"></td>
-            </tr>
-    
-            <tr>
-                <td><label for="txtUserPw">패스워드</label></td>
-                <td><input type="password" name="userPw" id="txtUserPw"></td>
-            </tr>
-        </table>
+    <div class="default-box">
+        <div class="form-floating mb-3">
+            <input type="text" class="inputForms form-control" name="userId" id="txtUserId" placeholder="id">
+            <label for="txtUserId">id</label>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="inputForms form-control" name="userPw" id="txtUserPw" placeholder="password">
+            <label for="txtUserPw">password</label>
+        </div>
     </form>
+    <!-- 메인 버튼영역 -->
+    <p class="btnBox">
+        <button type="button" id="btnLogin" class="btnSubmit btn btn-secondary">로그인</button>    
+        <button type="button" id="btnIndex" class="btnSubmit btn btn-secondary">메인</button>    
+    </p>
+        <!-- etc 버튼영역 -->
+    <p class="btnBox">
+        <button type="button" id="btnJoin" class="mybtn btn btn-light">회원가입</button>
+        <button type="button" id="btnFindId" class="mybtn btn btn-light">아이디 찾기</button>
+        <button type="button" id="btnFindPw" class="mybtn btn btn-light">비밀번호 찾기</button>
+    </p>
     
-    <div>
-        <button type="button" id="btnLogin">로그인</button>
-        <button type="button" id="btnIndex">메인으로</button>    
-    </div>
-    <hr>    
-    <div>
-        <button type="button" id="btnJoin">회원가입</button>
-        <button type="button" id="btnFindId">아이디찾기</button>
-        <button type="button" id="btnFindPw">비밀번호 찾기</button>
-    </div>
+    </div> <!-- default-box -->
+    </div> <!-- master-container -->    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <script src="/JS/jquery-3.7.0.min.js"></script>
 
 <script>
 (()=>{   
