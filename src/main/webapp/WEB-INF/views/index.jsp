@@ -16,27 +16,24 @@
             <div id="welcomeMsg"></div>
             <div><button type="button" id="btnLogin">로그인</button></div>
             <div><button type="button" id="btnJoin">회원가입</button></div>
+            <div><button type="button" id="btnInfoUpdate">정보수정</button></div>
         </div>
     </div>
-    <p>
-    </p>
-    <p>
-    </p>
+    
     <div id="searchSet">
         <form action="/search" method="GET">
             <input type="text" name="keyword" class="container-md"  id="searchName" placeholder="카페 이름을 검색해보세요.">
             <button type="submit" id="btnSearch">검색</button>
         </form>
     </div>
-    <p>
-    </p>
 
-    <table border="1" id="tblBBS" class="table container-sm table-hover">
+    <table id="tblBBS" class="table container-sm table-hover">
         <thead>
-            <th id="col1" style="width: 10%">순번</th>
-            <th id="col2" style="width: 40%">제목</th>
-            <th id="col3" style="width: 20%">아이디</th>
-            <th id="col4" style="width: 30%">날짜</th>
+            <th id="col1" style="width: 15%;">글번호</th>
+            <th id="col2" style="width: 10%;">지역</th>
+            <th id="col3" style="width: 40%">제목</th>
+            <th id="col4" style="width: 10%;">닉네임</th>
+            <th id="col5" style="width: 25%">등록일</th>
         </thead>
         <tbody>            
         </tbody>
@@ -51,6 +48,9 @@
         <button type="button" id="btn5" class="btns myBtn btn btn-outline-dark">5</button>
         <button type="button" id="btnNext" class="myBtn btn btn-outline-dark">다음</button>
         <button type="button" id="btnWrite" class="myBtn btn btn-outline-dark">글쓰기</button>
+    </div>
+
+    <div id="instaFeed" class="container-sm">
     </div>
 
     <script src="/JS/jquery-3.7.0.min.js"></script>
@@ -71,10 +71,11 @@
         let curSection = 0;      // 현재 섹션
         let pagesPerSection = 5; // 섹션당 페이지 수(버튼 수와 동일)
 
-        const profileImg = document.querySelector('#profileImg');
-        const welcomeMsg = document.querySelector('#welcomeMsg');
-        const btnLogin   = document.querySelector('#btnLogin');
-        const btnJoin    = document.querySelector('#btnJoin');
+        const profileImg    = document.querySelector('#profileImg');
+        const welcomeMsg    = document.querySelector('#welcomeMsg');
+        const btnLogin      = document.querySelector('#btnLogin');
+        const btnJoin       = document.querySelector('#btnJoin');
+        const btnInfoUpdate = document.querySelector('#btnInfoUpdate');
 
         const btnPrev    = document.querySelector('#btnPrev');
         const btnNext    = document.querySelector('#btnNext');
@@ -107,8 +108,8 @@
                 profileImg.setAttribute('src', '/imgs/member/thumbnail/${vo.fileCode}.jpg');
             }
             else {
-                welcomeMsg.textContent = '로그인이 필요한 서비스입니다.';
                 btnLogin.textContent = '로그인';
+                btnInfoUpdate.style.display = 'none';
                 profileImg.style.display = 'none';
             }
         }
@@ -118,7 +119,6 @@
         const setBBS = function(page) {
             // BBS 세팅을 위한 데이터를 오브젝트에 담기
             let requestData = {
-                // divi : 'C',
                 page : page,
                 rowsPerPage : rowsPerPage // 현재 전역변수에 5로 설정되어 있음
             };
@@ -143,7 +143,7 @@
                         bstr = '';
                         bstr += '<tr>';
                             bstr += '<td>' + data.bbsList[i].rowNum + '</td>';
-                            // bstr += '<td>' + data.bbsList[i].title + '</td>';
+                            bstr += '<td>' + data.bbsList[i].divi + '</td>';
                             
                             bstr += '<td><a href=\"/bbs/content?userId=' + data.bbsList[i].userId
                                           + '&seq=' + data.bbsList[i].seq
@@ -181,7 +181,6 @@
                 }
             }
         }
-
 
 
 
@@ -288,13 +287,22 @@
 
             // 비로그인 상태
             if (sessionState === false) {
-                alert('로그인이 필요해요.');
-                return;
+                if (confirm("로그인 후 이용할 수 있습니다. 로그인하시겠어요?")) {
+                    location.href = '/login';
+                }
+                else {
+                    return;
+                }
             }
             // 로그인 상태
             else {
                 location.href = "/bbs/newcontent";
             }
+        });
+
+        // 정보수정 버튼
+        btnInfoUpdate.addEventListener('click', ()=> {
+            location.href = "/infoupdate";
         });
 
 
@@ -303,7 +311,6 @@
         setSessionState(); // 세션이 있는지 없는지 상태값을 저장한다.
         setSessionInfo();
         setBBS(0);
-
         
     })();
     </script>

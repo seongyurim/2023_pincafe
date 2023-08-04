@@ -166,6 +166,62 @@ public class MainController {
     }    
 
 
+
+    ////// 회원정보수정 /////////////////////////////////////////////////////////////
+
+    // @GetMapping("/infoupdate")
+    // public String infoupdate() {
+    //     return "infoupdate";
+    // }
+
+    @GetMapping("/infoupdate")
+    public String infoupdate(Model model) throws Exception {
+        // 1. 요청한 주체에게 세션(사용자 정보)이 존재하는가?
+        UserTblVO resultVO = (UserTblVO)SessionUtil.getAttribute("USER");
+
+        // 2. 만약에 세션이 존재한다면 Model에 사용자 정보를 저장하여 index.jsp로 전송한다.
+        if (resultVO != null) {
+            model.addAttribute("vo", resultVO);
+        }
+        return "infoupdate";
+    }
+
+    @PostMapping("/infoupdate")
+    public void infoupdate(@ModelAttribute("UserTblVO") UserTblVO vo,
+    HttpServletRequest request,
+                       HttpServletResponse response) throws Exception
+    {        
+        FileVO fileVO = null;
+        
+        // 섬네일이 있는 경우 파일처리를 수행한다.
+        if (vo.getThumbnail() != null)
+        {   
+            fileVO = new FileVO();
+            // fileVO에 전송받은 thumbnail, path 를 넣어준다.
+            fileVO.setFile(vo.getThumbnail());
+            fileVO.setFilePath(uploadDir + "member/thumbnail");
+            
+            fileVO = fileService.createFile(fileVO);
+            fileService.insertFileTbl(fileVO);
+            vo.setFileCode(fileVO.getFileCode());
+        }
+        // 프로필 사진이 없는 경우 디폴트 이미지를 사용
+        else {
+            vo.setFileCode("0000");
+        }
+
+        System.out.println(vo.getUserPw());
+        userDAO.updateUser(vo);
+
+            // 변경된 회원 정보를 세션에 업데이트
+            SessionUtil.set(request, "USER", vo);
+
+            // 인덱스 화면으로 리다이렉트
+            response.sendRedirect("index");
+    
+    }    
+
+
     
     ////// 아이디/비밀번호 찾기 /////////////////////////////////////////////////////
 
@@ -238,7 +294,10 @@ public class MainController {
             return "$OK";
         }
     }
-    /////////////카페관련 //////////////////////////////////////////////////////////////////
+
+
+
+    ///////////// 카페관련 //////////////////////////////////////////////////////////////////
 
     @GetMapping("/cafe/cafehomepage")
     public String cafehomepage() {
@@ -252,4 +311,7 @@ public class MainController {
     public String newArticle() {
         return "/bbs/newarticle";
     }
+
+
+
 }

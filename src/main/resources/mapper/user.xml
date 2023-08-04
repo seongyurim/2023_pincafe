@@ -6,7 +6,7 @@
 
 <!-- resultMap = 얻어온 결과를 저장할 곳. 즉 VO 정보 -->
 <resultMap type="com.project.pincafe.user.UserTblVO" id="userMap">
-    <result property="userid"    column="userid"/>
+    <result property="userId"    column="userId"/>
     <result property="userPw"    column="userPw"/>
     <result property="name"      column="name"/>
     <result property="email"     column="email"/>
@@ -17,7 +17,7 @@
 
 <select id="selectOneUserForLogin" resultMap="userMap">
     SELECT * FROM USER_TBL
-    WHERE userid=#{userid} AND userpw=#{userpw}
+    WHERE userid=#{userId} AND userpw=#{userPw}
 </select>
 
 <select id="selectOneUserForId" resultMap="userMap">
@@ -34,6 +34,18 @@
     INSERT INTO USER_TBL (userId, userPw, name, email, address, file_code)
     VALUES (#{userId}, #{userPw}, #{name}, #{email}, #{address}, #{fileCode})
 </insert>
+
+<update id="updateUser">
+    UPDATE USER_TBL
+    SET
+        userPw = #{userPw},
+        name = #{name},
+        email = #{email},
+        address = #{address},
+        file_code = #{fileCode}
+    WHERE
+        userId = #{userId}
+</update>
 
 <select id="getIdByNnEmail" resultMap="userMap">
     SELECT userId, userPw, name, email FROM USER_TBL
