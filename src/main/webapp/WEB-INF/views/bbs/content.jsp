@@ -94,6 +94,9 @@
   box-sizing: border-box; /* 테두리를 기준으로 크기 설정 */
   padding: 20px; /* 버튼과 테두리 사이에 간격 추가 */
 }
+#txtDivi {
+  width: 100px;
+}
 
 
    
@@ -104,6 +107,14 @@
     <div id="jb_header">
           <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
       <div id="jp_header_title">
+        <select id="txtDivi" class="form-select" aria-label="Default select example">
+          <option value="${vo.divi}">${vo.divi}</option>
+          <option value="동부">동부</option>
+          <option value="서부">서부</option>
+          <option value="남부">남부</option>
+          <option value="북부">북부</option>
+          <option value="중부">중부</option>
+        </select>
         <p><input type="text" id="txtTitle" value="${vo.title}"></p>
         <div class="h_container">
           <i id="heart" class="far fa-heart" onclick="likeCafe()"></i><span id="likeCount">0</span> 
@@ -143,12 +154,6 @@
         const btnList    = document.querySelector('#btnList');
         const btnUpdate  = document.querySelector('#btnUpdate');
 
-
-        const imageContainer  = document.querySelector('#imageContainer');
-
-
-        
-        
 
         ////// 함수부 //////////////////////////////////////////////////////////////////
 
@@ -191,15 +196,17 @@
         btnList.addEventListener('click', ()=>{
             history.back();
         });
+        
 
         // 수정하기 버튼
         btnUpdate.addEventListener('click', ()=>{
-            // DB로 전송할 데이터: id, seq, title, content
+            // DB로 전송할 데이터: id, seq, title, content,divi
             let requestData = {
                 userId : '${vo.userId}',
                 seq : '${vo.seq}',
                 title : txtTitle.value,
-                content : txtContent.value
+                content : txtContent.value,
+                divi : txtDivi.value
             };
             console.log(requestData);
 
@@ -279,20 +286,31 @@
   ///////////////////////////////////////////////////////////////////////////
   //이미지 표시함수
 
+    
      // 이미지를 표시하는 함수
-     function displayImage(imageUrl) {
+    function displayImage(imageUrl, divi) {
         const postImage = document.getElementById('postImage');
-        postImage.src = imageUrl;
+        if (imageUrl && divi) {
+            // 이미지 URL이 유효하고 divi 값이 있는 경우 이미지를 표시
+            postImage.src = imageUrl;
+            postImage.style.display = "block"; // 이미지 보이기
+        } else {
+            // 이미지 URL이 없거나 divi 값이 없는 경우 이미지 영역을 숨김
+            postImage.style.display = "none";
+        }
     }
 
     // 페이지 로드 후 실행
     document.addEventListener("DOMContentLoaded", function () {
-        // 이미지를 서버의 경로를 기반으로 표시
-        const imageUrl = "/imgs/member/thumbnail/${vo.fileCode}.jpg";
-        displayImage(imageUrl);
+        // 세션에서 이미지 URL 가져오기
+        const sessionImageUrl = "${vo.fileCode}" === "null" ? null : "/imgs/member/thumbnail/${vo.fileCode}.jpg";
+        
+        // 세션에서 divi 값 가져오기
+        const divi = "${vo.fileCode}" === "(null)" ? null : "${vo.fileCode}";
+
+        // 이미지를 표시
+        displayImage(sessionImageUrl, divi);
     });
-
-
 
 
     })();

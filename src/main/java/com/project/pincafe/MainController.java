@@ -304,14 +304,80 @@ public class MainController {
         return "/cafe/cafehomepage";
     }
   
-    ////// 새글 작성 ////////////////////////////////////////////////////////////////
+    ////// 회원 탈퇴 ////////////////////////////////////////////////////////////////
 
-    // GET newarticle 
-    @GetMapping("/bbs/newarticle")
-    public String newArticle() {
-        return "/bbs/newarticle";
+     // 비밀번호 확인 컨트롤러 메서드
+    @PostMapping("/checkPassword")
+    @ResponseBody
+    public String checkPassword(@RequestBody String inputPw, HttpServletRequest request) throws Exception
+    {
+        // 1. 세션(사용자 정보)이 존재하는지 확인
+        UserTblVO userVO = (UserTblVO) SessionUtil.getAttribute("USER");
+        System.out.println(userVO.getUserId());
+        System.out.println(userVO.getUserPw());
+
+        // String inputPassword = inputPw;
+        System.out.println("입력한 비밀번호 : " + inputPw);
+
+        if (userVO == null) {
+            // 세션이 없으면 로그인 상태가 아님
+            return "NOT_LOGGED_IN";
+        }
+
+        // 2. 클라이언트에서 받아온 inputPw와 세션에 저장된 사용자의 비밀번호를 비교
+        String storedPassword = userVO.getUserPw();
+        System.out.println("저장된 비밀번호 : " + storedPassword);
+
+        // 비밀번호가 일치하는지 확인
+        if (inputPw.equals(storedPassword)) {
+        // if (inputPassword == storedPassword) {
+            // 비밀번호가 일치하면 "OK"를 반환
+            System.out.println("일치");
+            return "COMPLETE";
+        } else {
+            // 비밀번호가 일치하지 않으면 "FAIL"을 반환
+            System.out.println("불일치");
+            return "FAIL";
+        }
+    }
+
+    // GET withdraw 
+    @GetMapping("/withdraw")
+    public String withdraw() {
+
+
+        return "/withdraw";
+    }
+
+    // POST withdraw 
+    @PostMapping("/withdraw")
+    @ResponseBody
+    public String withdraw(HttpServletRequest request) throws Exception
+    {
+        // 1. 요청한 주체에게 세션(사용자 정보)이 존재하는지 확인
+        // UserTblVO userVO = (UserTblVO) SessionUtil.getAttribute(request, "USER");
+        UserTblVO userVO = (UserTblVO) SessionUtil.getAttribute("USER");
+
+        if (userVO == null) {
+            // 세션이 없으면 로그인되지 않은 상태입니다.
+            return "NOT_LOGGED_IN";
+        }
+
+        // 2. 회원 정보를 삭제하는 로직을 수행합니다.
+        int deleteCount = userDAO.deleteUser(userVO);
+
+        // 3. 회원 정보가 성공적으로 삭제되었는지 확인합니다.
+        if (deleteCount == 1) {
+            // 삭제 성공 시, 세션도 함께 제거하여 로그아웃 처리합니다.
+            SessionUtil.remove(request, "USER");
+            return "OK";
+        } else {
+            // 삭제 실패 시, 실패 메시지를 반환합니다.
+            return "FAIL";
+        }
     }
 
 
 
 }
+

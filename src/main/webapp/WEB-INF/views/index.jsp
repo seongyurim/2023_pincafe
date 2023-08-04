@@ -86,6 +86,7 @@
         const btn3 = document.querySelector('#btn3');
         const btn4 = document.querySelector('#btn4');
         const btn5 = document.querySelector('#btn5');
+        
 
         ////// 함수부 ////////////////////////////////////////////////////////////////////////
 
@@ -304,7 +305,7 @@
         btnInfoUpdate.addEventListener('click', ()=> {
             location.href = "/infoupdate";
         });
-
+        
 
         ////// 호출부 ////////////////////////////////////////////////////////////////////////
 

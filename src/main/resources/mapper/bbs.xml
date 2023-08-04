@@ -31,7 +31,7 @@
 </select>
 
 <update id="updateBbsContent">
-    UPDATE BBS_TBL SET TITLE=#{title}, CONTENT=#{content}
+    UPDATE BBS_TBL SET TITLE=#{title}, CONTENT=#{content}, DIVI=#{divi}
     WHERE USERID=#{userId} AND SEQ=#{seq}
 </update>
 

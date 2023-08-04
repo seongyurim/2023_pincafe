@@ -76,6 +76,7 @@
     <p>
         <button type="button" id="btnInfoUpdate" class="btns">정보수정</button>
         <button type="button" id="btnIndex" class="btns">메인으로</button>
+        <button type="button" id="btnWithdraw" class="btns">회원탈퇴</button>
     </p>
 
       <script src="/JS/jquery-3.7.0.min.js"></script>
@@ -101,6 +102,7 @@
         const txtEmail       = document.querySelector('#txtEmail');
         const btnInfoUpdate  = document.querySelector('#btnInfoUpdate');
         const btnIndex       = document.querySelector('#btnIndex');
+        const btnWithdraw    = document.querySelector('#btnWithdraw');
 
         // 프로필사진 관련
         const thumbnail      = document.querySelector('#thumbnail');
@@ -414,9 +416,15 @@
             getFinalAddress();
         });
 
+        // 메인으로 버
         btnIndex.addEventListener('click', ()=>{
             location.href = "/index";
         });
+
+        // 회원탈퇴 버튼
+        btnWithdraw.addEventListener('click',()=>{
+            location.href = "/withdraw";
+        })
         
     })();
     </script>
