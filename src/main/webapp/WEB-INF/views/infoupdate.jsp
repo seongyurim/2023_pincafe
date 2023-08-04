@@ -11,14 +11,14 @@
 <body>
     <h1>InfoUpdate</h1>
     <hr>
-    <!-- <ul><b>세션정보 가져오기</b></ul>
-    <ul>${vo.userId}</ul>
-    <ul>${vo.userPw}</ul>
-    <ul>${vo.name}</ul>
-    <ul>${vo.email}</ul>
-    <ul>${vo.address}</ul>
-    <ul>${vo.fileCode}</ul>
-    <ul>${vo.thumbnail}</ul> -->
+    <ul><b>세션정보 가져오기</b></ul>
+    <ul>아이디: ${vo.userId}</ul>
+    <ul>비밀번호: ${vo.userPw}</ul>
+    <ul>닉네임: ${vo.name}</ul>
+    <ul>이메일: ${vo.email}</ul>
+    <ul>주소: ${vo.address}</ul>
+    <ul>파일코드: ${vo.fileCode}</ul>
+    <ul>썸네일: ${vo.thumbnail}</ul>
 
     <div id="photoContainer">
         <div><img src="/imgs/member/thumbnail/${vo.fileCode}.jpg" alt="Profile Image" id="imgPreview"></div>
@@ -263,6 +263,7 @@
                
         ////// 이벤트 리스너 /////////////////////////////////////////////////////////////////////////////////////////
         
+        // 클라이언트가 올린 사진 확인
         thumbnail.addEventListener('change', ()=>{
             const files = thumbnail.files;
             if (files[0])
@@ -279,7 +280,6 @@
 
         // 닉네임 검증: 빈 값, 범위 외의 값, 중복 값
         btnCheckNick.addEventListener('click', ()=>{
-
             // 1. 값이 범위를 넘는 경우
             if ((txtName.value.length < 2) || (txtName.value.length > 10)) {
                 alert('아이디 길이는 2~10자만 가능합니다.');
@@ -338,6 +338,40 @@
 
         // 정보수정 버튼
         btnInfoUpdate.addEventListener('click', ()=>{
+
+            console.log(vo.thumbnail);
+            // let formData = new FormData();
+            // formData.append('userId', vo.userId);
+
+            // if (txtName.value.length > 0) {
+            //     formData.append('name', txtName.value);
+            // } else {
+            //     formData.append('name', vo.name);
+            // }
+
+            // if (txtUserPw.value.length > 0) {
+            //     formData.append('userPw', txtUserPw.value);
+            // } else {
+            //     formData.append('userPw', vo.userPw);
+            // }
+
+            // if (txtEmail.value.length > 0) {
+            //     formData.append('email', txtEmail.value);
+            // } else {
+            //     formData.append('email', vo.email);
+            // }
+
+            // if (finalAddress.length > 0) {
+            //     formData.append('address', finalAddress);
+            // } else {
+            //     formData.append('address', vo.address);
+            // }
+
+
+            // if (thumbnail.value === 0) {
+            //     thumbnail.value = vo.fileCode;
+            //     // imgPreview.src = "/imgs/member/thumbnail/" + vo.fileCode + ".jpg";
+            // }
             
             if (txtName.value.length === 0) {
                 txtName.value = vo.name;
@@ -375,6 +409,9 @@
             // 사용자가 프로필 사진을 첨부하였다면
             if (thumbnail.files[0] !== undefined) {
                 formData.append('thumbnail', thumbnail.files[0]); // 파일이 선택되어 있지 않다면 undefined
+            }
+            else if (thumbnail.files[0] === vo.thumbnail) {
+                formData.append('thumbnail', vo.thumbnail);
             }
 
             console.log("----------- Added data in FormData: -----------");

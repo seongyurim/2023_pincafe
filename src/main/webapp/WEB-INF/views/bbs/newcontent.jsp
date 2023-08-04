@@ -4,166 +4,9 @@
 <head>
 <meta charset="UTF-8">
 <title>New Content</title>
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
-<style>
-    /* title영역 */
-    .title-nav {
-        text-align: center;
-    }
-
-    /* ========================================================================*/
-    /* 업로드 영역 전체 스타일 */
-    .upload-block {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: space-between;
-        max-width: 700px;
-        height: 100%;
-        margin: 0 auto;
-    }
-
-    /* ========================================================================*/
-    /* 이미지 업로드 영역 */
-    .img-upload {
-        /* position: absolute; */
-        display: flex;
-        align-items: center;
-        flex-direction: column;  /* 수직 정렬 */
-        margin: auto 100px;
-        width: 100%;
-    }
-    
-    /* 이미지 컨테이너 */
-    .image-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-content: space-around;
-        margin: auto 20px;
-        width: 100%;
-        height: 100%;
-    }
-
-    /* 이미지가 들어갈 박스 (상위 클래스) */       
-    .image-box {
-    width: 200px;
-    height: 200px;
-    margin: 10px;
-    box-sizing: border-box;
-    border: 1px solid gray;
-    border-radius: 15%;
-
-    /* 이미지 꽉 차고 중앙정렬하고 기본 백그라운드컬러 설정 */
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: #f0f0f0;
-    }
-
-    /* 이미지가 들어갈 박스 */       
-    .previewBox 
-    {
-        width: 200px;
-        height: 200px;
-        margin: 10px;
-        box-sizing: border-box;
-        border: 1px solid gray;
-        border-radius: 15px;
-
-        /* 이미지 꽉 차고 중앙정렬하고 기본 백그라운드컬러 설정 */
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-color: #f0f0f0;
-    }
-
-
-    /* 이미지 업로드 버튼 */
-    .custom-file-button {
-        display: inline-block;
-        text-align: center;
-        padding: 12px 15px; /* 버튼의 여백 조정 */
-        width: 200px; 
-        background-color: #699fbe;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-    }
-
-    .custom-file-button:hover {
-        background-color: #7fb3d4;
-    }
-
-    /* ========================================================================*/
-    /* 글 업로드 영역 */
-    .atc-upload {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-
-    /* 글 작성 영역 (제목, 글) */
-    .atc-write {
-        position: relative;
-        display: flex;
-        flex-direction: column;  
-        align-items: center;
-        width: 100%;
-    }
-
-    /* 제목 */
-    #txtTitle {
-        width: 100%; /* 100% 너비를 사용하여 수평으로 늘어나도록 함 */
-        margin-top: 20px;
-        margin-bottom: 5px; /* 제목과 내용 사이 간격 설정 */
-        border: 1px solid gray;
-        font-size: 16px; /* 글자 크기 조정 */
-        border-radius: 5px;
-    }
-
-    .mb-3 {
-        width: 100%; /* 100% 너비를 사용하여 수평으로 늘어나도록 함 */
-    }
-
-    /* 본문 영역 */
-    #txtContent {
-        width: 100%; 
-        height: 300px;
-        margin-bottom: 10px; /* 본문과 버튼 사이 간격 설정 */
-        padding: 8px; /* 입력창 내부 여백 조정 */
-        font-size: 14px; /* 글자 크기 조정 */
-        border: 1px solid gray;
-        border-radius: 8px;
-        resize: none;
-    }
-
-    /* 글 영역 버튼 컨테이너 */
-    .btn-container {
-        margin-top: 20px;
-        display: flex;
-        justify-content: center; /* 가로 방향 가운데 정렬 */
-    }
-
-    /* 글작성 버튼 스타일 */
-    .btn-dark {
-        padding: 12px 20px; /* 버튼의 여백 조정 */
-        width: 98px; 
-        color: white;
-        border: none;
-        border-radius: 8px;
-        margin-right: 5px; /* 버튼 간 수평 간격 조정 */
-    }
-
-    .btn-dark:last-child {
-      margin-right: 0; /* 마지막 버튼 오른쪽 간격 제거 */
-    } 
-
-</style>
+<link rel="stylesheet" href="/css/reset.css">
+<link rel="stylesheet" href="/css/newcontent.css">
 </head>
 <body>
     <div class="title-nav">
@@ -174,21 +17,20 @@
     <div class="container-sm">  <!-- 부트스트랩 컨테이너 -->
         <div class="upload-block">
             <div class="atc-upload">
+                <select name="divi" id="divi" class="form-select" value="${divi}" aria-label="Default select example">
+                    <option selected>카페의 위치를 선택해주세요</option>
+                    <option value="East">동부</option>
+                    <option value="West">서부</option>
+                    <option value="South">남부</option>
+                    <option value="North">북부</option>
+                    <option value="Central">중부</option>
+                </select>
                 <div class="mb-3">
                     <!-- <label for="txtTitle" class="form-label">Email address</label> -->
                     <input type="text" class="form-control" id="txtTitle" placeholder="title">
                 </div>
-                    <!-- <input type="text" id="txtTitle" maxlength="150"> -->
-                    <select name="divi" id="divi" class="form-select" value="${divi}" aria-label="Default select example">
-                        <option selected>선택하세요</option>
-                        <option value="C">일반(Common)</option>
-                        <option value="R">필독(Required)</option>
-                        <option value="N">공지(Notice)</option>
-                    </select>
-                </p>
                 <p>
                     <div class="mb-3">
-                        <!-- <label for="txtContent" class="form-label">Example textarea</label> -->
                         <textarea class="form-control" id="txtContent" cols="40" rows="10" placeholder="contents"></textarea>
                     </div>
                 </p>    
