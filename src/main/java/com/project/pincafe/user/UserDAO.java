@@ -26,6 +26,10 @@ public class UserDAO {
         return sqlSessionTemplate.insert("insertUser", vo);
     }
 
+    public int updateUser(UserTblVO vo) throws Exception {
+        return sqlSessionTemplate.update("updateUser", vo);
+    }
+
     public UserTblVO getIdByNnEmail (UserTblVO vo) throws Exception
     {
         return sqlSessionTemplate.selectOne("getIdByNnEmail", vo);

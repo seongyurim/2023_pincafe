@@ -21,7 +21,7 @@
 </select>
 
 <select id="selectBbsList" resultMap="bbsMap" useCache="false">
-    SELECT * FROM (SELECT rownum RN, BBS_TBL.* FROM BBS_TBL ORDER BY regdate ASC)
+    SELECT * FROM (SELECT rownum RN, BBS_TBL.* FROM BBS_TBL ORDER BY regdate DESC)
     WHERE RN <![CDATA[>=]]> (#{page} * #{rowsPerPage}) + 1 AND
           RN <![CDATA[<=]]> (#{page} + 1) * #{rowsPerPage}
 </select>

@@ -35,6 +35,18 @@
     VALUES (#{userId}, #{userPw}, #{name}, #{email}, #{address}, #{fileCode})
 </insert>
 
+<update id="updateUser">
+    UPDATE USER_TBL
+    SET
+        userPw = #{userPw},
+        name = #{name},
+        email = #{email},
+        address = #{address},
+        file_code = #{fileCode}
+    WHERE
+        userId = #{userId}
+</update>
+
 <select id="getIdByNnEmail" resultMap="userMap">
     SELECT userId, userPw, name, email FROM USER_TBL
     WHERE email = #{email} AND name = #{name}

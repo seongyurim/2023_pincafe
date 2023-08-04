@@ -1,5 +1,11 @@
 package com.project.pincafe.common;
 
+import java.util.Base64;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -156,9 +162,5 @@ public class SessionUtil {
 	 public static int getUtcMinute() {
 		 return 0;
 	 }
-
-    public static UserTblVO getAttribute(HttpServletRequest request, String string) {
-        return null;
-    }
 	 
 }

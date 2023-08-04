@@ -6,7 +6,7 @@
 <title>Login</title>
 </head>
 <body>
-    <h1>Login</h1>
+    <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
 
     <form action="/login" method="POST" id="frmLogin">
         <table>

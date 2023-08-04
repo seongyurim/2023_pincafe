@@ -3,71 +3,53 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Join</title>
-<style>
-    table input {
-        width: 280px;
-        height: 25px;
-        margin: 8px;
-    }
-
-    .btns {
-        height: 40px;
-    }
-
-    #btnJoin {
-        width: 300px;
-    }
-
-    #btnIndex {
-        width: 98px;
-    }
-</style>
+<title>InfoUpdate</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/reset.css">
+<link rel="stylesheet" href="/css/infoupdate.css">
 </head>
 <body>
-    <h1>Join</h1>
+    <h1>InfoUpdate</h1>
     <hr>
+    <!-- <ul><b>세션정보 가져오기</b></ul>
+    <ul>${vo.userId}</ul>
+    <ul>${vo.userPw}</ul>
+    <ul>${vo.name}</ul>
+    <ul>${vo.email}</ul>
+    <ul>${vo.address}</ul>
+    <ul>${vo.fileCode}</ul>
+    <ul>${vo.thumbnail}</ul> -->
+
+    <div id="photoContainer">
+        <div><img src="/imgs/member/thumbnail/${vo.fileCode}.jpg" alt="Profile Image" id="imgPreview"></div>
+        <div><input type="file" name="file_code" id="thumbnail" style="display: none;"/></div>
+        <div id="btnsImg">
+            <label for="thumbnail" id="btnImgChange" class="btn btn-outline-dark">변경</label>
+            <button type="button" id="btnImgDelete" class="btn btn-outline-dark">삭제</button>
+        </div>        
+    </div>
 
     <table>
         <tr>
-            <td><label for="txtUserId">아이디</label></td>
-            <td>
-                <input type="text" id="txtUserId" name="userId" placeholder="ID">
-                <button type="button" id="btnCheckId">아이디 중복확인</button>
-            </td>
-        </tr>
-
-        <tr>
-            <td><label for="txtUserPw">비밀번호</label></td>            
-            <td>
-                <input type="password" id="txtUserPw" name="UserPw" placeholder="Password"> 
-                <span id="isPwCorrect"></span>
-            </td>            
-        </tr>
-
-        <tr>
-            <td><label for="txtCheckPw">비밀번호 확인</label></td>
-            <td>
-                <input type="password" id="txtCheckPw" placeholder="Password Check"> 
-                <span id="isPwSame"></span>
-            </td>
-        </tr>
-
-        <tr>
-            <td><label for="txtName">닉네임</label></td>
-            <td><input type="text" id="txtName" name="name" placeholder="Nickname">
-            <button type="button" id="btnCheckNick">닉네임 중복확인</button></td>
+            <td>아이디</td>
+            <td><span>${vo.userId}</span></td>
         </tr>
         <tr>
-            <td><label for="txtEmail">이메일</label></td>
+            <td>닉네임</td>
+            <td><input type="text" id="txtName" name="name" placeholder="Nickname" value="${vo.name}">
+                <button type="button" id="btnCheckNick">닉네임 중복확인</button></td>
+        </tr>
+        <tr>
+            <td>비밀번호</td>
+            <td><input type="password" id="txtUserPw" name="userPw" placeholder="Password"></td>
+        </tr>
+        <tr>
+            <td>비밀번호 확인</td>
+            <td><input type="password" id="txtCheckPw" placeholder="Password Check"></td>
+        </tr>
+        <tr>
+            <td>이메일</td>
             <td><input type="email" id="txtEmail" name="email" placeholder="Email"></td>
-        </tr>
-
-        <tr>
-            <td><label for="thumbnail">프로필사진</label></td>
-            <td>
-                <input type="file" name="file_code" id="thumbnail">
-            </td>           
         </tr>
 
         <tr>
@@ -91,33 +73,40 @@
         </tr>
     </table>
 
-
     <p>
-        <button type="button" id="btnJoin" class="btns">회원가입</button>
+        <button type="button" id="btnInfoUpdate" class="btns">정보수정</button>
         <button type="button" id="btnIndex" class="btns">메인으로</button>
     </p>
 
-    <script src="/JS/jquery-3.7.0.min.js"></script>
-    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+      <script src="/JS/jquery-3.7.0.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
     <script>
-    (()=>{   
+    (()=>{
 
-        const txtUserId     = document.querySelector('#txtUserId');    // 아이디
-        const txtUserPw     = document.querySelector('#txtUserPw');    // 비밀번호
-        const txtName       = document.querySelector('#txtName');      // 닉네임
-        const txtEmail      = document.querySelector('#txtEmail');     // 이메일
-        const thumbnail     = document.querySelector('#thumbnail');    // 프로필사진
-        
-        const txtCheckPw    = document.querySelector('#txtCheckPw');   // 비밀번호 확인
-        const btnCheckId    = document.querySelector('#btnCheckId');   // 아이디 중복확인 버튼
-        const btnCheckNick  = document.querySelector('#btnCheckNick'); // 닉네임 중복확인 버튼
-        const isPwCorrect   = document.querySelector('#isPwCorrect');  // 비밀번호 글자수 확인 메세지
-        const isPwSame      = document.querySelector('#isPwSame');     // 비밀번호 일치여부 확인 메세지
-        
-        const btnJoin       = document.querySelector('#btnJoin');     // 회원가입 버튼
-        const btnIndex      = document.querySelector('#btnIndex');    // 메인으로 버튼
-        
+        const vo = {
+            userId : "${vo.userId}",
+            userPw : "${vo.userPw}",
+            name : "${vo.name}",
+            email : "${vo.email}",
+            address : "${vo.address}",
+            fileCode : "${vo.fileCode}",
+            thumbnail : "${vo.thumbnail}"
+        };
+
+        const txtName        = document.querySelector('#txtName');
+        const txtUserPw      = document.querySelector('#txtUserPw');
+        const txtCheckPw     = document.querySelector('#txtCheckPw');
+        const txtEmail       = document.querySelector('#txtEmail');
+        const btnInfoUpdate  = document.querySelector('#btnInfoUpdate');
+        const btnIndex       = document.querySelector('#btnIndex');
+
+        // 프로필사진 관련
+        const thumbnail      = document.querySelector('#thumbnail');
+        const imgPreview     = document.querySelector('#imgPreview');
+        const btnUpdatePhoto = document.querySelector('#btnUpdatePhoto');
+
         // 카카오 주소 API 관련
         const kakaoZip           = document.querySelector('#kakaoZip');           // 우편번호
         const kakaoAddress       = document.querySelector('#kakaoAddress');       // 주소
@@ -125,38 +114,32 @@
         const kakaoExtraAddress  = document.querySelector('#kakaoExtraAddress');  // 참고항목
         const kakaoFindZipBtn    = document.querySelector('#kakaoFindZipBtn');    // 우편번호 찾기 버튼
         let finalAddress = ''; // 카카오에서 가져온 주소 문자열을 한 필드에 최종저장
-        
-        let idChecking   = false; // 중복확인을 통과하면 true로 변경된다.
-        let checkedId    = '';    // 중복확인이 통과된 아이디가 저장된다.
+
         let nickChecking = false; // 중복확인을 통과하면 true로 변경된다.
         let checkedNick  = '';    // 중복확인이 통과된 닉네임이 저장된다.
 
 
+        ////// 함수부 ////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-        ////// 함수부 //////////////////////////////////////////////////////////////////
-
-        const checkJoinData = function() {
+        const checkUpdateData = function() {
 
             // 1. 아무 양식도 작성하지 않은 경우
-            if ((txtUserId.value.length === 0) &&
+            if ((txtName.value.length === 0) &&
                 (txtUserPw.value.length === 0) &&
                 (txtCheckPw.value.length === 0) &&
-                (txtName.value.length === 0) &&
-                (txtEmail.value.length === 0)) {
-                    alert('회원가입 양식을 작성해주세요.')
-                    txtUserId.focus();
+                (txtEmail.value.length === 0) &&
+                (finalAddress.length === 0)) {
+                    alert('정보수정 양식을 작성해주세요.')
                     return false;
                 }
 
-            // 2. 아이디 중복여부 확인
-            if ((idChecking == false) || (checkedId != txtUserId.value)) { 
-                alert('아이디 중복확인이 필요합니다.');
-                txtUserId.value = '';
-                txtUserId.focus();
-                return false;
-            }
+            // // 2. 닉네임 중복여부 확인
+            // if ((nickChecking == false) || (checkedNick != txtName.value)) { 
+            //     alert('닉네임 중복확인이 필요합니다.');
+            //     txtName.value = '';
+            //     txtName.focus();
+            //     return false;
+            // }
 
             // 3. 비밀번호 검증(정규표현식을 사용하는 것이 더 좋음)
             if (txtUserPw.value.length === 0) {
@@ -175,22 +158,7 @@
                 return false;
             }
 
-            // 5. 닉네임 중복여부 확인
-            if ((nickChecking == false) || (checkedNick != txtName.value)) { 
-                alert('닉네임 중복확인이 필요합니다.');
-                txtName.value = '';
-                txtName.focus();
-                return false;
-            }
-
-            // 6. 이메일을 입력했는지 확인
-            if (txtEmail.value.length === 0) {
-                alert('이메일을 입력해주세요.');
-                txtEmail.focus();
-                return false;
-            }
-
-            // // 7. 이메일의 정규표현식 검증 // 테스트 후 주석 해제할 것 +++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // //5. 이메일의 정규표현식 검증 // 테스트 후 주석 해제할 것 +++++++++++++++++++++++++++++++++++++++++++++++++++++
             // let regex = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/);
             // let testResult = regex.test(txtEmail.value);
             // if (testResult === false) {
@@ -200,16 +168,10 @@
             //     return false;
             // }
 
-            // // 8. 주소를 입력했는지 확인
-            // if (finalAddress.length === 0) {
-            //     alert('주소를 입력해주세요.');
-            //     kakaoZip.focus();
-            //     return false;
-            // }
-
-            // 9. 위의 검사를 모두 통과했으면 true
+            // 6. 위의 검사를 모두 통과했으면 true
             return true;
-        }
+            }
+
 
         // 비밀번호의 글자수와 일치여부 확인
         const checkPw = function() {
@@ -241,6 +203,7 @@
                 isPwCorrect.innerHTML = '';
             }
         }
+
 
         // 카카오 주소 API
         const getFinalAddress = function() {
@@ -293,105 +256,29 @@
                 }
             }).open();
         }
-
-        // 회원가입 실패 시 입력된 값 리셋
-        const resetPage = function() {
-            txtUserId.value = '';
-            txtUserPw.value = '';
-            txtCheckPw.value = '';
-            txtName.value = '';
-            txtEmail.value = '';
-
-            idChecking = false;
-            checkedId = '';
-            nickChecking = false;
-            checkedNick = '';
-            txtUserId.focus();
-        }
-
-
-
-        ////// 이벤트 핸들러 ///////////////////////////////////////////////////////////
-
-        // 아이디 검증: 빈 값, 범위 외의 값, 중복 값
-        btnCheckId.addEventListener('click', ()=>{
-
-            // 1. 값이 비어 있는 경우
-            if (txtUserId.value.length === 0) {
-                alert('아이디를 입력해주세요.');
-                idChecking = false;
-                txtUserId.focus();
-                return;
+        
+        
+               
+        ////// 이벤트 리스너 /////////////////////////////////////////////////////////////////////////////////////////
+        
+        thumbnail.addEventListener('change', ()=>{
+            const files = thumbnail.files;
+            if (files[0])
+            {
+                const reader = new FileReader();
+                reader.onload = ({target})=>
+                {
+                    imgPreview.src = target.result;
+                };
+                reader.readAsDataURL(files[0]);
             }
-
-            // // 2. 값이 범위를 넘는 경우
-            // if ((txtUserId.value.length < 6) || (txtUserId.value.length > 12)) {
-            //     alert('아이디 길이는 6~12자만 가능합니다.');
-            //     idChecking = false;
-            //     txtUserId.focus();
-            //     return;
-            // }
-
-            // // 3. 허용되지 않은 값이 있는 경우: 특수문자, 영대문자, 공백
-            // let regex = new RegExp(/^[a-z0-9]+$/);
-            // let testResult = regex.test(txtUserId.value);
-            // if (testResult == false) {
-            //     alert('아이디는 영소문자와 숫자만 사용할 수 있습니다.');
-            //     idChecking = false;
-            //     txtUserId.focus();
-            //     return;
-            // }
-
-            // 4. 서버로 데이터를 전송한다.
-            let requestData = {
-                userId : txtUserId.value
-            }
-            console.log(requestData);
-
-            let xhr = new XMLHttpRequest(); // 서버와 통신을 수행하는 객체
-            xhr.open('POST', '/checkId', true);
-            xhr.setRequestHeader('Content-Type', 'application/json'); // 컨텐트타입을 json으로 설정
-
-            xhr.onreadystatechange = function() {
-                // 서버와 통신하는 객체의 상태가 변하였다. (즉 서버에서 새로운 데이터가 왔다는 의미)
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        let data = xhr.responseText;
-                        if (data == 'FAIL') {
-                            alert('이미 존재하는 아이디입니다.');
-                            idChecking = false;
-                            txtUserId.value = '';
-                            txtUserId.focus();
-                        }
-                        else {
-                            alert('사용 가능한 아이디입니다.');
-                            idChecking = true;
-                            checkedId = txtUserId.value;
-                            txtUserPw.focus();
-                        }
-                    }
-                    else {
-                        console.error('Request failed with status: ', xhr.status);
-                    }
-                }
-            };
-            let dat = JSON.stringify(requestData);
-            console.log(dat);
-            xhr.send(dat);   
         });
+
 
         // 닉네임 검증: 빈 값, 범위 외의 값, 중복 값
         btnCheckNick.addEventListener('click', ()=>{
 
-            // 1. 값이 비어 있는 경우
-            if (txtName.value.length === 0) {
-                alert('닉네임을 입력해주세요.');
-                nickChecking = false;
-                txtName.focus();
-                return;
-            }
-
-            // 2. 값이 범위를 넘는 경우
+            // 1. 값이 범위를 넘는 경우
             if ((txtName.value.length < 2) || (txtName.value.length > 10)) {
                 alert('아이디 길이는 2~10자만 가능합니다.');
                 nickChecking = false;
@@ -399,7 +286,7 @@
                 return;
             }
 
-            // 3. 허용되지 않은 값이 있는 경우: 한글 초성, 모음
+            // 2. 허용되지 않은 값이 있는 경우: 한글 초성, 모음
             let regex = new RegExp(/^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,10}$/);
             let testResult = regex.test(txtName.value);
             if (testResult == false) {
@@ -428,14 +315,11 @@
                         if (data == 'FAIL') {
                             alert('이미 존재하는 닉네임입니다.');
                             nickChecking = false;
-                            txtName.value = '';
-                            txtName.focus();
                         }
                         else {
                             alert('사용 가능한 닉네임입니다.');
                             nickChecking = true;
                             checkedNick = txtName.value;
-                            txtEmail.focus();
                         }
                     }
                     else {
@@ -450,21 +334,39 @@
             });
 
 
-        // 회원가입 버튼
-        btnJoin.addEventListener('click', ()=>{
-
-            // 데이터를 검사한다.
-            if (false === checkJoinData()) {
-                // alert('error');
-                return;
+        // 정보수정 버튼
+        btnInfoUpdate.addEventListener('click', ()=>{
+            
+            if (txtName.value.length === 0) {
+                txtName.value = vo.name;
             }
 
-            // requestData & $ajax ==> FormData & XMLHttpRequest() 코드 변경하였음
+            if (txtUserPw.value.length === 0) {
+                txtUserPw.value = vo.userPw;
+            }
+
+            if (txtEmail.value.length === 0) {
+                txtEmail.value = vo.email;
+            }
+
+            if ((kakaoZip.value.length === 0) &&
+            (kakaoAddress.value.length === 0 ) &&
+            (kakaoDetailAddress.value.length === 0) &&
+            (kakaoExtraAddress.value.length === 0)) {
+                finalAddress = vo.address;
+            }
+            
+            // // 데이터를 검사한다.
+            // if (false === checkUpdateData()) {
+            //     // alert('error');
+            //     return;
+            // }
+            
+            // 정보전송
             let formData = new FormData();
-        
-            formData.append('userId', txtUserId.value);
-            formData.append('userPw', txtUserPw.value);
+            formData.append('userId', vo.userId);
             formData.append('name', txtName.value);
+            formData.append('userPw', txtUserPw.value);
             formData.append('email', txtEmail.value);
             formData.append('address', finalAddress);
 
@@ -479,23 +381,23 @@
             });
 
             let xhr = new XMLHttpRequest();
-            xhr.open("POST", "/join", true);
+            xhr.open("POST", "/infoupdate", true);
 
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === XMLHttpRequest.DONE) 
                 {
                     if (xhr.status === 200) 
                     {
-                        console.log('회원 가입 성공');
+                        console.log('회원정보 수정 성공');
                         console.log(xhr.responseText);
-                        alert('정상적으로 가입되었어요!');
-                        location.href = "/login";
+                        alert('회원정보가 정상적으로 수정되었어요!');
+                        location.href = "/index";
                     } 
                     else 
                     {
-                        console.error("일단 망함: ", xhr.status);
+                        console.error("회원정보 수정 실패: ", xhr.status);
                         console.log(xhr.responseText);
-                        alert('회원가입에 실패했어요.');
+                        alert('정보수정에 실패했어요.');
                         // resetPage();
                     }
                 }
@@ -506,17 +408,17 @@
         // 비밀번호의 유효성을 클라이언트가 직접 확인할 수 있도록 메세징
         txtUserPw.addEventListener('input', checkPw);
         txtCheckPw.addEventListener('input', checkPw);
-        
+
         // 카카오 우편번호 찾기 버튼
         kakaoFindZipBtn.addEventListener('click', ()=>{
             getFinalAddress();
         });
 
-        // 메인으로 돌아가는 버튼
         btnIndex.addEventListener('click', ()=>{
-            location.href = '/index';
+            location.href = "/index";
         });
-            
-    })(); 
-    </script>        
+        
+    })();
+    </script>
 </body>
+</html>
