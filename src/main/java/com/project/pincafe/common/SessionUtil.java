@@ -8,6 +8,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
+import com.project.pincafe.user.UserTblVO;
+
 
 public class SessionUtil {
 
@@ -154,5 +156,9 @@ public class SessionUtil {
 	 public static int getUtcMinute() {
 		 return 0;
 	 }
+
+    public static UserTblVO getAttribute(HttpServletRequest request, String string) {
+        return null;
+    }
 	 
 }

@@ -35,4 +35,15 @@ public class UserDAO {
     {
         return sqlSessionTemplate.selectOne("getPwByIdEmail", vo);
     }
+
+    // 탈퇴 구현
+    public UserTblVO getUserByPw (UserTblVO vo) throws Exception
+    {
+        return sqlSessionTemplate.selectOne("getUserByPw", vo);
+    }
+
+    public int deleteUser (UserTblVO vo) throws Exception
+    {
+        return sqlSessionTemplate.delete("deleteUser", vo);
+    }
 }
