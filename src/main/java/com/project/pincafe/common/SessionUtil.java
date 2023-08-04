@@ -161,25 +161,5 @@ public class SessionUtil {
 		 return 0;
 	 }
 
-     /**
-     * 이미지를 Base64로 인코딩하는 메서드
-     *
-     * @param imagePath 이미지 파일의 경로
-     * @return 인코딩된 Base64 문자열
-     * @throws IOException 파일 읽기 예외
-     */
-     public static String encodeImageToBase64(String imagePath) throws IOException {
-        byte[] imageBytes = Files.readAllBytes(Paths.get(imagePath));
-        return Base64.getEncoder().encodeToString(imageBytes);
-    }
-
-    //이미지 디코딩
-    public static void decodeBase64ToImage(String base64ImageString, String outputPath) throws IOException {
-        byte[] decodedBytes = Base64.getDecoder().decode(base64ImageString);
-
-        try (OutputStream outputStream = new FileOutputStream(outputPath)) {
-            outputStream.write(decodedBytes);
-        }
-    }
 	 
 }
