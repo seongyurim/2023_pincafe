@@ -5,6 +5,11 @@
 <meta charset="UTF-8">
 <title>Withdraw</title>
 
+<!-- 폰트 링크 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<!-- 부트스트랩 링크 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
 <style>
@@ -15,6 +20,11 @@
 
     .title {
         font-weight: bold;
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+    
+    .master-container {
+        margin: 40px auto;
     }
 
     .confirmProcess {
@@ -24,18 +34,63 @@
         justify-content: space-between;
         max-width: 700px;
         height: 100%;
-        margin: 80px auto;
+        margin: 20px auto;
     }
 
-    .master-container {
-        margin: 60px auto;
+    #profileImg {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-bottom: 25px;
+    }
+
+    .alert {
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    .myset1 {
+        margin-right: -25px;
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    .myset2 {
+        margin-left: -90px;
+        margin-right: -13px;
+        width: 240px;
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    .myset3 {
+        margin-left: 15px;
+    }
+
+
+    .main-container {
+        display: flex;
+        justify-content: center;
+        max-width: 700px;
+        margin-top: 30px;
     }
 
     .btnCheck { 
-        padding: 12px 20px; /* 버튼의 여백 조정 */
+        padding: 6.2px 20px; /* 버튼의 여백 조정 */
         margin-right: 20px; /* 버튼 간 수평 간격 조정 */
         text-align: center;
-        margin-left: 20px
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+
+    .btn-container {
+        display: flex;
+        justify-content: center;
+        margin: 15px auto;
+    }
+
+    .btnWD { 
+        padding: 12px 100px; /* 버튼의 여백 조정 */
+        text-align: center;
+        font-family: 'Noto Sans KR', sans-serif;
+        margin-left: 7px;
     }
 
 </style>
@@ -49,29 +104,27 @@
         </div>
         
         <div class="confirmProcess">
-            <!-- 회원 아이디 표시 -->
-            <!-- <div class="mb-3 row">
-                <label for="staticId" class="col-sm-2 col-form-label">아이디</label>
-                <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="staticId" value="${vo.userId}">
-                </div> 
-            </div> -->
+            <p class="alert">
+                <div><img alt="profileImg" src='/imgs/member/thumbnail/${vo.fileCode}.jpg' id="profileImg"></div>
+                ${vo.name}님, 탈퇴하시려면 비밀번호를 확인해주세요.
+            </p>
     
             <!-- 비밀번호 확인 받기 -->
-            <form class="row g-3">
-                <div class="col-auto">
+            <form class="main-container row g-3">
+                <div class="myset1 col-auto">
                     <label for="getPw" class="visually-hidden">비밀번호 확인</label>
                     <input type="text" readonly class="form-control-plaintext" id="getPw" value="비밀번호 확인">
                 </div>
-                <div class="col-auto">
+                <div class="myset2 col-auto">
                     <label for="inputPw" class="visually-hidden">Password</label>
                     <input type="password" class="form-control" id="inputPw" placeholder="Password">
                 </div>
-                <div class="col-auto">
+                <div class="myset3 col-auto">
                     <button type="submit" id="btnPwCheck" class="btnCheck btn btn-dark mb-3">확인</button>
                 </div>
-
-                <button type="button" id="btnRealWithdraw" class="btnWD btn btn-danger">탈퇴</button>
+                <div class="btn-container">
+                    <button type="button" id="btnRealWithdraw" class="btnWD btn btn-danger">탈퇴</button>
+                </div>
             </form>
         </div>
 

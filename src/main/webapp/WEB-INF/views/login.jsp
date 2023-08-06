@@ -5,7 +5,11 @@
 <meta charset="UTF-8">
 <title>Login</title>
 
-
+<!-- 폰트 링크 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<!-- 부트스트랩 링크 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
 <style>
@@ -20,11 +24,13 @@
     
     .title {
         font-weight: bold;
+        font-family: 'Noto Sans KR', sans-serif;
     }
 
     
     /* 상위 박스 */
     .default-box {
+        font-family: 'Noto Sans KR', sans-serif;
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -53,12 +59,17 @@
         display: flex;
         align-items: flex-start;
         text-align: center;
-        margin-top: 25px;
+        margin-top: 15px;
     }
 
-    .mybtn {
-        padding: 12px 60px; /* 버튼의 여백 조정 */
+    .mybtn1 {
+        padding: 12px 65px; /* 버튼의 여백 조정 */
         margin: 0 5px;
+    }
+
+    .mybtn2 {
+        padding: 12px 15px; /* 버튼의 여백 조정 */
+        margin: 0 3px;
     }
 
 </style>
@@ -70,7 +81,7 @@
         <div class="title-nav">
             <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
             <hr class="border border-primary border-1 opacity-35">
-            <h1 class="title">Login</h1>
+            <h1 class="title">로그인</h1>
         </div>
 
         
@@ -88,14 +99,14 @@
     </form>
     <!-- 메인 버튼영역 -->
     <p class="btnBox">
-        <button type="button" id="btnLogin" class="btnSubmit btn btn-secondary">로그인</button>    
-        <button type="button" id="btnIndex" class="btnSubmit btn btn-secondary">메인</button>    
+        <button type="button" id="btnLogin" class="mybtn1 btn btn-secondary">로그인</button>    
+        <button type="button" id="btnIndex" class="mybtn1 btn btn-secondary">메인</button>    
     </p>
         <!-- etc 버튼영역 -->
     <p class="btnBox">
-        <button type="button" id="btnJoin" class="mybtn btn btn-light">회원가입</button>
-        <button type="button" id="btnFindId" class="mybtn btn btn-light">아이디 찾기</button>
-        <button type="button" id="btnFindPw" class="mybtn btn btn-light">비밀번호 찾기</button>
+        <button type="button" id="btnJoin" class="mybtn2 btn btn-light">회원가입</button>
+        <button type="button" id="btnFindId" class="mybtn2 btn btn-light">아이디 찾기</button>
+        <button type="button" id="btnFindPw" class="mybtn2 btn btn-light">비밀번호 찾기</button>
     </p>
     
     </div> <!-- default-box -->

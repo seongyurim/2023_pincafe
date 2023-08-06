@@ -5,6 +5,11 @@
 <meta charset="UTF-8">
 <title>FIND PW</title>
 
+<!-- 폰트 링크 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+<!-- 부트스트랩 링크 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
 <style>
@@ -19,10 +24,12 @@
     
     .title {
         font-weight: bold;
+        font-family: 'Noto Sans KR', sans-serif;
     }
 
     /* 상위 박스 */
     .default-box {
+        font-family: 'Noto Sans KR', sans-serif;
         display: flex;
         align-items: center;
         flex-direction: column;
@@ -39,7 +46,7 @@
 
     .btnSubmit {
         display: flex;
-        margin-top: 30px;
+        margin-top: 15px;
         align-items: center;
         padding: 15px 158px; /* 버튼의 여백 조정 */
         text-align: center;
@@ -50,11 +57,11 @@
         display: flex;
         align-items: flex-start;
         text-align: center;
-        margin-top: 25px;
+        margin-top: 20px;
     }
 
     .mybtn {
-        padding: 12px 60px; /* 버튼의 여백 조정 */
+        padding: 10px 60px; /* 버튼의 여백 조정 */
         margin: 0 5px;
     }
 </style>
@@ -66,7 +73,7 @@
         <div class="title-nav">
             <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
             <hr class="border border-primary border-1 opacity-35">
-            <h1 class="title">비밀번호 찾기</h1>
+            <h2 class="title">비밀번호 찾기</h2>
         </div>
 
     <!-- 아이디, 이메일 인풋 및 확인 영역 -->
