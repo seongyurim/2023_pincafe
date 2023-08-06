@@ -11,14 +11,14 @@
 <body>
     <h1>InfoUpdate</h1>
     <hr>
-    <ul><b>세션정보 가져오기</b></ul>
+    <!-- <ul><b>세션정보 가져오기</b></ul>
     <ul>아이디: ${vo.userId}</ul>
     <ul>비밀번호: ${vo.userPw}</ul>
     <ul>닉네임: ${vo.name}</ul>
     <ul>이메일: ${vo.email}</ul>
     <ul>주소: ${vo.address}</ul>
     <ul>파일코드: ${vo.fileCode}</ul>
-    <ul>썸네일: ${vo.thumbnail}</ul>
+    <ul>썸네일: ${vo.thumbnail}</ul> -->
 
     <div id="photoContainer">
         <div><img src="/imgs/member/thumbnail/${vo.fileCode}.jpg" alt="Profile Image" id="imgPreview"></div>
@@ -410,8 +410,8 @@
             if (thumbnail.files[0] !== undefined) {
                 formData.append('thumbnail', thumbnail.files[0]); // 파일이 선택되어 있지 않다면 undefined
             }
-            else if (thumbnail.files[0] === vo.thumbnail) {
-                formData.append('thumbnail', vo.thumbnail);
+            else {
+                formData.append('thumbnail', 'keep');
             }
 
             console.log("----------- Added data in FormData: -----------");

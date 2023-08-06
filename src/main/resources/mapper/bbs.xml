@@ -13,7 +13,7 @@
     <result property="content"  column="CONTENT"/>
     <result property="divi"     column="DIVI"/>
     <result property="regdate"  column="REGDATE"/>
-    <result property="fileCode"  column="FILECODE"/>
+    <result property="fileCode" column="FILECODE"/>
 </resultMap>
 
 <select id="selectBbsRowCount" resultType="integer"> <!-- 결과가 하나이므로 Type -->
