@@ -126,6 +126,7 @@
     <div id="jb-footer">  
         <button type="button" id="btnList">목록으로</button>
         <button type="button" id="btnUpdate">수정하기</button>
+        <button type="button" id="btnDelete">삭제</button>
     </div>
     
     <script src="/JS/jquery-3.7.0.min.js"></script>
@@ -142,6 +143,7 @@
         const txtContent = document.querySelector('#txtContent');
         const btnList    = document.querySelector('#btnList');
         const btnUpdate  = document.querySelector('#btnUpdate');
+        const btnDelete  = document.querySelector('#btnDelete');
 
 
         const imageContainer  = document.querySelector('#imageContainer');
@@ -169,10 +171,11 @@
         const setUiObject = function() {
             // 내 컨텐츠가 아니라면 읽기만 가능하다.
             if (myContent == false) {
-                // 타이틀과 컨텐츠를 Read Only + 수정버튼을 diabled
+                // 타이틀과 컨텐츠를 Read Only + 수정,삭제 버튼을 disabled
                 txtTitle.setAttribute('readonly', 'readonly');
                 txtContent.setAttribute('readonly', 'readonly');
                 btnUpdate.style.display = 'none';
+                btnDelete.style.display = 'none';
             }
             // 내 컨텐츠가 맞다면 읽기/쓰기가 모두 가능하다.
             else {
@@ -182,8 +185,6 @@
                 
             }
         }
-
-        
 
         ////// 이벤트 핸들러 ///////////////////////////////////////////////////////////
 
@@ -219,7 +220,33 @@
             });
         });
 
+      // 게시글 삭제 버튼
+      btnDelete.addEventListener('click', ()=>{
 
+            // DB로 전송할 데이터: id, seq
+            let requestData = {
+                            userId : '${vo.userId}',
+                            seq : '${vo.seq}',
+                        };
+            
+            if (confirm ('삭제된 글은 복구할 수 없습니다. \n정말 삭제하시겠습니까?')) 
+            {
+              $.ajax({
+                  url : '/bbs/deleteContent',
+                  type : 'POST',
+                  data : requestData,
+                  success : function(data) {
+                      if (data == "OK") {
+                          alert('게시글이 삭제되었습니다.');
+                            location.href = "/index";
+                      }
+                      else {
+                          alert('게시글 삭제에 실패했습니다. 다시 시도해주세요.');
+                      }
+                  }
+              });
+            }
+        });
 
     ////// 호출부 //////////////////////////////////////////////////////////////////
 

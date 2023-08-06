@@ -2,6 +2,8 @@ package com.project.pincafe;
 
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,8 +17,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.pincafe.bbs.BbsService;
+import com.project.pincafe.bbs.BbsTblVO;
 import com.project.pincafe.common.GmailSender;
 import com.project.pincafe.common.SessionUtil;
 import com.project.pincafe.file.FileService;
@@ -223,7 +228,7 @@ public class MainController {
 
 
     
-    ////// 아이디/비밀번호 찾기 /////////////////////////////////////////////////////
+    ////// 아이디 찾기 ////////////////////////////////////////////////////////////////
 
     // GET Find Id 
     @GetMapping("/idinquiry")
@@ -258,7 +263,8 @@ public class MainController {
             return "$FAIL"; 
         }        
     }
-    
+
+    ////// 비밀번호 찾기 ////////////////////////////////////////////////////////////////
     // GET Find PW
     @GetMapping("/pwinquiry")
     public String findPw() {
@@ -343,9 +349,14 @@ public class MainController {
 
     // GET withdraw 
     @GetMapping("/withdraw")
-    public String withdraw() {
+    public String withdraw(Model model) throws Exception {
+        // 1. 요청한 주체에게 세션(사용자 정보)이 존재하는가?
+        UserTblVO resultVO = (UserTblVO)SessionUtil.getAttribute("USER");
 
-
+        // 2. 만약에 세션이 존재한다면 Model에 사용자 정보를 저장하여 index.jsp로 전송한다.
+        if (resultVO != null) {
+            model.addAttribute("vo", resultVO);
+        }
         return "/withdraw";
     }
 
@@ -377,6 +388,15 @@ public class MainController {
         }
     }
 
+    ////// 게시글 검색 ////////////////////////////////////////////////////////////////
+    @GetMapping ("/search")
+    public String search (@RequestParam(value = "keyword") String keyword, Model model) 
+    {
+        // List<BbsTblVO> bbsList = BbsService.searchCafe(keyword);
+        // model.addAttribute("cafeList", bbsList);
+
+        return "/index";
+    }
 
 
 }

@@ -49,4 +49,9 @@
 <!-- jdbcType=VARCHAR를 붙여줌으로써 타입매핑을 명시적으로 설정해주고 사진 없이 글 올리는 기능을 허용시킴 -->
 </insert>
 
+<delete id="deleteBbsContent">
+    DELETE FROM BBS_TBL
+    WHERE userId = #{userId} AND SEQ=#{seq}
+</delete>
+
 </mapper>

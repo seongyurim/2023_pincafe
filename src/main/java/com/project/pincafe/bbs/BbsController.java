@@ -2,6 +2,8 @@ package com.project.pincafe.bbs;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -102,6 +104,34 @@ public class BbsController {
         }
     }
 
+    ////// 게시글 삭제 ////////////////////////////////////////////////////////////////
+    // post 게시글 삭제
+    @PostMapping("/bbs/deleteContent")
+    @ResponseBody
+    public String bbsDelete(@ModelAttribute("BbsTblVO") BbsTblVO vo) throws Exception
+    {
+        // 현재 페이지 게시글 가지고 오기
+
+        // 1. 게시물 정보(userId, seq)에 맞는 게시물을 가지고 오기
+        BbsTblVO resultVO = bbsDAO.selectBbsContent(vo);
+        System.out.println(resultVO.getSeq());
+        System.out.println(resultVO.getUserId());
+
+        // 2. 게시글 삭제
+        int deleteCount = bbsDAO.deleteBbsContent(resultVO);
+        // System.out.println(deleteCount);
+
+        // 3. 게시글 삭제 체크
+        if (deleteCount == 1) {
+            return "OK";
+        } else {
+            // 삭제 실패 시, 실패 메시지 보내기
+            return "FAIL";
+        }
+    }
+
+    ////// 게시글 작성 ////////////////////////////////////////////////////////////////
+    // get 새글 작성
     @GetMapping("/bbs/newcontent")
     public String newcontent(@ModelAttribute("BbsTblVO") BbsTblVO vo,
                                 Model model) throws Exception {
@@ -110,6 +140,7 @@ public class BbsController {
         return "/bbs/newcontent";
     }
 
+    // post 새글 작성
     @PostMapping("/bbs/newcontent")
     @ResponseBody // userId, title, content, divi
     public ResponseEntity<String> newcontent(@ModelAttribute("BbsTblVO") BbsTblVO vo) throws Exception {
