@@ -410,9 +410,6 @@
             if (thumbnail.files[0] !== undefined) {
                 formData.append('thumbnail', thumbnail.files[0]); // 파일이 선택되어 있지 않다면 undefined
             }
-            else {
-                formData.append('thumbnail', 'keep');
-            }
 
             console.log("----------- Added data in FormData: -----------");
             formData.forEach((value, key) => {

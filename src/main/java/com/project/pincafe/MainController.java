@@ -193,9 +193,10 @@ public class MainController {
 
     @PostMapping("/infoupdate")
     public void infoupdate(@ModelAttribute("UserTblVO") UserTblVO vo,
-    HttpServletRequest request,
-                       HttpServletResponse response) throws Exception
+    HttpServletRequest request, HttpServletResponse response) throws Exception
     {        
+        UserTblVO resultVO = (UserTblVO)SessionUtil.getAttribute("USER");
+
         FileVO fileVO = null;
         
         // 섬네일이 있는 경우 파일처리를 수행한다.
@@ -210,9 +211,10 @@ public class MainController {
             fileService.insertFileTbl(fileVO);
             vo.setFileCode(fileVO.getFileCode());
         }
-        // 프로필 사진이 없는 경우 디폴트 이미지를 사용
+        // 프로필 사진을 새로 첨부하지 않은 경우 기존 이미지를 사용
         else {
-            vo.setFileCode("0000");
+            vo.setFileCode(resultVO.getFileCode());
+            vo.setThumbnail(resultVO.getThumbnail());
         }
 
         System.out.println(vo.getUserPw());

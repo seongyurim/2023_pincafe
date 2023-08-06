@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
+
     <div id="navi" class="container-md">
         <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
         <div id="sessionInfo">
