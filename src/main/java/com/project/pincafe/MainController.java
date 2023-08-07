@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.project.pincafe.bbs.BbsService;
 import com.project.pincafe.bbs.BbsTblVO;
 import com.project.pincafe.common.GmailSender;
 import com.project.pincafe.common.SessionUtil;
@@ -388,16 +387,12 @@ public class MainController {
         }
     }
 
-    ////// 게시글 검색 ////////////////////////////////////////////////////////////////
-    @GetMapping ("/search")
-    public String search (@RequestParam(value = "keyword") String keyword, Model model) 
+    // 지도 api 테스트
+    @GetMapping ("/test")
+    public String test()
     {
-        // List<BbsTblVO> bbsList = BbsService.searchCafe(keyword);
-        // model.addAttribute("cafeList", bbsList);
-
-        return "/index";
+        return "/test";
     }
-
 
 }
 
