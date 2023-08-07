@@ -15,28 +15,6 @@ a {
     text-decoration: none;
 }
 
-#navi {
-    margin: 20px auto;
-    display: flex;
-    justify-content: space-between;
-}
-
-#profileImg {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 50%;
-}
-
-#sessionInfo {
-    display: flex;
-    align-items: center;
-}
-
-#sessionInfo div {
-    margin-left: 5px;
-}
-
 #searchSet {
     border: 1px solid #212529;
     width: 600px;
@@ -90,4 +68,21 @@ a {
     font: inherit; /* 폰트 상속 */
     color: inherit; /* 텍스트 색깔 상속 */
     cursor: pointer; /* 커서 모양을 포인터로 변경 */
+}
+
+#mynavi {
+    background-color: #fff;
+    z-index: 9999;
+}
+
+#btnLogin:hover,
+#btnJoin:hover,
+#btnInfoUpdate:hover {
+    cursor: pointer;
+}
+
+#profileImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }

@@ -9,17 +9,40 @@
 <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-
-    <div id="navi" class="container-md">
-        <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
-        <div id="sessionInfo">
-            <div><img alt="Profile Image" id="profileImg"></div>
-            <div id="welcomeMsg"></div>
-            <div><button type="button" id="btnLogin">로그인</button></div>
-            <div><button type="button" id="btnJoin">회원가입</button></div>
-            <div><button type="button" id="btnInfoUpdate">정보수정</button></div>
+    <nav class="navbar sticky-top navbar-expand-sm bg-body-tertiary" id="mynavi">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse d-flex justify-content-between align-items-center" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">ABOUT US</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="#">COMMUNITY</a>
+              </li>
+            </ul>
+            <div class="d-flex align-items-center">
+              <div id="welcomeMsg" class="me-3">Welcome, User!</div>
+              <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img alt="Profile Image" id="profileImg">
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li><a class="dropdown-item" id="btnLogin">Sign In</a></li>
+                    <li><a class="dropdown-item" id="btnJoin">Sign Up</a></li>
+                    <li><hr class="dropdown-divider" id="mydivider"></li>
+                    <li><a class="dropdown-item" id="btnInfoUpdate">Edit Profile</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
         </div>
-    </div>
+      </nav>
     
     <div id="searchSet">
         <form action="/search" method="GET">
@@ -77,6 +100,7 @@
         const btnLogin      = document.querySelector('#btnLogin');
         const btnJoin       = document.querySelector('#btnJoin');
         const btnInfoUpdate = document.querySelector('#btnInfoUpdate');
+        const mydivider     = document.querySelector('#mydivider');
 
         const btnPrev    = document.querySelector('#btnPrev');
         const btnNext    = document.querySelector('#btnNext');
@@ -105,14 +129,15 @@
         const setSessionInfo = function() {
             if (sessionState === true) {
                 welcomeMsg.textContent = '${vo.name}님 반갑습니다.';
-                btnLogin.textContent = '로그아웃';
+                btnLogin.textContent = 'Sign Out';
                 btnJoin.style.display = 'none';
                 profileImg.setAttribute('src', '/imgs/member/thumbnail/${vo.fileCode}.jpg');
             }
             else {
-                btnLogin.textContent = '로그인';
+                btnLogin.textContent = 'Sign In';
                 btnInfoUpdate.style.display = 'none';
                 profileImg.style.display = 'none';
+                mydivider.style.display = 'none';
             }
         }
         
