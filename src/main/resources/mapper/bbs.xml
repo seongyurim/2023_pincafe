@@ -26,7 +26,7 @@
           RN <![CDATA[<=]]> (#{page} + 1) * #{rowsPerPage}
 </select>
 
-<select id="selectBbsContent" resultMap="bbsMap">
+<select id="getUpdatedContent" resultMap="bbsMap">
     SELECT * FROM BBS_TBL WHERE USERID=#{userId} AND SEQ=#{seq}
 </select>
 
@@ -48,5 +48,10 @@
         #{title}, #{content}, #{divi}, sysdate, #{fileCode, jdbcType=VARCHAR})
 <!-- jdbcType=VARCHAR를 붙여줌으로써 타입매핑을 명시적으로 설정해주고 사진 없이 글 올리는 기능을 허용시킴 -->
 </insert>
+
+<select id="selectBbsReadContent" resultMap="bbsMap">
+    SELECT * FROM BBS_TBL WHERE USERID=#{userId} AND SEQ=#{seq}
+</select>
+
 
 </mapper>

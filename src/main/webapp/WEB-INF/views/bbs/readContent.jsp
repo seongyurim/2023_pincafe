@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Content</title>
+<title>readContent</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
@@ -38,10 +38,10 @@
     }
     
     #jb_header {
-    padding: 20px;
+    margin: 20px auto;
     display: flex;
-    align-items: center;
-    border: 1px solid #bcbcbc;
+    justify-content: space-between;;
+    border: 0.5px solid #bcbcbc;
     font-size: 20px;
     justify-content: flex-start; /* 요소들을 왼쪽으로 정렬 */
     } 
@@ -107,18 +107,11 @@
     <div id="jb_header">
           <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
       <div id="jp_header_title">
-        <select id="txtDivi" class="form-select" aria-label="Default select example">
-          <option value="${vo.divi}">${vo.divi}</option>
-          <option value="동부">동부</option>
-          <option value="서부">서부</option>
-          <option value="남부">남부</option>
-          <option value="북부">북부</option>
-          <option value="중부">중부</option>
+          <p><a id="txtDivi"  class="d-inline-flex focus-ring focus-ring-secondary py-1 px-2 text-decoration-none border rounded-2" value="${vo.divi}">${vo.divi}</a></p>
         </select>
         <p><input type="text" id="txtTitle" value="${vo.title}"></p>
         <div class="h_container">
           <i id="heart" class="far fa-heart" onclick="likeCafe()"></i><span id="likeCount">0</span> 
-          
         </div>
       </div> 
     </div>
@@ -147,6 +140,8 @@
     <script>
     (()=>{
 
+      console.log("Script loaded and executed.");
+
         let myContent = false;
 
         const txtTitle   = document.querySelector('#txtTitle');
@@ -154,9 +149,8 @@
         const btnList    = document.querySelector('#btnList');
         const btnUpdate  = document.querySelector('#btnUpdate');
 
-
         ////// 함수부 //////////////////////////////////////////////////////////////////
-
+      
         // 현재 사용자와 게시글 작성자가 동일한지 확인한다.
         const checkMyContent = function() {
             if ('${session.userId}' === '${vo.userId}') {
@@ -198,33 +192,16 @@
         });
         
 
-        // 수정하기 버튼
-        btnUpdate.addEventListener('click', ()=>{
-            // DB로 전송할 데이터: id, seq, title, content,divi
-            let requestData = {
-                userId : '${vo.userId}',
-                seq : '${vo.seq}',
-                title : txtTitle.value,
-                content : txtContent.value,
-                divi : txtDivi.value
-            };
-            console.log(requestData);
+        btnUpdate.addEventListener('click', () => {
+        const userId = '${vo.userId}';
+        const seq = '${vo.seq}';
 
-            $.ajax({
-                url : '/bbs/content',
-                type : 'POST',
-                data : requestData,
-                success : function(data) {
-                    if (data == "OK") {
-                        alert('게시물이 성공적으로 수정되었어요.');
-                        location.href = "/index";
-                    }
-                    else {
-                        alert('게시물 수정에 실패했어요.');
-                    }
-                }
-            });
-        });
+        sessionStorage.setItem('userId', userId);
+        sessionStorage.setItem('seq', seq);
+
+        // location.href를 이용하여 리디렉션을 수행합니다.
+        window.location.href = `/bbs/updateContent/${userId}/${seq}`;
+});
 
 
 
@@ -258,7 +235,7 @@
       updateLikeCount();
 
       // 백엔드 API의 엔드포인트 URL을 적절하게 변경해주세요
-    const endpoint = 'http://localhost:9090/bbs/content';
+    const endpoint = 'http://localhost:9090/bbs/readContent';
 
         $.ajax({
           url: endpoint,

@@ -146,7 +146,7 @@
                             bstr += '<td>' + data.bbsList[i].rowNum + '</td>';
                             bstr += '<td>' + data.bbsList[i].divi + '</td>';
                             
-                            bstr += '<td><a href=\"/bbs/content?userId=' + data.bbsList[i].userId
+                            bstr += '<td><a href=\"/bbs/readContent?userId=' + data.bbsList[i].userId
                                           + '&seq=' + data.bbsList[i].seq
                                           + '\">' + data.bbsList[i].title
                                           + '</a></td>';

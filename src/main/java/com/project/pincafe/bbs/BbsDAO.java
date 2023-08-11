@@ -20,9 +20,9 @@ public class BbsDAO {
         return sqlSessionTemplate.selectList("selectBbsList", vo);
     }
 
-    // 내가 클릭한 게시물 페이지 나타내기
-    public BbsTblVO selectBbsContent(BbsTblVO vo) throws Exception {
-        return sqlSessionTemplate.selectOne("selectBbsContent", vo);
+     //게시물을 받아와서 뿌려주는 역활 
+    public BbsTblVO getUpdatedContent(BbsTblVO vo) throws Exception {
+        return sqlSessionTemplate.selectOne("getUpdatedContent", vo);
     }
 
     // 게시물 수정하기
@@ -35,4 +35,10 @@ public class BbsDAO {
     public int insertBbsContent(BbsTblVO vo) throws Exception {
         return sqlSessionTemplate.insert("insertBbsContent", vo);
     }
+
+    //게시물 페이지 
+    public BbsTblVO selectBbsReadContent(BbsTblVO vo) throws Exception {
+        return sqlSessionTemplate.selectOne("selectBbsReadContent", vo);
+    }
+
 }

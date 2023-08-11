@@ -295,14 +295,6 @@ public class MainController {
         }
     }
 
-
-
-    ///////////// 카페관련 //////////////////////////////////////////////////////////////////
-
-    @GetMapping("/cafe/cafehomepage")
-    public String cafehomepage() {
-        return "/cafe/cafehomepage";
-    }
   
     ////// 회원 탈퇴 ////////////////////////////////////////////////////////////////
 
@@ -344,8 +336,6 @@ public class MainController {
     // GET withdraw 
     @GetMapping("/withdraw")
     public String withdraw() {
-
-
         return "/withdraw";
     }
 
