@@ -3,110 +3,34 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ue7v6d1q9l&submodules=geocoder"></script>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+
 <title>Content</title>
 
+<!-- 폰트 링크 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ue7v6d1q9l"></script>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
-<style>
-   
-   
-    /* 좋아요 아이콘 */
-    .h_container {
-    background-color: #cac7c7;
-    border-radius: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
-    display: flex; /* 플렉스 박스로 변경 */
-    align-items: center; /* 세로 중앙 정렬 */
-    width: fit-content; /* 내용에 맞게 너비 설정 */
-    padding: 5px 10px; /* 여백 조정 */ 
-    }
-    
-    /* 좋아요 아이콘이 토글되면 빨간색으로 만들기 */
-    .h_container:hover {
-        color: red;
-    }
-
-    #heart.is-liked {
-      color: red;
-    }
-
-
-    #jb-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    }
-    
-    #jb_header {
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    border: 1px solid #bcbcbc;
-    font-size: 20px;
-    justify-content: flex-start; /* 요소들을 왼쪽으로 정렬 */
-    } 
-
-    #jb_main {
-    margin: 20px auto;
-    display: flex;
-    justify-content: space-between;
-    }
-
-    #jp_header_title {
-      display: flex;
-      align-items: center;
-      justify-content: center; /* 요소들을 가운데로 정렬 */
-      flex: 1; /* 남은 가로 공간을 차지하여 너비를 조절 */
-    }
-
-    #Cafe_name {
-      font-size: 24px;
-    }
-
-    #jb-content {
-  text-align: center; /* 내용을 가운데 정렬 */
-}
-
-#bbsDetail {
-  display: inline-block; /* 이미지와 내용을 가로로 나열 */
-  margin-top: 20px; /* 이미지와 내용 사이에 간격 추가 */
-}
-
-#imageAndContentContainer {
-  display: flex; /* 이미지와 내용을 가로로 나열 */
-  flex-direction: column; /* 요소들을 수직으로 정렬 (이미지 위, 내용 아래로 배치) */
-  align-items: center; /* 가로 축으로 가운데 정렬 */
-}
-
-#postImage {
-  max-width: 100%; /* 이미지의 최대 가로 폭 설정 */
-  max-height: 500px; /* 이미지의 최대 높이 설정 */
-}
-
-#bulletinContent {
-  padding-top: 20px; /* 이미지와 내용 사이에 간격 추가 */
-}
-
-#jb-footer {
-  display: flex;
-  justify-content: center; /* 가로 축으로 가운데 정렬 */
-  border: 1px solid #bcbcbc;
-  box-sizing: border-box; /* 테두리를 기준으로 크기 설정 */
-  padding: 20px; /* 버튼과 테두리 사이에 간격 추가 */
-}
-
-
-   
-</style>
+<link rel="stylesheet" href="/css/reset.css">
+<link rel="stylesheet" href="/css/content.css">
 
 </head>
 <body>
     <div id="jb_header">
-          <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
       <div id="jp_header_title">
-        <p><input type="text" id="txtTitle" value="${vo.title}"></p>
+        <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
+        <h1 class="title" id="txtTitle">${vo.title}</h1>
         <div class="h_container">
-          <i id="heart" class="far fa-heart" onclick="likeCafe()"></i><span id="likeCount">0</span> 
+          <i id="heart" class="far fa-heart" onclick="likeCafe()"></i><span id="likeCount">&nbsp;0</span> 
           
         </div>
       </div> 
@@ -123,10 +47,16 @@
       </div>
     </div>
 
+    <!-- 지도 div -->
+    <p id="cafeAd">${vo.address}</p>
+    <div class="map-container">
+      <div id="map"></div>
+    </div>
+
     <div id="jb-footer">  
-        <button type="button" id="btnList">목록으로</button>
-        <button type="button" id="btnUpdate">수정하기</button>
-        <button type="button" id="btnDelete">삭제</button>
+        <button type="button" id="btnList" class="mybtn btn btn-secondary">목록</button>
+        <button type="button" id="btnUpdate" class="mybtn btn btn-secondary">수정</button>
+        <button type="button" id="btnDelete" class="mybtn btn btn-secondary">삭제</button>
     </div>
     
     <script src="/JS/jquery-3.7.0.min.js"></script>
@@ -137,6 +67,10 @@
     <script>
     (()=>{
 
+        // 위도, 경도 변수 설정
+        let lat = 0;
+        let lng = 0;
+
         let myContent = false;
 
         const txtTitle   = document.querySelector('#txtTitle');
@@ -144,6 +78,7 @@
         const btnList    = document.querySelector('#btnList');
         const btnUpdate  = document.querySelector('#btnUpdate');
         const btnDelete  = document.querySelector('#btnDelete');
+        const cafeAd     = document.querySelector('#cafeAd');
 
 
         const imageContainer  = document.querySelector('#imageContainer');
@@ -153,6 +88,24 @@
         
 
         ////// 함수부 //////////////////////////////////////////////////////////////////
+
+        //지도를 그려주는 함수
+        function selectMapList() {
+
+            lat = '${vo.lat}';
+            lng = '${vo.lng}';
+            
+            let map = new naver.maps.Map('map', {
+                center: new naver.maps.LatLng(lat, lng),
+                zoom: 16
+            });
+
+            let marker = new naver.maps.Marker({
+            position: new naver.maps.LatLng(lat, lng),
+            map: map});
+
+            console.log(lat, lng);
+        }
 
         // 현재 사용자와 게시글 작성자가 동일한지 확인한다.
         const checkMyContent = function() {
@@ -250,8 +203,10 @@
 
     ////// 호출부 //////////////////////////////////////////////////////////////////
 
-        checkMyContent(); // 내 컨텐츠가 맞다면 myContent => true
-        setUiObject(); // 내 컨텐츠인 경우에만 수정 가능하게
+    checkMyContent(); // 내 컨텐츠가 맞다면 myContent => true
+    setUiObject(); // 내 컨텐츠인 경우에만 수정 가능하게
+    // 지도 그려주는 함수 실행
+    selectMapList();
 
     //////////////////////////////////////////////////////////////////
     //좋아요 관련 구현부
@@ -317,17 +272,10 @@
         // 이미지를 서버의 경로를 기반으로 표시
         const imageUrl = "/imgs/member/thumbnail/${vo.fileCode}.jpg";
         displayImage(imageUrl);
+
     });
 
-
-
-
     })();
-
-    
-   
-
-   
 
     </script>
 </body>

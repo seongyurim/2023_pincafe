@@ -14,16 +14,25 @@
     <result property="divi"     column="DIVI"/>
     <result property="regdate"  column="REGDATE"/>
     <result property="fileCode" column="FILECODE"/>
+    <result property="address"  column="ADDRESS"/>
+    <result property="lat"      column="LAT"/>
+    <result property="lng"      column="LNG"/>
 </resultMap>
 
 <select id="selectBbsRowCount" resultType="integer"> <!-- 결과가 하나이므로 Type -->
     SELECT COUNT(*) FROM BBS_TBL
 </select>
 
-<select id="selectBbsList" resultMap="bbsMap" useCache="false">
+<!-- <select id="selectBbsList" resultMap="bbsMap" useCache="false">
     SELECT * FROM (SELECT rownum RN, BBS_TBL.* FROM BBS_TBL ORDER BY regdate DESC)
     WHERE RN <![CDATA[>=]]> (#{page} * #{rowsPerPage}) + 1 AND
           RN <![CDATA[<=]]> (#{page} + 1) * #{rowsPerPage}
+</select> -->
+
+<select id="selectBbsList" resultMap="bbsMap" useCache="false">
+    SELECT * FROM (SELECT rownum RN, BBS_TBL.* FROM BBS_TBL ORDER BY regdate DESC)
+    WHERE RN <![CDATA[>=]]> (select max(rowNum) - ((#{page} + 1) * #{rowsPerPage}) + 1 FROM BBS_TBL) AND
+          RN <![CDATA[<=]]> (select max(rowNum) - (#{page}* #{rowsPerPage}) FROM BBS_TBL)
 </select>
 
 <select id="selectBbsContent" resultMap="bbsMap">
@@ -43,9 +52,9 @@
 
 <!-- SEQ 속성에 NVL 함수를 사용하여 NULL이 뜨는 경우 0으로 치환 -->
 <insert id="insertBbsContent">
-    INSERT INTO BBS_TBL (USERID, SEQ, TITLE, CONTENT, DIVI, REGDATE, FILECODE)
+    INSERT INTO BBS_TBL (USERID, SEQ, TITLE, CONTENT, DIVI, REGDATE, FILECODE, ADDRESS, LAT, LNG)
     VALUES (#{userId}, (SELECT NVL(MAX(SEQ), 0)+1 FROM BBS_TBL WHERE USERID=#{userId}),
-        #{title}, #{content}, #{divi}, sysdate, #{fileCode, jdbcType=VARCHAR})
+        #{title}, #{content}, #{divi}, sysdate, #{fileCode, jdbcType=VARCHAR}, #{address}, #{lat}, #{lng})
 <!-- jdbcType=VARCHAR를 붙여줌으로써 타입매핑을 명시적으로 설정해주고 사진 없이 글 올리는 기능을 허용시킴 -->
 </insert>
 
