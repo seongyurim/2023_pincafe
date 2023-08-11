@@ -3,7 +3,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
+<!-- 지도 첨부 -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ue7v6d1q9l&submodules=geocoder"></script>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+<!-- 지도 첨부 -->
+
 <title>New Content</title>
+
+<!-- 지도 첨부 -->
+<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ue7v6d1q9l"></script>
+<!-- 지도 첨부 -->
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/reset.css">
 <link rel="stylesheet" href="/css/newcontent.css">
@@ -45,12 +59,63 @@
                 </form>
             </div>  <!-- img-upload -->
             
+            <!-- 지도 첨부 팝업띄우는 버튼 -->
+            <div id="btnWrap">
+                <button type="button" id="popupBtn" class="btn btn-success">지도 첨부하기</button>
+            </div>
+
             <div class="btn-container">
                 <button type="button" id="btnList" class="btn btn-dark">목록</button>
                 <button type="button" id="btnInsert" class="btn btn-dark">등록</button>
             </div> <!-- btn-container -->
 
+
         </div>  <!-- upload-block -->
+
+        <!-- //모달 팝업창 -->
+        <div id="modalWrap">
+            <div id="modalContent">
+                <div id="modalBody">
+                    <div id="topContainer">
+                        <p class="modalText">주소를 검색해서 지도를 첨부하세요.</p>
+                        <button type="button" class="btn-close" aria-label="Close"></button><!-- 닫기 버튼 --->
+                    </div>
+                        <!-- 주소 검색창 -->
+                        <div class="search">
+                            <div class="searchbox">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="myform form-control" id="address" placeholder="검색할 주소">
+                                    <label for="address">주소</label>
+                                </div>
+                                <button type="button" id="submit" class="search-btn btn btn-secondary">검색</button>
+                            </div>
+                            <!-- 첫 번째 지도 (검색x) 뿌려놓은 div -->
+                            <div id="map"></div>
+    
+                            <!-- 주소, 위도, 경도 받아온 테이블 -->
+                            <div>
+                                <table>
+                                    <thead>
+                                        <!-- mapValue tr은 invisible로 만들기 -->
+                                        <tr id="mapValue">
+                                            <th>주소</th>
+                                            <th>위도</th>
+                                            <th>경도</th>
+                                        </tr>	
+                                    </thead>
+                                    <!-- mapList tbody도 invisible로 만들기 -->
+                                    <tbody id="mapList"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="inputMap">
+                            <button type="button" class="inputBtn btn btn-success">등록</button>
+                        </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>  <!-- 부트스트랩 컨테이너 -->
     <br><br><br>
 
@@ -71,6 +136,10 @@
         const $uploadForm = document.getElementById('uploadForm');
 
         let myContent = false;
+        let ad = "";
+        let lat = 0;
+        let lng = 0;
+        let mapInfo = [ad, lat, lng];
 
         const txtTitle   = document.querySelector('#txtTitle');
         const divi       = document.querySelector('#divi');
@@ -78,7 +147,12 @@
         const btnList    = document.querySelector('#btnList');
         const btnInsert  = document.querySelector('#btnInsert');
 
-
+        const btn = document.getElementById('popupBtn');
+        const modal = document.getElementById('modalWrap');
+        const closeBtn = document.querySelector('.btn-close');
+        const inputBtn = document.querySelector('.inputBtn');
+        const mapList = document.getElementById('mapList').getElementsByTagName("td");
+        const searchbox = document.getElementById('address');
         ////// 함수부 //////////////////////////////////////////////////////////////////
 
         // const checkValues = function() {
@@ -93,6 +167,43 @@
 
         ////// 이벤트 핸들러 ///////////////////////////////////////////////////////////
 
+        // 모달창
+        // 지도 첨부 버튼
+        btn.onclick = function() {
+            modal.style.display = 'block';
+            searchbox.value = "";
+            insertAddress("", 0, 0);
+            const tdArray = Array.from(mapList);
+            for (let i = 0; i < tdArray.length; i++)
+            {
+                tdArray[i].remove();
+            }
+        }
+
+        // 모달창 닫기 버튼
+        closeBtn.onclick = function() {
+            insertAddress("", 0, 0);
+            modal.style.display = 'none';
+            searchbox.value = "";
+            const tdArray = Array.from(mapList);
+            for (let i = 0; i < tdArray.length; i++)
+            {
+                tdArray[i].remove();
+            }
+        }
+
+        // 등록 버튼
+        inputBtn.addEventListener ('click', ()=> 
+        {
+            ad = mapList.item(0).innerHTML;
+            lat = mapList.item(1).innerHTML;
+            lng = mapList.item(2).innerHTML;
+            console.log("주소 : ", ad);
+            console.log("위도 : ", lat);
+            console.log("경도 : ", lng);
+            modal.style.display = 'none';
+        })
+
         // 목록으로 버튼
         btnList.addEventListener('click', ()=>{
             history.back();
@@ -100,6 +211,9 @@
 
         // 글쓰기 버튼
         btnInsert.addEventListener('click', ()=>{
+            console.log("주소 : ", ad);
+            console.log("위도 : ", lat);
+            console.log("경도 : ", lng);
             if (txtTitle.value == "") {
                 alert('제목을 입력해주세요.');
                 return;
@@ -115,6 +229,9 @@
                 formData.append('title',txtTitle.value);
                 formData.append('content',txtContent.value);
                 formData.append('divi',divi.options[divi.selectedIndex].value);
+                formData.append('address',mapList.item(0).innerHTML);
+                formData.append('lat',mapList.item(1).innerHTML);
+                formData.append('lng',mapList.item(2).innerHTML);
             
             // 만약 파일이 존재한다면 append Data 시키기
             if ($fileInput.files[0] !== undefined)
@@ -192,6 +309,72 @@
         //         reader.readAsDataURL($fileInput.files[i]);
         //     }
         // });
+
+        // =============================================================================
+        // 주소 검색
+        //검색한 주소의 정보를 insertAddress 함수로 넘겨준다.
+        function searchAddressToCoordinate(address) {
+            naver.maps.Service.geocode({
+                query: address
+            }, function(status, response) {
+                if (status === naver.maps.Service.Status.ERROR) {
+                    return alert('Something Wrong!');
+                }
+                if (response.v2.meta.totalCount === 0) {
+                    return alert('올바른 주소를 입력해주세요.');
+                }
+                var htmlAddresses = [],
+                    item = response.v2.addresses[0],
+                    point = new naver.maps.Point(item.x, item.y);
+                if (item.roadAddress) {
+                    htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
+                }
+                if (item.jibunAddress) {
+                    htmlAddresses.push('[지번 주소] ' + item.jibunAddress);
+                }
+                if (item.englishAddress) {
+                    htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
+                }
+
+                insertAddress(item.roadAddress, item.x, item.y);
+                
+            });
+        }
+
+        // 주소 검색의 이벤트
+        $('#address').on('keydown', function(e) {
+            var keyCode = e.which;
+            if (keyCode === 13) { // Enter Key
+                searchAddressToCoordinate($('#address').val());
+            }
+        });
+        $('#submit').on('click', function(e) {
+            e.preventDefault();
+            searchAddressToCoordinate($('#address').val());
+        });
+        naver.maps.Event.once(map, 'init_stylemap', initGeocoder);
+
+        //검색정보를 테이블로 작성해주고, 지도에 마커를 찍어준다.
+        function insertAddress(address, latitude, longitude) {
+            var mapList = "";
+            mapList += "<tr>"
+            mapList += "	<td>" + address + "</td>"
+            mapList += "	<td>" + longitude + "</td>"
+            mapList += "	<td>" + latitude + "</td>"
+            mapList += "</tr>"
+
+            $('#mapList').append(mapList);	
+
+            var map = new naver.maps.Map('map', {
+                center: new naver.maps.LatLng(longitude, latitude),
+                zoom: 14
+            });
+            var marker = new naver.maps.Marker({
+                map: map,
+                position: new naver.maps.LatLng(longitude, latitude),
+            });
+        }
+
     })();
     </script>
 </body>

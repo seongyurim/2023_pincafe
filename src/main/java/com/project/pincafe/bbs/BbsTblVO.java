@@ -21,6 +21,9 @@ public class BbsTblVO {
     private String divi;
     private String regdate;
     private String fileCode;
+    private String address;
+    private double lat;
+    private double lng;
 
     @JsonIgnore 
     private MultipartFile thumbnail;

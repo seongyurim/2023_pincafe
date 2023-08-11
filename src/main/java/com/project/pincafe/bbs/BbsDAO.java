@@ -43,9 +43,4 @@ public class BbsDAO {
     {
         return sqlSessionTemplate.delete("deleteBbsContent", vo);
     }
-
-    // 내가 클릭한 게시물 페이지 나타내기
-    public BbsTblVO findByTitleContaining(BbsTblVO vo) throws Exception {
-        return sqlSessionTemplate.selectOne("findByTitleContaining", vo);
-    }
 }
