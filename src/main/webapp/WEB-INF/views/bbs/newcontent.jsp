@@ -61,7 +61,7 @@
             
             <!-- 지도 첨부 팝업띄우는 버튼 -->
             <div id="btnWrap">
-                <button type="button" id="popupBtn" class="btn btn-success">지도 첨부하기</button>
+                <button type="button" id="popupBtn" class="btn btn-success">지도 첨부</button>
             </div>
 
             <div class="btn-container">
@@ -101,7 +101,7 @@
                                             <th>주소</th>
                                             <th>위도</th>
                                             <th>경도</th>
-                                        </tr>	
+                                        </tr>   
                                     </thead>
                                     <!-- mapList tbody도 invisible로 만들기 -->
                                     <tbody id="mapList"></tbody>
@@ -358,12 +358,12 @@
         function insertAddress(address, latitude, longitude) {
             var mapList = "";
             mapList += "<tr>"
-            mapList += "	<td>" + address + "</td>"
-            mapList += "	<td>" + longitude + "</td>"
-            mapList += "	<td>" + latitude + "</td>"
+            mapList += "   <td>" + address + "</td>"
+            mapList += "   <td>" + longitude + "</td>"
+            mapList += "   <td>" + latitude + "</td>"
             mapList += "</tr>"
 
-            $('#mapList').append(mapList);	
+            $('#mapList').append(mapList);   
 
             var map = new naver.maps.Map('map', {
                 center: new naver.maps.LatLng(longitude, latitude),

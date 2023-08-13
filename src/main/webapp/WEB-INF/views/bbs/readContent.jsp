@@ -39,7 +39,7 @@
     <div id="jb-content">
       <div id="bbsDetail">
         <div id="imageAndContentContainer">
-          <img id="postImage" src="" alt="게시물 이미지">
+          <img id="postImage" alt="Posted Image" style="display: none;">
           <div id="bulletinContent">
             <p><textarea id="txtContent" cols="90" rows="15">${vo.content}</textarea></p>
           </div>
@@ -80,7 +80,7 @@
         const btnDelete  = document.querySelector('#btnDelete');
         const cafeAd     = document.querySelector('#cafeAd');
 
-
+        const postImage = document.querySelector('#postImage');
         const imageContainer  = document.querySelector('#imageContainer');
 
 
@@ -88,10 +88,19 @@
         
 
         ////// 함수부 //////////////////////////////////////////////////////////////////
+        // 이미지를 첨부하지 않았다면 보이지 않게 만들기
+        window.addEventListener('load', () => {
+            if (postImage.naturalWidth) {
+                postImage.style.display = 'block';
+            }
+            else {
+              postImage.style.display = 'none';
+            }
+        });
 
-        //지도를 그려주는 함수
+
+        // 지도를 그려주는 함수
         function selectMapList() {
-
             lat = '${vo.lat}';
             lng = '${vo.lng}';
             
@@ -158,7 +167,7 @@
             console.log(requestData);
 
             $.ajax({
-                url : '/bbs/content',
+                url : '/bbs/readContent',
                 type : 'POST',
                 data : requestData,
                 success : function(data) {
@@ -178,11 +187,11 @@
 
             // DB로 전송할 데이터: id, seq
             let requestData = {
-                            userId : '${vo.userId}',
-                            seq : '${vo.seq}',
-                        };
+              userId : '${vo.userId}',
+              seq : '${vo.seq}',
+            };
             
-            if (confirm ('삭제된 글은 복구할 수 없습니다. \n정말 삭제하시겠습니까?')) 
+            if (confirm ('삭제된 글은 복구할 수 없습니다.\n정말 삭제하시겠습니까?')) 
             {
               $.ajax({
                   url : '/bbs/deleteContent',
@@ -205,8 +214,7 @@
 
     checkMyContent(); // 내 컨텐츠가 맞다면 myContent => true
     setUiObject(); // 내 컨텐츠인 경우에만 수정 가능하게
-    // 지도 그려주는 함수 실행
-    selectMapList();
+    selectMapList(); // 지도 그려주는 함수 실행
 
     //////////////////////////////////////////////////////////////////
     //좋아요 관련 구현부
@@ -233,7 +241,7 @@
       updateLikeCount();
 
       // 백엔드 API의 엔드포인트 URL을 적절하게 변경해주세요
-    const endpoint = 'http://localhost:9090/bbs/content';
+      const endpoint = 'http://localhost:9090/bbs/content';
 
         $.ajax({
           url: endpoint,
@@ -258,8 +266,8 @@
     likeButton.addEventListener('click', likeCafe);
     });
 
-  ///////////////////////////////////////////////////////////////////////////
-  //이미지 표시함수
+    ///////////////////////////////////////////////////////////////////////////
+    //이미지 표시함수
 
      // 이미지를 표시하는 함수
      function displayImage(imageUrl) {
@@ -272,7 +280,6 @@
         // 이미지를 서버의 경로를 기반으로 표시
         const imageUrl = "/imgs/member/thumbnail/${vo.fileCode}.jpg";
         displayImage(imageUrl);
-
     });
 
     })();

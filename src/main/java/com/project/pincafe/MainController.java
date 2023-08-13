@@ -52,6 +52,18 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/bbsmain")
+    public String bbsmain(Model model) throws Exception {
+        // 1. 요청한 주체에게 세션(사용자 정보)이 존재하는가?
+        UserTblVO resultVO = (UserTblVO)SessionUtil.getAttribute("USER");
+
+        // 2. 만약에 세션이 존재한다면 Model에 사용자 정보를 저장하여 index.jsp로 전송한다.
+        if (resultVO != null) {
+            model.addAttribute("vo", resultVO);
+        }
+        return "bbsmain";
+    }
+
 
     ////// 로그인 //////////////////////////////////////////////////////////
 

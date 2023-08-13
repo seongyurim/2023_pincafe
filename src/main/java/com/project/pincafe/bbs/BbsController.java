@@ -61,9 +61,9 @@ public class BbsController {
         return bbsMstVO;        
     }
 
-    @GetMapping("/bbs/content")
-    public String content(@ModelAttribute("BbsTblVO") BbsTblVO vo,
-                            Model model) throws Exception {
+    @GetMapping("/bbs/readContent")
+    public String readContent(@ModelAttribute("BbsTblVO") BbsTblVO vo,
+                              Model model) throws Exception {
         // vo로 userId, seq 값을 받았다.
 
         // 게시물 정보(userId, seq)에 맞는 게시물을 가지고 온다.
@@ -80,12 +80,12 @@ public class BbsController {
         model.addAttribute("vo", resultVO);    // content row 정보 보내기
         model.addAttribute("session", userTblVO); // 로그인한 유저의 정보 보내기
 
-        return "/bbs/content";
+        return "/bbs/readContent";
     }
 
-    @PostMapping("/bbs/content")
+    @PostMapping("/bbs/readContent")
     @ResponseBody // HTTP의 body(payload)로 응답하겠다는 의미(모델, 뷰를 거치지 않고)
-    public String content(@ModelAttribute("BbsTblVO") BbsTblVO vo) throws Exception {
+    public String readContent(@ModelAttribute("BbsTblVO") BbsTblVO vo) throws Exception {
         // vo로 id, seq, title, content를 받았다.
         System.out.println(vo.getUserId());
         System.out.println(vo.getSeq());
