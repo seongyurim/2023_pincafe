@@ -27,11 +27,10 @@
 <body>
     <div id="jb_header">
       <div id="jp_header_title">
-        <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
+        <h1>readContent</h1>
         <h1 class="title" id="txtTitle">${vo.title}</h1>
         <div class="h_container">
-          <i id="heart" class="far fa-heart" onclick="likeCafe()"></i><span id="likeCount">&nbsp;0</span> 
-          
+          <i id="heart" class="far fa-heart" onclick="likeCafe()"></i><span id="likeCount">&nbsp;0</span>           
         </div>
       </div> 
     </div>
@@ -41,7 +40,7 @@
         <div id="imageAndContentContainer">
           <img id="postImage" alt="Posted Image" style="display: none;">
           <div id="bulletinContent">
-            <p><textarea id="txtContent" cols="90" rows="15">${vo.content}</textarea></p>
+            <p><textarea id="txtContent" cols="90" rows="15" readonly>${vo.content}</textarea></p>
           </div>
         </div>
       </div>
@@ -82,10 +81,7 @@
 
         const postImage = document.querySelector('#postImage');
         const imageContainer  = document.querySelector('#imageContainer');
-
-
-        
-        
+              
 
         ////// 함수부 //////////////////////////////////////////////////////////////////
         // 이미지를 첨부하지 않았다면 보이지 않게 만들기
@@ -97,7 +93,6 @@
               postImage.style.display = 'none';
             }
         });
-
 
         // 지도를 그려주는 함수
         function selectMapList() {
@@ -140,12 +135,12 @@
                 btnDelete.style.display = 'none';
             }
             // 내 컨텐츠가 맞다면 읽기/쓰기가 모두 가능하다.
-            else {
-                // 수정이 가능하도록 readonly 속성 삭제
-                txtTitle.removeAttribute('readonly');
-                txtContent.removeAttribute('readonly');
+            // else {
+            //     // 수정이 가능하도록 readonly 속성 삭제
+            //     txtTitle.removeAttribute('readonly');
+            //     txtContent.removeAttribute('readonly');
                 
-            }
+            // }
         }
 
         ////// 이벤트 핸들러 ///////////////////////////////////////////////////////////

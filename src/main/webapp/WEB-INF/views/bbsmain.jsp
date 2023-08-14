@@ -5,45 +5,22 @@
 <meta charset="UTF-8">
 <title>Pincafe</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Template Vendor CSS Files -->
+<link href="assets/vendor/aos/aos.css" rel="stylesheet">
+<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+<!-- Template Main CSS File -->
+<link rel="stylesheet" href="/assets/css/style.css">
+
 <link rel="stylesheet" href="/css/reset.css">
 <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-    <!-- 내비게이션 영역 -->
-    <nav class="navbar sticky-top navbar-expand-sm bg-body-tertiary" id="mynavi">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse d-flex justify-content-between align-items-center" id="navbarSupportedContent">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">ABOUT US</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="#" id="btnBBS">COMMUNITY</a>
-              </li>
-            </ul>
-            <div class="d-flex align-items-center">
-              <div id="welcomeMsg" class="me-3">Welcome, User!</div>
-              <ul class="navbar-nav ms-auto">
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img alt="Profile Image" id="profileImg">
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" id="btnLogin">Sign In</a></li>
-                    <li><a class="dropdown-item" id="btnJoin">Sign Up</a></li>
-                    <li><hr class="dropdown-divider" id="mydivider"></li>
-                    <li><a class="dropdown-item" id="btnInfoUpdate">Edit Profile</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </nav>
+    <!-- 내비게이션 -->
+    <%@ include file="navigation.jsp" %>
     
     <!-- 검색창 -->
     <div id="searchSet" class="shadow">
@@ -79,8 +56,14 @@
         <button type="button" id="btnWrite" class="myBtn btn btn-outline-dark">글쓰기</button>
     </div>
 
-    <div id="instaFeed" class="container-sm">
-    </div>
+    <!-- Template Vendor JS Files -->
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+    
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>    
 
     <script src="/JS/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -140,6 +123,7 @@
                 profileImg.setAttribute('src', '/imgs/member/thumbnail/${vo.fileCode}.jpg');
             }
             else {
+                welcomeMsg.textContent = '어서오세요! Pincafe입니다.';
                 btnLogin.textContent = 'Sign In';
                 btnInfoUpdate.style.display = 'none';
                 profileImg.style.display = 'none';

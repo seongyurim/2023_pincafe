@@ -229,9 +229,9 @@
                 formData.append('title',txtTitle.value);
                 formData.append('content',txtContent.value);
                 formData.append('divi',divi.options[divi.selectedIndex].value);
-                formData.append('address',mapList.item(0).innerHTML);
-                formData.append('lat',mapList.item(1).innerHTML);
-                formData.append('lng',mapList.item(2).innerHTML);
+                formData.append('address',ad);
+                formData.append('lat',lat);
+                formData.append('lng',lng);
             
             // 만약 파일이 존재한다면 append Data 시키기
             if ($fileInput.files[0] !== undefined)
@@ -252,7 +252,7 @@
                         console.log("게시글 업로드 성공");
                         console.log('서버가 전송한 메세지 : ' + xhr.responseText);
                         alert ("게시글 작성 성공!");
-                        location.href = "/index";
+                        location.href = "/bbsmain";
                     }
                     else
                     // 400이나 500이면
