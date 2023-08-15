@@ -226,12 +226,12 @@
                 let formData = new FormData();
 
                 formData.append('userId', '${session.userId}');
-                formData.append('title',txtTitle.value);
-                formData.append('content',txtContent.value);
-                formData.append('divi',divi.options[divi.selectedIndex].value);
-                formData.append('address',ad);
-                formData.append('lat',lat);
-                formData.append('lng',lng);
+                formData.append('title', txtTitle.value);
+                formData.append('content', txtContent.value);
+                formData.append('divi', divi.options[divi.selectedIndex].value);
+                formData.append('address', ad);
+                formData.append('lat', lat);
+                formData.append('lng', lng);
             
             // 만약 파일이 존재한다면 append Data 시키기
             if ($fileInput.files[0] !== undefined)
