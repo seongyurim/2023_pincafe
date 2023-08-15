@@ -25,27 +25,28 @@
     <!-- 검색창 -->
     <div id="searchSet" class="shadow">
         <form action="/search" method="GET">
+            <img src="/images/pinicon.png" id="pinicon">
             <div id="searchContainer">
                 <input type="text" name="keyword" class="container-md" id="searchName" placeholder="카페 이름을 검색해보세요.">
-                <button type="submit" id="btnSearch">검색</button>
+                <button type="submit" id="btnSearch"><img src="/images/searchicon.png" id="searchicon"></button>
             </div>
         </form>
     </div>
 
     <!-- 게시판 테이블 -->
-    <table id="tblBBS" class="table container-sm table-hover">
+    <table id="tblBBS" class="table container-sm table-hover" data-aos="fade-up">
         <thead>
             <th id="col1" style="width: 15%;">글번호</th>
             <th id="col2" style="width: 10%;">지역</th>
             <th id="col3" style="width: 40%;">제목</th>
-            <th id="col4" style="width: 10%;">닉네임</th>
+            <th id="col4" style="width: 10%;">아이디</th>
             <th id="col5" style="width: 25%;">등록일</th>
         </thead>
         <tbody>            
         </tbody>
     </table>
 
-    <div id="btnSet">
+    <div id="btnSet" data-aos="fade-up" data-aos-delay="100">
         <button type="button" id="btnPrev" class="myBtn btn btn-outline-dark">이전</button>
         <button type="button" id="btn1" class="btns myBtn btn btn-outline-dark">1</button>
         <button type="button" id="btn2" class="btns myBtn btn btn-outline-dark">2</button>

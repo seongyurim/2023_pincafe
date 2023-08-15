@@ -20,7 +20,7 @@ a {
     width: 600px;
     height: 58px;
     margin: 4rem auto 1rem;
-    padding: 0 20px;
+    padding: 0;
     border-radius: 40px;
     position: relative;
 }
@@ -38,7 +38,7 @@ a {
 
 #searchContainer > input {
     position: absolute;
-    left: 0;
+    left: 25px;
     top: 50%;
     transform: translateY(-50%);
     width: 90%;
@@ -50,7 +50,20 @@ a {
     top: 50%;
     transform: translateY(-50%);
     width: 30px;
+}
 
+#pinicon,
+#searchicon {
+    width: 22px;
+    filter: invert(65%) sepia(88%) saturate(1529%) hue-rotate(142deg) brightness(97%) contrast(93%);
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#searchicon {
+    right: 0;
 }
 
 #btnSet {

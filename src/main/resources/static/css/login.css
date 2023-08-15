@@ -103,7 +103,7 @@ ol, ul {
     color: #888;
 }
 
-/* 여기부터는 join 페이지 코드 */
+/* 여기부터는 join 페이지 */
 .myanchor {
     position: relative;
 }
@@ -131,4 +131,45 @@ ol, ul {
 
 #thumbnail {
     padding: 20px 0 0 30px;
+}
+
+/* 여기부터는 infoupdate 페이지 */
+.infomargin {
+    width: 760px;
+    position: relative;
+    border: none;
+    margin-top: 2rem;
+}
+
+#photoContainer {
+    position: absolute;
+    left: 0;
+    top: 150px;
+    width: 300px;
+    margin: 30px 0;
+}
+
+#btnsImg {
+    margin-top: 20px;
+}
+
+ #infoContainer {
+    position: absolute;
+    right: 0;
+    top: 150px;
+}
+
+#imgPreview {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+}
+
+#btnWithdraw {
+    display: inline-block;
+    font-size: 15px;
+    line-height: 17px;
+    text-decoration: none;
+    color: #888;
+    margin: 30px 0;
 }

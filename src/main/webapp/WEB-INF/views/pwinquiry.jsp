@@ -15,7 +15,7 @@
         
         <div class="inner_container">
             <div class="form-floating mb-3">
-                <input type="text" class="inputForms form-control" id="userId" placeholder="ID">
+                <input type="text" class="inputForms form-control" id="txtUserId" placeholder="ID">
                 <label for="userId">ID</label>
             </div>
             <div class="form-floating">
@@ -76,15 +76,6 @@
             });
 
         });
-
-        btnLogin.addEventListener('click', ()=>{
-        location.href = '/login';
-        });
-
-        btnIndex.addEventListener('click', ()=>{
-        location.href = '/index';
-        });
-
 
     })();
     </script>

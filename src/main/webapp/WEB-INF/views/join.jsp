@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Join</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="/css/reset.css">
 <link rel="stylesheet" href="/css/login.css">
 </head>
@@ -47,8 +47,8 @@
                 <button type="button" id="kakaoFindZipBtn" class="btn btn-light btnAdded">우편번호 찾기</button>
             </div>
             <div class="form-floating mb-3"> <!-- 기본주소 -->
-                <input type="text" class="inputForms form-control" name="address" id="kakaoAddress" placeholder="Email"> 
-                <label for="txtEmail">Email</label>
+                <input type="text" class="inputForms form-control" name="address" id="kakaoAddress" placeholder="Address"> 
+                <label for="kakaoAddress">Address</label>
             </div>
             <div class="form-floating mb-3"> <!-- 상세주소 -->
                 <input type="text" class="inputForms form-control" id="kakaoDetailAddress" placeholder="Detail Address"> 
