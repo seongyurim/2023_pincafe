@@ -38,9 +38,10 @@
         <thead>
             <th id="col1" style="width: 15%;">글번호</th>
             <th id="col2" style="width: 10%;">지역</th>
-            <th id="col3" style="width: 40%;">제목</th>
+            <th id="col3" style="width: 30%;">제목</th>
             <th id="col4" style="width: 10%;">아이디</th>
             <th id="col5" style="width: 25%;">등록일</th>
+            <th id="col6" style="width: 10%;">조회수</th>
         </thead>
         <tbody>            
         </tbody>
@@ -77,7 +78,7 @@
         let rowCount = 0;        // 전체 건수
 
         // page..
-        let rowsPerPage = 10;     // 페이지 당 건수(테이블에서 보여지는 최대 건수)
+        let rowsPerPage = 10;    // 페이지 당 건수(테이블에서 보여지는 최대 건수)
         let curPage = 0;         // 현재 페이지 위치
 
         // section..
@@ -86,6 +87,7 @@
 
         const profileImg    = document.querySelector('#profileImg');
         const welcomeMsg    = document.querySelector('#welcomeMsg');
+        const btnIntro      = document.querySelector('#btnIntro');
         const btnBBS        = document.querySelector('#btnBBS');
         const btnLogin      = document.querySelector('#btnLogin');
         const btnJoin       = document.querySelector('#btnJoin');
@@ -170,6 +172,7 @@
 
                             bstr += '<td>' + data.bbsList[i].userId + '</td>';
                             bstr += '<td>' + data.bbsList[i].regdate + '</td>';
+                            bstr += '<td>' + data.bbsList[i].viewCount + '</td>';
                         bstr += '</tr>';
 
                     tblBody.innerHTML += bstr;
@@ -322,8 +325,14 @@
             location.href = "/infoupdate";
         });
 
+        // 게시판 버튼
         btnBBS.addEventListener('click', ()=>{
             btnBBS.setAttribute('href', '/bbsmain');
+        });
+
+        // 페이지소개 버튼
+        btnIntro.addEventListener('click', ()=>{
+            btnIntro.setAttribute('href', '/introduction');
         });
         
 

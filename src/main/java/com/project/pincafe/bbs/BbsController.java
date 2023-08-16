@@ -70,6 +70,8 @@ public class BbsController {
         // SELECT * FROM BBS_TBL WHERE USERID='jsh' AND QEQ=1
         BbsTblVO resultVO = bbsDAO.selectBbsContent(vo);
 
+        bbsDAO.increaseViewCount(vo);
+
         // 세션 정보를 가지고 온다.
         // 게시글 작성자와 사용자가 동일하다면 게시글을 수정할 수 있어야 한다.
         // 따라서 로그인된 회원 세션이 필요하다.

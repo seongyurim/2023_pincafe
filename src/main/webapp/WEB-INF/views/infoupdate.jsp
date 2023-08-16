@@ -33,11 +33,11 @@
                 <button type="button" id="btnCheckNick" class="btn btn-light btnAdded">닉네임 중복확인</button></td>
             </div>
             <div class="form-floating mb-3"> <!-- 비밀번호 -->
-                <input type="password" class="inputForms form-control" name="UserPw" id="txtUserPw" placeholder="Password"> 
+                <input type="password" class="inputForms form-control" name="userPw" id="txtUserPw" placeholder="Password"> 
                 <label for="txtUserPw">Password</label>
             </div>
             <div class="form-floating mb-3"> <!-- 비밀번호 확인 -->
-                <input type="password" class="inputForms form-control" name="UserPw" id="txtCheckPw" placeholder="Password Check"> 
+                <input type="password" class="inputForms form-control" id="txtCheckPw" placeholder="Password Check"> 
                 <label for="txtCheckPw">Password Check</label>
             </div>
             <div class="form-floating mb-3"> <!-- 이메일 -->
@@ -64,65 +64,14 @@
                 <label for="kakaoExtraAddress">Extra Address</label>
             </div>
 
-            <div class="btnBox"><button type="button" id="btnJoin" class="mybtn btn btn-info">정보수정</button></div>
+            <div class="btnBox"><button type="button" id="btnInfoUpdate" class="mybtn btn btn-info">회원정보수정</button></div>
             <div class="etc_wrap"><a href="/withdraw" id="btnWithdraw">회원탈퇴</a></div>
         </div>
     </div>
 
-
-        <!-- <table>
-            <tr>
-                <td>아이디</td>
-                <td><span>${vo.userId}</span></td>
-            </tr>
-            <tr>
-                <td>닉네임</td>
-                <td><input type="text" id="txtName" name="name" placeholder="Nickname" value="${vo.name}">
-                    <button type="button" id="btnCheckNick">닉네임 중복확인</button></td>
-            </tr>
-            <tr>
-                <td>비밀번호</td>
-                <td><input type="password" id="txtUserPw" name="userPw" placeholder="Password"></td>
-            </tr>
-            <tr>
-                <td>비밀번호 확인</td>
-                <td><input type="password" id="txtCheckPw" placeholder="Password Check"></td>
-            </tr>
-            <tr>
-                <td>이메일</td>
-                <td><input type="email" id="txtEmail" name="email" placeholder="Email"></td>
-            </tr>
-
-            <tr>
-                <td><label for="kakaoZip">주소</label></td>
-                <td>
-                    <input type="text" id="kakaoZip" placeholder="Zipcode">
-                    <button type="button" id="kakaoFindZipBtn">우편번호 찾기</button>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="text" id="kakaoAddress" name="address" placeholder="Address"></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="text" id="kakaoDetailAddress" placeholder="Detail Address"></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td><input type="text" id="kakaoExtraAddress" placeholder="Extra Address"></td>
-            </tr>
-        </table>
-
-        <p>
-            <button type="button" id="btnInfoUpdate" class="btns">정보수정</button>
-            <button type="button" id="btnIndex" class="btns">메인으로</button>
-            <button type="button" id="btnWithdraw" class="btns">회원탈퇴</button>
-        </p> -->
-
-      <script src="/JS/jquery-3.7.0.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="/JS/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
     <script>
     (()=>{
@@ -489,11 +438,6 @@
         // 카카오 우편번호 찾기 버튼
         kakaoFindZipBtn.addEventListener('click', ()=>{
             getFinalAddress();
-        });
-
-        // 메인으로 버
-        btnIndex.addEventListener('click', ()=>{
-            location.href = "/index";
         });
 
         // 회원탈퇴 버튼

@@ -173,3 +173,14 @@ ol, ul {
     color: #888;
     margin: 30px 0;
 }
+
+/* 여기부터는 withdraw 페이지 */
+#profileImg {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+#withdrawMsg {
+    margin: 20px 0 30px;
+}

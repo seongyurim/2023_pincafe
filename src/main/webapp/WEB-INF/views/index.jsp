@@ -177,6 +177,7 @@
 
         const profileImg    = document.querySelector('#profileImg');
         const welcomeMsg    = document.querySelector('#welcomeMsg');
+        const btnIntro      = document.querySelector('#btnIntro');
         const btnBBS        = document.querySelector('#btnBBS');
         const btnLogin      = document.querySelector('#btnLogin');
         const btnJoin       = document.querySelector('#btnJoin');
@@ -243,8 +244,14 @@
             location.href = "/infoupdate";
         });
 
+        // 게시판 버튼
         btnBBS.addEventListener('click', ()=>{
             btnBBS.setAttribute('href', '/bbsmain');
+        });
+
+        // 페이지소개 버튼
+        btnIntro.addEventListener('click', ()=>{
+            btnIntro.setAttribute('href', '/introduction');
         });
         
 

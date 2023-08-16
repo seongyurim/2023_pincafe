@@ -39,8 +39,12 @@ public class BbsDAO {
     }
 
     // 게시글 삭제하기
-    public int deleteBbsContent (BbsTblVO vo) throws Exception
+    public int deleteBbsContent(BbsTblVO vo) throws Exception
     {
         return sqlSessionTemplate.delete("deleteBbsContent", vo);
+    }
+
+    public void increaseViewCount(BbsTblVO vo) throws Exception {
+        sqlSessionTemplate.update("increaseViewCount", vo);
     }
 }
