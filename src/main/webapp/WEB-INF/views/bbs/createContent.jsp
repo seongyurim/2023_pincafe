@@ -20,7 +20,7 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/reset.css">
-<link rel="stylesheet" href="/css/newcontent.css">
+<link rel="stylesheet" href="/css/createContent.css">
 </head>
 <body>
     <div class="title-nav">
@@ -61,7 +61,7 @@
             
             <!-- 지도 첨부 팝업띄우는 버튼 -->
             <div id="btnWrap">
-                <button type="button" id="popupBtn" class="btn btn-success">지도 첨부하기</button>
+                <button type="button" id="popupBtn" class="btn btn-success">지도 첨부</button>
             </div>
 
             <div class="btn-container">
@@ -71,49 +71,50 @@
 
 
         </div>  <!-- upload-block -->
-
-        <!-- //모달 팝업창 -->
-        <div id="modalWrap">
-            <div id="modalContent">
-                <div id="modalBody">
-                    <div id="topContainer">
-                        <p class="modalText">주소를 검색해서 지도를 첨부하세요.</p>
-                        <button type="button" class="btn-close" aria-label="Close"></button><!-- 닫기 버튼 --->
-                    </div>
-                        <!-- 주소 검색창 -->
-                        <div class="search">
-                            <div class="searchbox">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="myform form-control" id="address" placeholder="검색할 주소">
-                                    <label for="address">주소</label>
-                                </div>
-                                <button type="button" id="submit" class="search-btn btn btn-secondary">검색</button>
-                            </div>
-                            <!-- 첫 번째 지도 (검색x) 뿌려놓은 div -->
-                            <div id="map"></div>
-    
-                            <!-- 주소, 위도, 경도 받아온 테이블 -->
-                            <div>
-                                <table>
-                                    <thead>
-                                        <!-- mapValue tr은 invisible로 만들기 -->
-                                        <tr id="mapValue">
-                                            <th>주소</th>
-                                            <th>위도</th>
-                                            <th>경도</th>
-                                        </tr>	
-                                    </thead>
-                                    <!-- mapList tbody도 invisible로 만들기 -->
-                                    <tbody id="mapList"></tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="inputMap">
-                            <button type="button" class="inputBtn btn btn-success">등록</button>
-                        </div>
-                </div>
+ <!-- //모달 팝업창 -->
+ <div id="modalWrap">
+    <div id="modalContent">
+        <div id="modalBody">
+            <div id="topContainer">
+                <p class="modalText">주소를 검색해서 지도를 첨부하세요.</p>
+                <button type="button" class="btn-close" aria-label="Close"></button><!-- 닫기 버튼 --->
             </div>
+                <!-- 주소 검색창 -->
+                <div class="search">
+                    <div class="searchbox">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="myform form-control" id="address" placeholder="검색할 주소">
+                            <label for="address">주소</label>
+                        </div>
+                        <button type="button" id="submit" class="search-btn btn btn-secondary">검색</button>
+                    </div>
+                    <!-- 첫 번째 지도 (검색x) 뿌려놓은 div -->
+                    <div id="map"></div>
+
+                    <!-- 주소, 위도, 경도 받아온 테이블 -->
+                    <div>
+                        <table>
+                            <thead>
+                                <!-- mapValue tr은 invisible로 만들기 -->
+                                <tr id="mapValue">
+                                    <th>주소</th>
+                                    <th>위도</th>
+                                    <th>경도</th>
+                                </tr>	
+                            </thead>
+                            <!-- mapList tbody도 invisible로 만들기 -->
+                            <tbody id="mapList"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="inputMap">
+                    <button type="button" class="inputBtn btn btn-success">등록</button>
+                </div>
         </div>
+    </div>
+</div>
+
+
 
 
     </div>  <!-- 부트스트랩 컨테이너 -->
@@ -224,14 +225,17 @@
             else {
                 // DB로 전송할 데이터
                 let formData = new FormData();
+                console.log(ad);
+                console.log(lat);
+                console.log(lng);
 
                 formData.append('userId', '${session.userId}');
                 formData.append('title',txtTitle.value);
                 formData.append('content',txtContent.value);
                 formData.append('divi',divi.options[divi.selectedIndex].value);
-                formData.append('address',mapList.item(0).innerHTML);
-                formData.append('lat',mapList.item(1).innerHTML);
-                formData.append('lng',mapList.item(2).innerHTML);
+                formData.append('address',ad);
+                formData.append('lat',lat);
+                formData.append('lng',lng);
             
             // 만약 파일이 존재한다면 append Data 시키기
             if ($fileInput.files[0] !== undefined)
@@ -241,7 +245,7 @@
 
             // 서버에 AJAX로 전송한다.
             let xhr = new XMLHttpRequest();
-            xhr.open('POST', '/bbs/newcontent', true);
+            xhr.open('POST', '/bbs/createContent', true);
             xhr.onreadystatechange = function()
             {
                 // 수신이 완료됐으면
@@ -312,8 +316,9 @@
 
         // =============================================================================
         // 주소 검색
-        //검색한 주소의 정보를 insertAddress 함수로 넘겨준다.
+        // 검색한 주소의 정보를 insertAddress 함수로 넘겨준다.
         function searchAddressToCoordinate(address) {
+            // Naver 지도 서비스의 geocode 함수를 호출하여 주소를 좌표로 변환
             naver.maps.Service.geocode({
                 query: address
             }, function(status, response) {
@@ -323,15 +328,19 @@
                 if (response.v2.meta.totalCount === 0) {
                     return alert('올바른 주소를 입력해주세요.');
                 }
+                // 변환된 주소 정보를 가져와서 처리
                 var htmlAddresses = [],
                     item = response.v2.addresses[0],
                     point = new naver.maps.Point(item.x, item.y);
+                // 도로명 주소가 있는 경우 배열에 추가
                 if (item.roadAddress) {
                     htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
                 }
+                // 지번 주소가 있는 경우 배열에 추가
                 if (item.jibunAddress) {
                     htmlAddresses.push('[지번 주소] ' + item.jibunAddress);
                 }
+                // 영문명 주소가 있는 경우 배열에 추가
                 if (item.englishAddress) {
                     htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
                 }
@@ -341,18 +350,30 @@
             });
         }
 
-        // 주소 검색의 이벤트
+        // 주소 검색 이벤트 핸들러
+        // 주소 입력 필드(#address)에서 키보드의 키 다운 이벤트를 감지
         $('#address').on('keydown', function(e) {
             var keyCode = e.which;
+            // e.which를 사용하여 눌린 키의 keyCode를 얻는다.
             if (keyCode === 13) { // Enter Key
                 searchAddressToCoordinate($('#address').val());
+                // 만약 눌린 키가 엔터 키(키 코드 13)라면, 
+                // searchAddressToCoordinate 함수를 호출하여 주소를 좌표로 변환하고 지도에 표시
             }
         });
+        // 제출 버튼(#submit)을 클릭하는 이벤트를 감지하는 이벤트 핸들러
         $('#submit').on('click', function(e) {
             e.preventDefault();
+            // 기본 동작을 막기 위해 e.preventDefault();를 사용
             searchAddressToCoordinate($('#address').val());
+            // searchAddressToCoordinate 함수를 호출하여 주소를 좌표로 변환하고 지도에 표시
         });
         naver.maps.Event.once(map, 'init_stylemap', initGeocoder);
+        // 1. Naver 지도 객체(map)에서 'init_stylemap' 이벤트가 최초로 발생할 때에만 
+        // initGeocoder 함수를 호출
+        // 2. init_stylemap 이벤트는 지도 스타일이 초기화되는 시점을 나타냄
+        // 3. initGeocoder 함수를 호출하여 지오코더(geocoder)를 초기화하고 
+        // 주소를 좌표로 변환할 수 있는 환경을 설정
 
         //검색정보를 테이블로 작성해주고, 지도에 마커를 찍어준다.
         function insertAddress(address, latitude, longitude) {

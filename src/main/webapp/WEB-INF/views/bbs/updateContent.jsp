@@ -21,25 +21,56 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/reset.css">
-<link rel="stylesheet" href="/css/content.css">
+<link rel="stylesheet" href="/css/updateContent.css">
 
 </head>
 <body>
     <div id="jb_header">
       <div id="jp_header_title">
         <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
-        <h1 class="title" id="txtTitle">${vo.title}</h1>
-        <div class="h_container">
-          <i id="heart" class="far fa-heart" onclick="likeCafe()"></i><span id="likeCount">&nbsp;0</span> 
-          
+        <div id="titleDiv"><h1 class="title" id="txtTitle">${vo.title}</h1></div>
+        <div id="hcDiv">
+          <div class="h_container">
+            <i id="heart" class="far fa-heart" onclick="likeCafe()"></i><span id="likeCount">&nbsp;0</span>           
+          </div>
         </div>
       </div> 
     </div>
 
+    <!-- 이미지 캐러셀 -->
+    <div id="carouselDiv">
+    <div id="carouselExampleIndicators" class="carousel slide">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="mycarousel carousel-item active">
+          <img src="" id="postImage" class="d-block w-100" alt="...">
+        </div>
+        <div class="mycarousel carousel-item">
+          <img src="/images/cat.jpeg" id="postImage2" class="d-block w-100" alt="...">
+        </div>
+        <div class="mycarousel carousel-item">
+          <img src="/images/jjanggu5.jpg" id="postImage3" class="d-block w-100" alt="...">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div> 
+    </div>
+    <!-- 이미지 캐러셀 -->
     <div id="jb-content">
       <div id="bbsDetail">
         <div id="imageAndContentContainer">
-          <img id="postImage" src="" alt="게시물 이미지">
+          <!-- <img id="postImage" src="" alt="게시물 이미지"> -->
           <div id="bulletinContent">
             <p><textarea id="txtContent" cols="90" rows="15">${vo.content}</textarea></p>
           </div>
@@ -48,7 +79,9 @@
     </div>
 
     <!-- 지도 div -->
-    <p id="cafeAd">${vo.address}</p>
+    <p id="cafeAd">
+      <img id="pinImg" src="/images/location.png" alt="핀이미지">
+      ${vo.address}</p>
     <div class="map-container">
       <div id="map"></div>
     </div>
@@ -148,29 +181,7 @@
 
         // 수정하기 버튼
         btnUpdate.addEventListener('click', ()=>{
-            // DB로 전송할 데이터: id, seq, title, content
-            let requestData = {
-                userId : '${vo.userId}',
-                seq : '${vo.seq}',
-                title : txtTitle.value,
-                content : txtContent.value
-            };
-            console.log(requestData);
-
-            $.ajax({
-                url : '/bbs/content',
-                type : 'POST',
-                data : requestData,
-                success : function(data) {
-                    if (data == "OK") {
-                        alert('게시물이 성공적으로 수정되었어요.');
-                        location.href = "/index";
-                    }
-                    else {
-                        alert('게시물 수정에 실패했어요.');
-                    }
-                }
-            });
+            location.href = "/bbs/updateContent";
         });
 
       // 게시글 삭제 버튼
@@ -233,7 +244,7 @@
       updateLikeCount();
 
       // 백엔드 API의 엔드포인트 URL을 적절하게 변경해주세요
-    const endpoint = 'http://localhost:9090/bbs/content';
+    const endpoint = 'http://localhost:9090/bbs/updateContent';
 
         $.ajax({
           url: endpoint,

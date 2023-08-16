@@ -29,19 +29,42 @@
           RN <![CDATA[<=]]> (#{page} + 1) * #{rowsPerPage}
 </select> -->
 
-<select id="selectBbsList" resultMap="bbsMap" useCache="false">
+<!-- <select id="selectBbsList" resultMap="bbsMap" useCache="false">
     SELECT * FROM (SELECT rownum RN, BBS_TBL.* FROM BBS_TBL ORDER BY regdate DESC)
     WHERE RN <![CDATA[>=]]> (select max(rowNum) - ((#{page} + 1) * #{rowsPerPage}) + 1 FROM BBS_TBL) AND
           RN <![CDATA[<=]]> (select max(rowNum) - (#{page}* #{rowsPerPage}) FROM BBS_TBL)
+</select> -->
+
+<select id="selectBbsList" resultMap="bbsMap" useCache="false">
+    SELECT * FROM (SELECT rownum RN, BBS_TBL.* FROM BBS_TBL ORDER BY regdate DESC)
+    WHERE RN &gt;= (select max(rowNum) - ((#{page} + 1) * #{rowsPerPage}) + 1 FROM BBS_TBL) AND
+          RN &lt;= (select max(rowNum) - (#{page}* #{rowsPerPage}) FROM BBS_TBL)
 </select>
+
+<!-- <select id="selectBbsList" resultMap="bbsMap" useCache="false">
+    SELECT *
+    FROM (
+        SELECT rownum RN, TBL.*
+        FROM (
+            SELECT BBS_TBL.*
+            FROM BBS_TBL
+            ORDER BY regdate DESC
+        ) TBL
+    )
+    WHERE RN &gt;= ((#{page} - 1) * #{rowsPerPage}) + 1
+      AND RN &lt;= #{page} * #{rowsPerPage};
+</select> -->
 
 <select id="selectBbsContent" resultMap="bbsMap">
-    SELECT * FROM BBS_TBL WHERE USERID=#{userId} AND SEQ=#{seq}
+    SELECT * FROM BBS_TBL WHERE USERID=#{userId, jdbcType=VARCHAR} AND SEQ=#{seq, jdbcType=INTEGER}
 </select>
+ <!-- readContent와 updateContent의 경우에는 데이터 타입이나 데이터베이스 드라이버에 따라 
+ 동작이 달라질 수 있기 때문에, 가급적이면 jdbcType을 명시적으로 설정하는 것이 좋습니다. 
+ 이로 인해 코드가 더 안정적으로 동작하고 다양한 환경에서 일관된 결과를 얻을 수 있습니다 -->
 
 <update id="updateBbsContent">
-    UPDATE BBS_TBL SET TITLE=#{title}, CONTENT=#{content}
-    WHERE USERID=#{userId} AND SEQ=#{seq}
+    UPDATE BBS_TBL SET TITLE=#{title, jdbcType=VARCHAR}, CONTENT=#{content, jdbcType=VARCHAR}
+    WHERE USERID=#{userId, jdbcType=VARCHAR} AND SEQ=#{seq, jdbcType=INTEGER}
 </update>
 
 <!-- <insert id="insertBbsContent">
