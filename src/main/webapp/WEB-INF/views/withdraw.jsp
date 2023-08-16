@@ -4,99 +4,35 @@
 <head>
 <meta charset="UTF-8">
 <title>Withdraw</title>
-
-<!-- 폰트 링크 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-<!-- 부트스트랩 링크 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
-<style>
-    /* title영역 */
-    .title-nav {
-        text-align: center;
-    }
-
-    .title {
-        font-weight: bold;
-        font-family: 'Noto Sans KR', sans-serif;
-    }
-    
-    .master-container {
-        margin: 40px auto;
-    }
-
-    .confirmProcess {
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: space-between;
-        max-width: 700px;
-        height: 100%;
-        margin: 20px auto;
-    }
-
-    #profileImg {
-        width: 150px;
-        height: 150px;
-        object-fit: cover;
-        border-radius: 50%;
-        margin-bottom: 25px;
-    }
-
-    .alert {
-        font-family: 'Noto Sans KR', sans-serif;
-    }
-
-    .myset1 {
-        margin-right: -25px;
-        font-family: 'Noto Sans KR', sans-serif;
-    }
-
-    .myset2 {
-        margin-left: -90px;
-        margin-right: -13px;
-        width: 240px;
-        font-family: 'Noto Sans KR', sans-serif;
-    }
-
-    .myset3 {
-        margin-left: 15px;
-    }
-
-
-    .main-container {
-        display: flex;
-        justify-content: center;
-        max-width: 700px;
-        margin-top: 30px;
-    }
-
-    .btnCheck { 
-        padding: 6.2px 20px; /* 버튼의 여백 조정 */
-        margin-right: 20px; /* 버튼 간 수평 간격 조정 */
-        text-align: center;
-        font-family: 'Noto Sans KR', sans-serif;
-    }
-
-    .btn-container {
-        display: flex;
-        justify-content: center;
-        margin: 15px auto;
-    }
-
-    .btnWD { 
-        padding: 12px 100px; /* 버튼의 여백 조정 */
-        text-align: center;
-        font-family: 'Noto Sans KR', sans-serif;
-        margin-left: 7px;
-    }
-
-</style>
+<link rel="stylesheet" href="/css/reset.css">
+<link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
-    <div class="container-md master-container">
+    <div class="container-md master_container">
+        <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo" id="logo"></a>
+        <div class="title">회원탈퇴</div>
+        
+        
+        <div class="inner_container">
+            <div>
+                <div><img src="/imgs/member/thumbnail/${vo.fileCode}.jpg" id="profileImg"></div>
+                <div id="withdrawMsg">${vo.name}님, 탈퇴하시려면 비밀번호를 확인해주세요.</div>
+            </div>
+            <div class="form-floating mb-3 myanchor"> <!-- 아이디 -->
+                <input type="password" class="inputForms form-control" id="inputPw" placeholder="Password">
+                <label for="txtUserId">Password</label>
+                <button type="button" id="btnPwCheck" class="btn btn-light btnAdded">비밀번호 확인</button>
+            </div>
+            <div class="btnBox">
+                <button type="button" id="btnRealWithdraw" class="mybtn btn btn-info">회원탈퇴</button>
+            </div>
+        </div>
+    </div>
+
+<!-- ------------------------------------------------------------------------------------------------------- -->
+
+    <!-- <div class="container-md master-container">
         <div class="title-nav">
             <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
             <hr class="border border-primary border-1 opacity-35">
@@ -106,10 +42,9 @@
         <div class="confirmProcess">
             <p class="alert">
                 <div><img alt="profileImg" src='/imgs/member/thumbnail/${vo.fileCode}.jpg' id="profileImg"></div>
-                ${vo.name}님, 탈퇴하시려면 비밀번호를 확인해주세요.
+                <div>${vo.name}님, 탈퇴하시려면 비밀번호를 확인해주세요.</div>
             </p>
     
-            <!-- 비밀번호 확인 받기 -->
             <form class="main-container row g-3">
                 <div class="myset1 col-auto">
                     <label for="getPw" class="visually-hidden">비밀번호 확인</label>
@@ -127,9 +62,7 @@
                 </div>
             </form>
         </div>
-
-
-    </div> <!-- container-md -->
+    </div>  -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
@@ -230,7 +163,7 @@
             }
             else
             {
-                alert ("비밀번호 확인을 완료하세요.")
+                alert ("비밀번호 확인을 완료해주세요.")
             }
         });
     })();

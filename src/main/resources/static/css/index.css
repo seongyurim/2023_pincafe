@@ -8,7 +8,6 @@ html {
 body {
     overflow-x: hidden;
     letter-spacing: -0.05em;
-    height: 4000px;
 }
 
 a {
@@ -16,22 +15,54 @@ a {
 }
 
 #searchSet {
-    border: 1px solid #212529;
+    border: 1px solid #c7c7c7;
     width: 600px;
-    height: 50px;
-    margin: 30px auto;
-    padding: 0 20px;
+    height: 58px;
+    margin: 4rem auto 1rem;
+    padding: 0;
     border-radius: 40px;
+    position: relative;
 }
 
-#searchSet form > input {
-    height: 50px;
+#searchContainer {
+    width: 90%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+
+}
+
+#searchContainer > input {
+    position: absolute;
+    left: 25px;
+    top: 50%;
+    transform: translateY(-50%);
     width: 90%;
 }
 
-#searchSet form > button {
-    height: 50px;
-    margin-left: 20px;
+#searchContainer > button {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+}
+
+#pinicon,
+#searchicon {
+    width: 22px;
+    filter: invert(65%) sepia(88%) saturate(1529%) hue-rotate(142deg) brightness(97%) contrast(93%);
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#searchicon {
+    right: 0;
 }
 
 #btnSet {
@@ -85,4 +116,8 @@ a {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+}
+
+#tblBBS {
+    margin-top: 5rem;
 }

@@ -5,78 +5,169 @@
 <meta charset="UTF-8">
 <title>Pincafe</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Template Vendor CSS Files -->
+<link href="assets/vendor/aos/aos.css" rel="stylesheet">
+<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+<link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+<!-- Template Main CSS File -->
+<link rel="stylesheet" href="/assets/css/style.css">
+
 <link rel="stylesheet" href="/css/reset.css">
 <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-    <nav class="navbar sticky-top navbar-expand-sm bg-body-tertiary" id="mynavi">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse d-flex justify-content-between align-items-center" id="navbarSupportedContent">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">ABOUT US</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="#">COMMUNITY</a>
-              </li>
-            </ul>
-            <div class="d-flex align-items-center">
-              <div id="welcomeMsg" class="me-3">Welcome, User!</div>
-              <ul class="navbar-nav ms-auto">
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img alt="Profile Image" id="profileImg">
-                  </a>
-                  <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" id="btnLogin">Sign In</a></li>
-                    <li><a class="dropdown-item" id="btnJoin">Sign Up</a></li>
-                    <li><hr class="dropdown-divider" id="mydivider"></li>
-                    <li><a class="dropdown-item" id="btnInfoUpdate">Edit Profile</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </nav>
+    <!-- 내비게이션 영역 -->
+    <%@ include file="navigation.jsp" %>
     
-    <div id="searchSet">
+    <!-- 검색창 -->
+    <div id="searchSet" class="shadow">
         <form action="/search" method="GET">
-            <input type="text" name="keyword" class="container-md"  id="searchName" placeholder="카페 이름을 검색해보세요.">
-            <button type="submit" id="btnSearch">검색</button>
+            <img src="/images/pinicon.png" id="pinicon">
+            <div id="searchContainer">
+                <input type="text" name="keyword" class="container-md" id="searchName" placeholder="카페 이름을 검색해보세요.">
+                <button type="submit" id="btnSearch"><img src="/images/searchicon.png" id="searchicon"></button>
+            </div>
         </form>
     </div>
 
-    <table id="tblBBS" class="table container-sm table-hover">
-        <thead>
-            <th id="col1" style="width: 15%;">글번호</th>
-            <th id="col2" style="width: 10%;">지역</th>
-            <th id="col3" style="width: 40%">제목</th>
-            <th id="col4" style="width: 10%;">닉네임</th>
-            <th id="col5" style="width: 25%">등록일</th>
-        </thead>
-        <tbody>            
-        </tbody>
-    </table>
+    <!-- 신규오픈카페 안내 -->
+    <section class="section site-portfolio">
+        <div class="container">
+        <div class="row mb-5 align-items-center">
+            <div class="col-md-12 col-lg-6 mb-4 mb-lg-0" data-aos="fade-up">
+            <h2>New Cafes In This Month</h2>
+            <p class="mb-0">이번달 서울에 오픈한 새로운 카페를 만나보세요!</p>
+            </div>
+            <div class="col-md-12 col-lg-6 text-start text-lg-end" data-aos="fade-up" data-aos-delay="100">
+            <div id="filters" class="filters">
+                <a href="#" data-filter="*" class="active">All</a>
+                <a href="#" data-filter=".east">East</a>
+                <a href="#" data-filter=".west">West</a>
+                <a href="#" data-filter=".south">South</a>
+                <a href="#" data-filter=".north">North</a>
+                <a href="#" data-filter=".central">Central</a>
+            </div>
+            </div>
+        </div>
 
-    <div id="btnSet">
-        <button type="button" id="btnPrev" class="myBtn btn btn-outline-dark">이전</button>
-        <button type="button" id="btn1" class="btns myBtn btn btn-outline-dark">1</button>
-        <button type="button" id="btn2" class="btns myBtn btn btn-outline-dark">2</button>
-        <button type="button" id="btn3" class="btns myBtn btn btn-outline-dark">3</button>
-        <button type="button" id="btn4" class="btns myBtn btn btn-outline-dark">4</button>
-        <button type="button" id="btn5" class="btns myBtn btn btn-outline-dark">5</button>
-        <button type="button" id="btnNext" class="myBtn btn btn-outline-dark">다음</button>
-        <button type="button" id="btnWrite" class="myBtn btn btn-outline-dark">글쓰기</button>
-    </div>
+        <div id="portfolio-grid" class="row no-gutter" data-aos="fade-up" data-aos-delay="200">
+            <!-- Image 01 동부 -->
+            <div class="item east col-sm-6 col-md-4 col-lg-4 mb-4">
+                <a href="work-single.html" class="item-wrap fancybox">
+                    <div class="work-info">
+                    <h3>피오디디</h3>
+                    <span>동대문구 광장동</span>
+                    </div>
+                    <img class="img-fluid" src="assets/img/east_07_01.jpg">
+                </a>
+            </div>
 
-    <div id="instaFeed" class="container-sm">
-    </div>
+            <!-- Image 02 남부 -->
+            <div class="item south col-sm-6 col-md-4 col-lg-4 mb-4">
+                <a href="work-single.html" class="item-wrap fancybox">
+                    <div class="work-info">
+                    <h3>제르베</h3>
+                    <span>강남구 논현동</span>
+                    </div>
+                    <img class="img-fluid" src="assets/img/south_jerbe.jpg">
+                </a>
+            </div>
 
+            <!-- Image 03 동부 -->
+            <div class="item east col-sm-6 col-md-4 col-lg-4 mb-4">
+                <a href="work-single.html" class="item-wrap fancybox">
+                    <div class="work-info">
+                    <h3>신보</h3>
+                    <span>동대문구 이문동</span>
+                    </div>
+                    <img class="img-fluid" src="assets/img/east_03_01.jpg">
+                </a>
+            </div>
+
+            <!-- Image 04 북부 -->
+            <div class="item north col-sm-6 col-md-4 col-lg-4 mb-4">
+                <a href="work-single.html" class="item-wrap fancybox">
+                    <div class="work-info">
+                    <h3>쏘리에스프레소바</h3>
+                    <span>종로구 적선동</span>
+                    </div>
+                    <img class="img-fluid" src="assets/img/north_sorry.png">
+                </a>
+            </div>
+
+            <!-- Image 05 중부 -->
+            <div class="item central col-sm-6 col-md-4 col-lg-4 mb-4">
+                <a href="work-single.html" class="item-wrap fancybox">
+                    <div class="work-info">
+                    <h3>D커피</h3>
+                    <span>중구 신당동</span>
+                    </div>
+                    <img class="img-fluid" src="assets/img/central_dCoffee.jpg">
+                </a>
+            </div>
+
+            <!-- Image 06 동부 -->
+            <div class="item east col-sm-6 col-md-4 col-lg-4 mb-4">
+                <a href="work-single.html" class="item-wrap fancybox">
+                    <div class="work-info">
+                    <h3>열매제과점</h3>
+                    <span>광진구 화양동</span>
+                    </div>
+                    <img class="img-fluid" src="assets/img/east_06_03.jpg">
+                </a>
+            </div>
+
+            <!-- Image 07 동부 -->
+            <div class="item east col-sm-6 col-md-4 col-lg-4 mb-4">
+                <a href="work-single.html" class="item-wrap fancybox">
+                    <div class="work-info">
+                    <h3>브렛서울</h3>
+                    <span>광진구 화양동</span>
+                    </div>
+                    <img class="img-fluid" src="assets/img/east_04_01.jpg">
+                </a>
+            </div>
+
+            <!-- Image 08 중부 -->
+            <div class="item central col-sm-6 col-md-4 col-lg-4 mb-4">
+                <a href="work-single.html" class="item-wrap fancybox">
+                    <div class="work-info">
+                    <h3>재인</h3>
+                    <span>용산구 한남동</span>
+                    </div>
+                    <img class="img-fluid" src="assets/img/central_jaein.jpg">
+                </a>
+            </div>
+
+            <!-- Image 09 서부 -->
+            <div class="item west col-sm-6 col-md-4 col-lg-4 mb-4">
+                <a href="work-single.html" class="item-wrap fancybox">
+                    <div class="work-info">
+                    <h3>퍼머넌트 해비탯</h3>
+                    <span>마포구 대흥동</span>
+                    </div>
+                    <img class="img-fluid" src="assets/img/west_permanent.jpg">
+                </a>
+            </div>
+        </div>
+        </div>
+    </section>
+
+
+
+    
+    <!-- Template Vendor JS Files -->
+    <script src="assets/vendor/aos/aos.js"></script>
+    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="assets/vendor/php-email-form/validate.js"></script>
+    
+    <!-- Template Main JS File -->
+    <script src="assets/js/main.js"></script>    
+    
     <script src="/JS/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -84,33 +175,14 @@
     (()=>{
         let sessionState = false;
 
-        // row..
-        let rowCount = 0;        // 전체 건수
-
-        // page..
-        let rowsPerPage = 10;     // 페이지 당 건수(테이블에서 보여지는 최대 건수)
-        let curPage = 0;         // 현재 페이지 위치
-
-        // section..
-        let curSection = 0;      // 현재 섹션
-        let pagesPerSection = 5; // 섹션당 페이지 수(버튼 수와 동일)
-
         const profileImg    = document.querySelector('#profileImg');
         const welcomeMsg    = document.querySelector('#welcomeMsg');
+        const btnIntro      = document.querySelector('#btnIntro');
+        const btnBBS        = document.querySelector('#btnBBS');
         const btnLogin      = document.querySelector('#btnLogin');
         const btnJoin       = document.querySelector('#btnJoin');
         const btnInfoUpdate = document.querySelector('#btnInfoUpdate');
         const mydivider     = document.querySelector('#mydivider');
-
-        const btnPrev    = document.querySelector('#btnPrev');
-        const btnNext    = document.querySelector('#btnNext');
-        const btnWrite   = document.querySelector('#btnWrite');
-
-        const btn1 = document.querySelector('#btn1');
-        const btn2 = document.querySelector('#btn2');
-        const btn3 = document.querySelector('#btn3');
-        const btn4 = document.querySelector('#btn4');
-        const btn5 = document.querySelector('#btn5');
         
 
         ////// 함수부 ////////////////////////////////////////////////////////////////////////
@@ -134,6 +206,7 @@
                 profileImg.setAttribute('src', '/imgs/member/thumbnail/${vo.fileCode}.jpg');
             }
             else {
+                welcomeMsg.textContent = '어서오세요! Pincafe입니다.';
                 btnLogin.textContent = 'Sign In';
                 btnInfoUpdate.style.display = 'none';
                 profileImg.style.display = 'none';
@@ -208,6 +281,7 @@
                 }
             }
         }
+
 
 
 
@@ -331,13 +405,22 @@
         btnInfoUpdate.addEventListener('click', ()=> {
             location.href = "/infoupdate";
         });
+
+        // 게시판 버튼
+        btnBBS.addEventListener('click', ()=>{
+            btnBBS.setAttribute('href', '/bbsmain');
+        });
+
+        // 페이지소개 버튼
+        btnIntro.addEventListener('click', ()=>{
+            btnIntro.setAttribute('href', '/introduction');
+        });
         
 
         ////// 호출부 ////////////////////////////////////////////////////////////////////////
 
         setSessionState(); // 세션이 있는지 없는지 상태값을 저장한다.
         setSessionInfo();
-        setBBS(0);
         
     })();
     </script>

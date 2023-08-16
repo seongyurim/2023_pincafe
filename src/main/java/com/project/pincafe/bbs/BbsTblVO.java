@@ -24,6 +24,7 @@ public class BbsTblVO {
     private String address;
     private double lat;
     private double lng;
+    private int viewCount;
 
     @JsonIgnore 
     private MultipartFile thumbnail;

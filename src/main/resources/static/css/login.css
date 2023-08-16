@@ -1,0 +1,186 @@
+a,
+a:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.master_container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 480px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 60px 0 60px;
+    text-align: center;
+}
+
+#logo {
+    width: 100px;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: 24px;
+    text-align: center;
+    padding-top: 16px;
+}
+
+/* 상위 박스 */
+.inner_container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    margin: 50px auto 30px;
+}
+
+/* 인풋폼 */
+.inputForms {
+    width: 400px;
+    flex: 1;
+}
+
+.btnSubmit {
+    /* display: flex; */
+    text-align: center;
+}
+
+/* 버튼 박스 */
+.btnBox {
+    max-width: 100%;
+    display: flex;
+    align-items: flex-start;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.mybtn {
+    font-weight: bold;
+    font-size: 20px;
+    width: 400px;
+    height: calc(3.5rem + 2px);
+    padding: 12px 65px; /* 버튼의 여백 조정 */
+    margin: 0 5px;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+.etc_wrap {
+    text-align: center;
+}
+
+.etc_wrap li+li {
+    padding-left: 28px;
+}
+
+.etc_wrap li {
+    position: relative;
+    display: inline-block;
+}
+
+.etc_wrap li+li::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 12px;
+    width: 1px;
+    height: 12px;
+    border-radius: 0.5px;
+    background-color: #dadada;
+}
+
+.etc_wrap #btnFindPw,
+.etc_wrap #btnFindId,
+.etc_wrap #btnJoin {
+    display: inline-block;
+    font-size: 15px;
+    line-height: 17px;
+    text-decoration: none;
+    color: #888;
+}
+
+/* 여기부터는 join 페이지 */
+.myanchor {
+    position: relative;
+}
+
+.btnAdded {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.joinmargin {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    padding-bottom: 30px;
+    margin: 5rem 0;
+}
+
+.file_wrap {
+    display: flex;
+    align-items: center;
+}
+
+#thumbnail {
+    padding: 20px 0 0 30px;
+}
+
+/* 여기부터는 infoupdate 페이지 */
+.infomargin {
+    width: 760px;
+    position: relative;
+    border: none;
+    margin-top: 2rem;
+}
+
+#photoContainer {
+    position: absolute;
+    left: 0;
+    top: 150px;
+    width: 300px;
+    margin: 30px 0;
+}
+
+#btnsImg {
+    margin-top: 20px;
+}
+
+ #infoContainer {
+    position: absolute;
+    right: 0;
+    top: 150px;
+}
+
+#imgPreview {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+}
+
+#btnWithdraw {
+    display: inline-block;
+    font-size: 15px;
+    line-height: 17px;
+    text-decoration: none;
+    color: #888;
+    margin: 30px 0;
+}
+
+/* 여기부터는 withdraw 페이지 */
+#profileImg {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+#withdrawMsg {
+    margin: 20px 0 30px;
+}

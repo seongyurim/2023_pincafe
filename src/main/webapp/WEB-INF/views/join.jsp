@@ -4,100 +4,69 @@
 <head>
 <meta charset="UTF-8">
 <title>Join</title>
-<style>
-    table input {
-        width: 280px;
-        height: 25px;
-        margin: 8px;
-    }
-
-    .btns {
-        height: 40px;
-    }
-
-    #btnJoin {
-        width: 300px;
-    }
-
-    #btnIndex {
-        width: 98px;
-    }
-</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/reset.css">
+<link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
-    <h1>Join</h1>
-    <hr>
+    <div class="container-md master_container joinmargin">
+        <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo" id="logo"></a>
+        <div class="title">회원가입</div>
+        
+        <div class="inner_container">
+            <div class="form-floating mb-3 myanchor"> <!-- 아이디 -->
+                <input type="text" class="inputForms form-control" name="userId" id="txtUserId" placeholder="ID">
+                <label for="txtUserId">ID</label>
+                <button type="button" id="btnCheckId" class="btn btn-light btnAdded">아이디 중복확인</button>
+            </div>
+            <div class="form-floating mb-3"> <!-- 비밀번호 -->
+                <input type="password" class="inputForms form-control" name="UserPw" id="txtUserPw" placeholder="Password"> 
+                <label for="txtUserPw">Password</label>
+            </div>
+            <div class="form-floating mb-3"> <!-- 비밀번호 확인 -->
+                <input type="password" class="inputForms form-control" name="UserPw" id="txtCheckPw" placeholder="Password Check"> 
+                <label for="txtCheckPw">Password Check</label>
+            </div>
+            <div class="form-floating mb-3"> <!-- 닉네임 -->
+                <input type="text" class="inputForms form-control" name="name" id="txtName" placeholder="Nickname"> 
+                <label for="txtName">Nickname</label>
+                <button type="button" id="btnCheckNick" class="btn btn-light btnAdded">닉네임 중복확인</button></td>
+            </div>
+            <div class="form-floating mb-3"> <!-- 이메일 -->
+                <input type="email" class="inputForms form-control" name="email" id="txtEmail" placeholder="Email"> 
+                <label for="txtEmail">Email</label>
+            </div>
+            <div class="form-floating mb-3 file_wrap"> <!-- 프로필사진 -->
+                <input type="file" class="inputForms form-control" name="file_code" id="thumbnail"> 
+            </div>
 
-    <table>
-        <tr>
-            <td><label for="txtUserId">아이디</label></td>
-            <td>
-                <input type="text" id="txtUserId" name="userId" placeholder="ID">
-                <button type="button" id="btnCheckId">아이디 중복확인</button>
-            </td>
-        </tr>
+            <!-- 카카오 주소 API -->
+            <div class="form-floating mb-3"> <!-- 우편번호 -->
+                <input type="text" class="inputForms form-control" id="kakaoZip" placeholder="Zipcode"> 
+                <label for="kakaoZip">Zipcode</label>
+                <button type="button" id="kakaoFindZipBtn" class="btn btn-light btnAdded">우편번호 찾기</button>
+            </div>
+            <div class="form-floating mb-3"> <!-- 기본주소 -->
+                <input type="text" class="inputForms form-control" name="address" id="kakaoAddress" placeholder="Address"> 
+                <label for="kakaoAddress">Address</label>
+            </div>
+            <div class="form-floating mb-3"> <!-- 상세주소 -->
+                <input type="text" class="inputForms form-control" id="kakaoDetailAddress" placeholder="Detail Address"> 
+                <label for="kakaoDetailAddress">Detail Address</label>
+            </div>
+            <div class="form-floating mb-3"> <!-- 추가주소 -->
+                <input type="text" class="inputForms form-control" id="kakaoExtraAddress" placeholder="Extra Address"> 
+                <label for="kakaoExtraAddress">Extra Address</label>
+            </div>
 
-        <tr>
-            <td><label for="txtUserPw">비밀번호</label></td>            
-            <td>
-                <input type="password" id="txtUserPw" name="UserPw" placeholder="Password"> 
-                <span id="isPwCorrect"></span>
-            </td>            
-        </tr>
-
-        <tr>
-            <td><label for="txtCheckPw">비밀번호 확인</label></td>
-            <td>
-                <input type="password" id="txtCheckPw" placeholder="Password Check"> 
-                <span id="isPwSame"></span>
-            </td>
-        </tr>
-
-        <tr>
-            <td><label for="txtName">닉네임</label></td>
-            <td><input type="text" id="txtName" name="name" placeholder="Nickname">
-            <button type="button" id="btnCheckNick">닉네임 중복확인</button></td>
-        </tr>
-        <tr>
-            <td><label for="txtEmail">이메일</label></td>
-            <td><input type="email" id="txtEmail" name="email" placeholder="Email"></td>
-        </tr>
-
-        <tr>
-            <td><label for="thumbnail">프로필사진</label></td>
-            <td>
-                <input type="file" name="file_code" id="thumbnail">
-            </td>           
-        </tr>
-
-        <tr>
-            <td><label for="kakaoZip">주소</label></td>
-            <td>
-                <input type="text" id="kakaoZip" placeholder="Zipcode">
-                <button type="button" id="kakaoFindZipBtn">우편번호 찾기</button>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="text" id="kakaoAddress" name="address" placeholder="Address"></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="text" id="kakaoDetailAddress" placeholder="Detail Address"></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td><input type="text" id="kakaoExtraAddress" placeholder="Extra Address"></td>
-        </tr>
-    </table>
-
-
-    <p>
-        <button type="button" id="btnJoin" class="btns">회원가입</button>
-        <button type="button" id="btnIndex" class="btns">메인으로</button>
-    </p>
+            <div class="btnBox">
+                <button type="button" id="btnJoin" class="mybtn btn btn-info">회원가입</button>
+            </div>
+        </div>
+    </div>
 
     <script src="/JS/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
     <script>
