@@ -61,9 +61,9 @@ public class BbsController {
         return bbsMstVO;        
     }
 
-    @GetMapping("/bbs/readContent")
-    public String readContent(@ModelAttribute("BbsTblVO") BbsTblVO vo,
-                              Model model) throws Exception {
+    @GetMapping("/bbs/content")
+    public String content(@ModelAttribute("BbsTblVO") BbsTblVO vo,
+                            Model model) throws Exception {
         // vo로 userId, seq 값을 받았다.
 
         // 게시물 정보(userId, seq)에 맞는 게시물을 가지고 온다.
@@ -138,18 +138,18 @@ public class BbsController {
 
     ////// 게시글 작성 ////////////////////////////////////////////////////////////////
     // get 새글 작성
-    @GetMapping("/bbs/newcontent")
-    public String newcontent(@ModelAttribute("BbsTblVO") BbsTblVO vo,
+    @GetMapping("/bbs/createContent")
+    public String createContent(@ModelAttribute("BbsTblVO") BbsTblVO vo,
                                 Model model) throws Exception {
         UserTblVO userTblVO = (UserTblVO)SessionUtil.getAttribute("USER");
         model.addAttribute("session", userTblVO);
-        return "/bbs/newcontent";
+        return "/bbs/createContent";
     }
 
     // post 새글 작성
-    @PostMapping("/bbs/newcontent")
+    @PostMapping("/bbs/createContent")
     @ResponseBody // userId, title, content, divi
-    public ResponseEntity<String> newcontent(@ModelAttribute("BbsTblVO") BbsTblVO vo) throws Exception {
+    public ResponseEntity<String> createContent(@ModelAttribute("BbsTblVO") BbsTblVO vo) throws Exception {
         System.out.println(vo.getUserId());
         System.out.println(vo.getTitle());
         System.out.println(vo.getContent());
@@ -180,6 +180,52 @@ public class BbsController {
 
         // 성공 시 서버가 전송한 메세지 "INSERT_SUCCESS"가 출력되는 것
         return new ResponseEntity<String> ("INSERT_SUCCESS", HttpStatus.OK);
+    }
+
+    ////// 게시글 수정 ////////////////////////////////////////////////////////////////
+    // get 글수정
+    @GetMapping("/bbs/updateContent")
+    public String updateContent(@ModelAttribute("BbsTblVO") BbsTblVO vo,
+                            Model model) throws Exception {
+        // vo로 userId, seq 값을 받았다.
+
+        // 게시물 정보(userId, seq)에 맞는 게시물을 가지고 온다.
+        // SELECT * FROM BBS_TBL WHERE USERID='jsh' AND QEQ=1
+        BbsTblVO resultVO = bbsDAO.selectBbsContent(vo);
+
+        // 세션 정보를 가지고 온다.
+        // 게시글 작성자와 사용자가 동일하다면 게시글을 수정할 수 있어야 한다.
+        // 따라서 로그인된 회원 세션이 필요하다.
+        UserTblVO userTblVO = (UserTblVO)SessionUtil.getAttribute("USER");
+
+        // 게시물 정보와 세션 정보를 모델에 저장한다.
+        // 즉 content.jsp에서 이 두 정보를 모두 이용한다. (myContent?!)
+        model.addAttribute("vo", resultVO);    // content row 정보 보내기
+        model.addAttribute("session", userTblVO); // 로그인한 유저의 정보 보내기
+
+        return "/bbs/updateContent";
+    }
+
+    // post 글수정
+    @PostMapping("/bbs/updateContent")
+    @ResponseBody // HTTP의 body(payload)로 응답하겠다는 의미(모델, 뷰를 거치지 않고)
+    public String updateContent(@ModelAttribute("BbsTblVO") BbsTblVO vo) throws Exception {
+        // vo로 id, seq, title, content를 받았다.
+        System.out.println(vo.getUserId());
+        System.out.println(vo.getSeq());
+        System.out.println(vo.getTitle());
+        System.out.println(vo.getContent());
+
+        int updateCount = bbsDAO.updateBbsContent(vo);
+        // 반드시 1이어야 한다.
+        // 키를 가지고 업데이트한 것이기 때문이다.
+
+        if (updateCount == 1) {
+            return "OK";
+        }
+        else {
+            return "FAIL";
+        }
     }
 
 }

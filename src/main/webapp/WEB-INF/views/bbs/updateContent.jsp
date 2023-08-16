@@ -21,7 +21,7 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/reset.css">
-<link rel="stylesheet" href="/css/readContent.css">
+<link rel="stylesheet" href="/css/updateContent.css">
 
 </head>
 <body>
@@ -70,9 +70,9 @@
     <div id="jb-content">
       <div id="bbsDetail">
         <div id="imageAndContentContainer">
-          <img id="postImage" src="" alt="게시물 이미지">
+          <!-- <img id="postImage" src="" alt="게시물 이미지"> -->
           <div id="bulletinContent">
-            <p><textarea id="txtContent" cols="90" rows="15" readonly>${vo.content}</textarea></p>
+            <p><textarea id="txtContent" cols="90" rows="15">${vo.content}</textarea></p>
           </div>
         </div>
       </div>
@@ -113,23 +113,18 @@
         const btnDelete  = document.querySelector('#btnDelete');
         const cafeAd     = document.querySelector('#cafeAd');
 
-        const postImage = document.querySelector('#postImage');
+
         const imageContainer  = document.querySelector('#imageContainer');
-              
+
+
+        
+        
 
         ////// 함수부 //////////////////////////////////////////////////////////////////
-        // 이미지를 첨부하지 않았다면 보이지 않게 만들기
-        window.addEventListener('load', () => {
-            if (postImage.naturalWidth) {
-                postImage.style.display = 'block';
-            }
-            else {
-              postImage.style.display = 'none';
-            }
-        });
 
-        // 지도를 그려주는 함수
+        //지도를 그려주는 함수
         function selectMapList() {
+
             lat = '${vo.lat}';
             lng = '${vo.lng}';
             
@@ -169,12 +164,12 @@
                 btnDelete.style.display = 'none';
             }
             // 내 컨텐츠가 맞다면 읽기/쓰기가 모두 가능하다.
-            // else {
-            //     // 수정이 가능하도록 readonly 속성 삭제
-            //     txtTitle.removeAttribute('readonly');
-            //     txtContent.removeAttribute('readonly');
+            else {
+                // 수정이 가능하도록 readonly 속성 삭제
+                txtTitle.removeAttribute('readonly');
+                txtContent.removeAttribute('readonly');
                 
-            // }
+            }
         }
 
         ////// 이벤트 핸들러 ///////////////////////////////////////////////////////////
@@ -186,29 +181,7 @@
 
         // 수정하기 버튼
         btnUpdate.addEventListener('click', ()=>{
-            // DB로 전송할 데이터: id, seq, title, content
-            let requestData = {
-                userId : '${vo.userId}',
-                seq : '${vo.seq}',
-                title : txtTitle.value,
-                content : txtContent.value
-            };
-            console.log(requestData);
-
-            $.ajax({
-                url : '/bbs/content',
-                type : 'POST',
-                data : requestData,
-                success : function(data) {
-                    if (data == "OK") {
-                        alert('게시물이 성공적으로 수정되었어요.');
-                        location.href = "/index";
-                    }
-                    else {
-                        alert('게시물 수정에 실패했어요.');
-                    }
-                }
-            });
+            location.href = "/bbs/updateContent";
         });
 
       // 게시글 삭제 버튼
@@ -216,11 +189,11 @@
 
             // DB로 전송할 데이터: id, seq
             let requestData = {
-              userId : '${vo.userId}',
-              seq : '${vo.seq}',
-            };
+                            userId : '${vo.userId}',
+                            seq : '${vo.seq}',
+                        };
             
-            if (confirm ('삭제된 글은 복구할 수 없습니다.\n정말 삭제하시겠습니까?')) 
+            if (confirm ('삭제된 글은 복구할 수 없습니다. \n정말 삭제하시겠습니까?')) 
             {
               $.ajax({
                   url : '/bbs/deleteContent',
@@ -243,7 +216,8 @@
 
     checkMyContent(); // 내 컨텐츠가 맞다면 myContent => true
     setUiObject(); // 내 컨텐츠인 경우에만 수정 가능하게
-    selectMapList(); // 지도 그려주는 함수 실행
+    // 지도 그려주는 함수 실행
+    selectMapList();
 
     //////////////////////////////////////////////////////////////////
     //좋아요 관련 구현부
@@ -270,7 +244,7 @@
       updateLikeCount();
 
       // 백엔드 API의 엔드포인트 URL을 적절하게 변경해주세요
-    const endpoint = 'http://localhost:9090/bbs/content';
+    const endpoint = 'http://localhost:9090/bbs/updateContent';
 
         $.ajax({
           url: endpoint,
@@ -295,8 +269,8 @@
     likeButton.addEventListener('click', likeCafe);
     });
 
-    ///////////////////////////////////////////////////////////////////////////
-    //이미지 표시함수
+  ///////////////////////////////////////////////////////////////////////////
+  //이미지 표시함수
 
      // 이미지를 표시하는 함수
      function displayImage(imageUrl) {
@@ -309,6 +283,7 @@
         // 이미지를 서버의 경로를 기반으로 표시
         const imageUrl = "/imgs/member/thumbnail/${vo.fileCode}.jpg";
         displayImage(imageUrl);
+
     });
 
     })();
