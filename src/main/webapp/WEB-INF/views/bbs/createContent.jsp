@@ -365,6 +365,9 @@
         $('#submit').on('click', function(e) {
             e.preventDefault();
             // 기본 동작을 막기 위해 e.preventDefault();를 사용
+            // 여기서 기본 동작이란 폼 제출 버튼 클릭 시 페이지가 새로고침되거나 새로운 페이지로 이동하는 등의 동작이며 
+            // 대신 searchAddressToCoordinate($('#address').val()); 함수를 호출하여 주소를 좌표로 변환하고 
+            // 지도에 표시하는 로직을 실행하도록 설정
             searchAddressToCoordinate($('#address').val());
             // searchAddressToCoordinate 함수를 호출하여 주소를 좌표로 변환하고 지도에 표시
         });

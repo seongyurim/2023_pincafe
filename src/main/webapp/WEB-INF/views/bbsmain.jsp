@@ -316,7 +316,7 @@
             }
             // 로그인 상태
             else {
-                location.href = "/bbs/newcontent";
+                location.href = "/bbs/createContent";
             }
         });
 

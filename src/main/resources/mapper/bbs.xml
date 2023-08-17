@@ -57,15 +57,15 @@
 </select> -->
 
 <select id="selectBbsContent" resultMap="bbsMap">
-    SELECT * FROM BBS_TBL WHERE USERID=#{userId, jdbcType=VARCHAR} AND SEQ=#{seq, jdbcType=INTEGER}
+    SELECT * FROM BBS_TBL WHERE USERID=#{userId} AND SEQ=#{seq}
 </select>
  <!-- readContent와 updateContent의 경우에는 데이터 타입이나 데이터베이스 드라이버에 따라 
  동작이 달라질 수 있기 때문에, 가급적이면 jdbcType을 명시적으로 설정하는 것이 좋습니다. 
  이로 인해 코드가 더 안정적으로 동작하고 다양한 환경에서 일관된 결과를 얻을 수 있습니다 -->
 
 <update id="updateBbsContent">
-    UPDATE BBS_TBL SET TITLE=#{title, jdbcType=VARCHAR}, CONTENT=#{content, jdbcType=VARCHAR}
-    WHERE USERID=#{userId, jdbcType=VARCHAR} AND SEQ=#{seq, jdbcType=INTEGER}
+    UPDATE BBS_TBL SET TITLE=#{title}, CONTENT=#{content}
+    WHERE USERID=#{userId} AND SEQ=#{seq}
 </update>
 
 <update id="increaseViewCount">

@@ -61,9 +61,9 @@ public class BbsController {
         return bbsMstVO;        
     }
 
-    @GetMapping("/bbs/content")
-    public String content(@ModelAttribute("BbsTblVO") BbsTblVO vo,
-                            Model model) throws Exception {
+    @GetMapping("/bbs/readContent")
+    public String readContent(@ModelAttribute("BbsTblVO") BbsTblVO vo,
+                              Model model) throws Exception {
         // vo로 userId, seq 값을 받았다.
 
         // 게시물 정보(userId, seq)에 맞는 게시물을 가지고 온다.
@@ -187,8 +187,9 @@ public class BbsController {
 
         // 게시물 정보(userId, seq)에 맞는 게시물을 가지고 온다.
         // SELECT * FROM BBS_TBL WHERE USERID='jsh' AND QEQ=1
+        System.out.println(vo);
         BbsTblVO resultVO = bbsDAO.selectBbsContent(vo);
-
+        System.out.println("result : " + resultVO);
         // 세션 정보를 가지고 온다.
         // 게시글 작성자와 사용자가 동일하다면 게시글을 수정할 수 있어야 한다.
         // 따라서 로그인된 회원 세션이 필요하다.
@@ -224,5 +225,5 @@ public class BbsController {
         }
     }
 
-}
 
+}
