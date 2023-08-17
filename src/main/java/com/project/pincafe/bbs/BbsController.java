@@ -61,8 +61,28 @@ public class BbsController {
         return bbsMstVO;        
     }
 
-    @GetMapping("/bbs/content")
-    public String content(@ModelAttribute("BbsTblVO") BbsTblVO vo,
+    @PostMapping("/bbs/searchedlist")
+    @ResponseBody
+    public BbsMstVO searchedlist(@ModelAttribute("BbsTblVO") BbsTblVO vo) throws Exception {
+        BbsMstVO bbsMstVO = new BbsMstVO();
+
+        // 1. 전체 row의 개수를 가지고 온다.
+        int rowCount = bbsDAO.selectBbsRowCount();
+        // System.out.println("rowCount = " + rowCount);
+
+        // 2. 페이지에 해당하는 BBS 데이터를 가지고 온다.
+        List<BbsTblVO> list = bbsDAO.selectBbsList(vo);
+
+        // 3. BbsMstVO에 저장하고 전송한다.
+        bbsMstVO.setRowCount(rowCount);
+        bbsMstVO.setBbsList(list);
+
+        // 4. 결과를 반환한다.
+        return bbsMstVO;        
+    }
+
+    @GetMapping("/bbs/readContent")
+    public String readContent(@ModelAttribute("BbsTblVO") BbsTblVO vo,
                             Model model) throws Exception {
         // vo로 userId, seq 값을 받았다.
 

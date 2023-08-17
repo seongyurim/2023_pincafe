@@ -11,6 +11,7 @@ public class BbsTblVO {
     // 설계속성
     private int page;
     private int rowsPerPage;
+    private String keyword;
 
     // 기본속성
     private String rowNum;
