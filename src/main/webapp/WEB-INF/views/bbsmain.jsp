@@ -143,13 +143,12 @@
             // BBS 세팅을 위한 데이터를 오브젝트에 담기
             let requestData = {
                 page : page,
-                rowsPerPage : rowsPerPage,
-                keyword : keyword
+                rowsPerPage : rowsPerPage
             };
 
             // 오브젝트를 DB로 전달하기
             $.ajax({
-                url : 'bbs/searchedlist',
+                url : 'bbs/list',
                 type : 'POST',
                 data : requestData,
                 success : function(data) { // 여기서 받는 데이터: rowCount, bbsList

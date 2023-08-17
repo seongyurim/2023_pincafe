@@ -236,7 +236,6 @@ public class MainController {
 
             // 인덱스 화면으로 리다이렉트
             response.sendRedirect("index");
-    
     }    
 
 

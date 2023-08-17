@@ -198,7 +198,7 @@
                 success : function(data) {
                     if (data == "OK") {
                         alert('게시물이 성공적으로 수정되었어요.');
-                        location.href = "/index";
+                        location.href = "/bbsmain";
                     }
                     else {
                         alert('게시물 수정에 실패했어요.');
@@ -216,7 +216,7 @@
                             seq : '${vo.seq}',
                         };
             
-            if (confirm ('삭제된 글은 복구할 수 없습니다. \n정말 삭제하시겠습니까?')) 
+            if (confirm ('삭제된 글은 복구할 수 없습니다. \n정말 삭제하시겠습니까?'));
             {
               $.ajax({
                   url : '/bbs/deleteContent',
@@ -225,7 +225,7 @@
                   success : function(data) {
                       if (data == "OK") {
                           alert('게시글이 삭제되었습니다.');
-                            location.href = "/index";
+                            location.href = "/bbsmain";
                       }
                       else {
                           alert('게시글 삭제에 실패했습니다. 다시 시도해주세요.');
@@ -239,17 +239,16 @@
 
     checkMyContent(); // 내 컨텐츠가 맞다면 myContent => true
     setUiObject(); // 내 컨텐츠인 경우에만 수정 가능하게
-    // 지도 그려주는 함수 실행
-    selectMapList();
+    selectMapList(); // 지도 그려주는 함수 실행
 
     
-  ///////////////////////////////////////////////////////////////////////////
-  //이미지 표시함수
+    ///////////////////////////////////////////////////////////////////////////
+    //이미지 표시함수
 
-     // 이미지를 표시하는 함수
-     function displayImage(imageUrl) {
-        const postImage = document.getElementById('postImage');
-        postImage.src = imageUrl;
+    // 이미지를 표시하는 함수
+    function displayImage(imageUrl) {
+      const postImage = document.getElementById('postImage');
+      postImage.src = imageUrl;
     }
 
     // 페이지 로드 후 실행
@@ -257,7 +256,6 @@
         // 이미지를 서버의 경로를 기반으로 표시
         const imageUrl = "/imgs/member/thumbnail/${vo.fileCode}.jpg";
         displayImage(imageUrl);
-
     });
 
     })();
