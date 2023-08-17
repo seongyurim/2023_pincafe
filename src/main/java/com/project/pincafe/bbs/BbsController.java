@@ -63,19 +63,23 @@ public class BbsController {
 
     @GetMapping("/bbs/readContent")
     public String readContent(@ModelAttribute("BbsTblVO") BbsTblVO vo,
-                              Model model) throws Exception {
+                            Model model) throws Exception {
         // vo로 userId, seq 값을 받았다.
 
         // 게시물 정보(userId, seq)에 맞는 게시물을 가지고 온다.
         // SELECT * FROM BBS_TBL WHERE USERID='jsh' AND QEQ=1
         BbsTblVO resultVO = bbsDAO.selectBbsContent(vo);
-
-        bbsDAO.increaseViewCount(vo);
-
+        
         // 세션 정보를 가지고 온다.
         // 게시글 작성자와 사용자가 동일하다면 게시글을 수정할 수 있어야 한다.
         // 따라서 로그인된 회원 세션이 필요하다.
         UserTblVO userTblVO = (UserTblVO)SessionUtil.getAttribute("USER");
+        
+        // 조회수 올리기
+        if ((userTblVO == null) ||
+            (!resultVO.getUserId().equals(userTblVO.getUserId()))) {
+            bbsDAO.increaseViewCount(vo);
+        }
 
         // 게시물 정보와 세션 정보를 모델에 저장한다.
         // 즉 content.jsp에서 이 두 정보를 모두 이용한다. (myContent?!)

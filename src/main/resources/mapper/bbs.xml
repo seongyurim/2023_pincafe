@@ -92,4 +92,13 @@
     WHERE userId = #{userId} AND SEQ=#{seq}
 </delete>
 
+<select id="selectBbsContentSearched" resultMap="bbsMap">
+    SELECT * FROM BBS_TBL WHERE
+    <choose>
+        <when test="searchField == 'title'">
+            TITLE LIKE '%' || #{keyword} || '%'
+        </when>
+    </choose>
+</select>
+
 </mapper>

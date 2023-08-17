@@ -256,7 +256,7 @@
                         console.log("게시글 업로드 성공");
                         console.log('서버가 전송한 메세지 : ' + xhr.responseText);
                         alert ("게시글 작성 성공!");
-                        location.href = "/index";
+                        location.href = "/bbsmain";
                     }
                     else
                     // 400이나 500이면

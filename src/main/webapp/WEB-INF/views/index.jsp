@@ -27,7 +27,7 @@
         <form action="/search" method="GET">
             <img src="/images/pinicon.png" id="pinicon">
             <div id="searchContainer">
-                <input type="text" name="keyword" class="container-md" id="searchName" placeholder="카페 이름을 검색해보세요.">
+                <input type="text" name="keyword" class="container-md" id="searchbar" placeholder="카페 이름을 검색해보세요.">
                 <button type="submit" id="btnSearch"><img src="/images/searchicon.png" id="searchicon"></button>
             </div>
         </form>

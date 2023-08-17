@@ -27,7 +27,7 @@
         <form action="/search" method="GET">
             <img src="/images/pinicon.png" id="pinicon">
             <div id="searchContainer">
-                <input type="text" name="keyword" class="container-md" id="searchName" placeholder="카페 이름을 검색해보세요.">
+                <input type="text" name="keyword" class="container-md" id="searchbar" placeholder="카페 이름을 검색해보세요.">
                 <button type="submit" id="btnSearch"><img src="/images/searchicon.png" id="searchicon"></button>
             </div>
         </form>
@@ -36,12 +36,12 @@
     <!-- 게시판 테이블 -->
     <table id="tblBBS" class="table container-sm table-hover" data-aos="fade-up">
         <thead>
-            <th id="col1" style="width: 15%;">글번호</th>
-            <th id="col2" style="width: 10%;">지역</th>
+            <th id="col1" style="width: 10%;">글번호</th>
+            <th id="col2" style="width: 15%;">지역</th>
             <th id="col3" style="width: 30%;">제목</th>
             <th id="col4" style="width: 10%;">아이디</th>
             <th id="col5" style="width: 25%;">등록일</th>
-            <th id="col6" style="width: 10%;">조회수</th>
+            <th id="col6" style="width: 10%;">조회</th>
         </thead>
         <tbody>            
         </tbody>
@@ -94,6 +94,9 @@
         const btnInfoUpdate = document.querySelector('#btnInfoUpdate');
         const mydivider     = document.querySelector('#mydivider');
 
+        const searchbar     = document.querySelector('#searchbar');
+        const btnSearch     = document.querySelector('#btnSearch');
+
         const btnPrev    = document.querySelector('#btnPrev');
         const btnNext    = document.querySelector('#btnNext');
         const btnWrite   = document.querySelector('#btnWrite');
@@ -140,12 +143,13 @@
             // BBS 세팅을 위한 데이터를 오브젝트에 담기
             let requestData = {
                 page : page,
-                rowsPerPage : rowsPerPage // 현재 전역변수에 5로 설정되어 있음
+                rowsPerPage : rowsPerPage,
+                keyword : keyword
             };
 
             // 오브젝트를 DB로 전달하기
             $.ajax({
-                url : 'bbs/list',
+                url : 'bbs/searchedlist',
                 type : 'POST',
                 data : requestData,
                 success : function(data) { // 여기서 받는 데이터: rowCount, bbsList
@@ -302,7 +306,6 @@
             console.log("realPage = " + realPage);
         });
 
-
         // 글쓰기 버튼
         btnWrite.addEventListener('click', ()=>{
             // 비로그인 상태
@@ -334,6 +337,53 @@
         btnIntro.addEventListener('click', ()=>{
             btnIntro.setAttribute('href', '/introduction');
         });
+
+        // 검색
+        btnSearch.addEventListener('click', ()=>{
+            // BBS 세팅을 위한 데이터를 오브젝트에 담기
+            let requestData = {
+                page : page,
+                rowsPerPage : rowsPerPage // 현재 전역변수에 5로 설정되어 있음
+            };
+
+            // 오브젝트를 DB로 전달하기
+            $.ajax({
+                url : 'bbs/list',
+                type : 'POST',
+                data : requestData,
+                success : function(data) { // 여기서 받는 데이터: rowCount, bbsList
+                    
+                    let bstr = '';
+                    const tblBody = document.querySelector('#tblBBS > tbody')
+
+                    // 전체 카운트를 저장한다.
+                    rowCount = data.rowCount;
+
+                    // 테이블 body를 채워준다.
+                    tblBody.innerHTML = '';
+
+                    for (let i = 0; i < data.bbsList.length; i++) {
+                        bstr = '';
+                        bstr += '<tr>';
+                            bstr += '<td>' + data.bbsList[i].rowNum + '</td>';
+                            bstr += '<td>' + data.bbsList[i].divi + '</td>';
+                            
+                            bstr += '<td><a href=\"/bbs/readContent?userId=' + data.bbsList[i].userId
+                                          + '&seq=' + data.bbsList[i].seq
+                                          + '\">' + data.bbsList[i].title
+                                          + '</a></td>';
+
+                            bstr += '<td>' + data.bbsList[i].userId + '</td>';
+                            bstr += '<td>' + data.bbsList[i].regdate + '</td>';
+                            bstr += '<td>' + data.bbsList[i].viewCount + '</td>';
+                        bstr += '</tr>';
+
+                    tblBody.innerHTML += bstr;
+                    }
+                }
+            });
+            console.log(requestData);
+        })
         
 
         ////// 호출부 ////////////////////////////////////////////////////////////////////////
