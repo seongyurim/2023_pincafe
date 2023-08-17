@@ -61,26 +61,6 @@ public class BbsController {
         return bbsMstVO;        
     }
 
-    @PostMapping("/bbs/searchedlist")
-    @ResponseBody
-    public BbsMstVO searchedlist(@ModelAttribute("BbsTblVO") BbsTblVO vo) throws Exception {
-        BbsMstVO bbsMstVO = new BbsMstVO();
-
-        // 1. 전체 row의 개수를 가지고 온다.
-        int rowCount = bbsDAO.selectBbsRowCount();
-        // System.out.println("rowCount = " + rowCount);
-
-        // 2. 페이지에 해당하는 BBS 데이터를 가지고 온다.
-        List<BbsTblVO> list = bbsDAO.selectBbsList(vo);
-
-        // 3. BbsMstVO에 저장하고 전송한다.
-        bbsMstVO.setRowCount(rowCount);
-        bbsMstVO.setBbsList(list);
-
-        // 4. 결과를 반환한다.
-        return bbsMstVO;        
-    }
-
     @GetMapping("/bbs/readContent")
     public String readContent(@ModelAttribute("BbsTblVO") BbsTblVO vo,
                             Model model) throws Exception {
@@ -211,8 +191,9 @@ public class BbsController {
 
         // 게시물 정보(userId, seq)에 맞는 게시물을 가지고 온다.
         // SELECT * FROM BBS_TBL WHERE USERID='jsh' AND QEQ=1
+        System.out.println(vo);
         BbsTblVO resultVO = bbsDAO.selectBbsContent(vo);
-
+        System.out.println("result : " + resultVO);
         // 세션 정보를 가지고 온다.
         // 게시글 작성자와 사용자가 동일하다면 게시글을 수정할 수 있어야 한다.
         // 따라서 로그인된 회원 세션이 필요하다.
@@ -248,5 +229,5 @@ public class BbsController {
         }
     }
 
-}
 
+}

@@ -28,7 +28,7 @@
     <div id="jb_header">
       <div id="jp_header_title">
         <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
-        <div id="titleDiv"><h1 class="title" id="txtTitle">${vo.title}</h1></div>
+        <div id="titleDiv"><input type="text" id="txtTitle" value="${vo.title}"></div>
         <div id="hcDiv">
           <div class="h_container">
             <i id="heart" class="far fa-heart" onclick="likeCafe()"></i><span id="likeCount">&nbsp;0</span>           
@@ -99,6 +99,7 @@
 
     <script>
     (()=>{
+        console.log('${vo.title}');
 
         // 위도, 경도 변수 설정
         let lat = 0;
@@ -181,7 +182,29 @@
 
         // 수정하기 버튼
         btnUpdate.addEventListener('click', ()=>{
-            location.href = "/bbs/updateContent";
+            // DB로 전송할 데이터: id, seq, title, content
+            let requestData = {
+                userId : '${vo.userId}',
+                seq : '${vo.seq}',
+                title : txtTitle.value,
+                content : txtContent.value
+            };
+            console.log(requestData);
+
+            $.ajax({
+                url : '/bbs/updateContent',
+                type : 'POST',
+                data : requestData,
+                success : function(data) {
+                    if (data == "OK") {
+                        alert('게시물이 성공적으로 수정되었어요.');
+                        location.href = "/index";
+                    }
+                    else {
+                        alert('게시물 수정에 실패했어요.');
+                    }
+                }
+            });
         });
 
       // 게시글 삭제 버튼
@@ -219,56 +242,7 @@
     // 지도 그려주는 함수 실행
     selectMapList();
 
-    //////////////////////////////////////////////////////////////////
-    //좋아요 관련 구현부
-
-    document.addEventListener('DOMContentLoaded', function () {
-      const likeButton = document.getElementById('heart');
-      let isLiked = false;
-      let likeCount = 0;
-
-    // 좋아요 수를 업데이트하는 함수입니다
-    function updateLikeCount() {
-      const likeCountElement = document.getElementById('likeCount');
-      likeCountElement.textContent = likeCount.toString();
-    }
-
-    // 좋아요 버튼 클릭을 처리하는 함수입니다
-    function likeCafe() {
-      isLiked = !isLiked;
-      if (isLiked) {
-        likeCount++;
-      } else {
-        likeCount--;
-      }
-      updateLikeCount();
-
-      // 백엔드 API의 엔드포인트 URL을 적절하게 변경해주세요
-    const endpoint = 'http://localhost:9090/bbs/updateContent';
-
-        $.ajax({
-          url: endpoint,
-          type: 'POST',
-          contentType: 'application/json',
-          data: JSON.stringify({
-            user_id: 'red123', // 사용자 아이디를 문자열로 변경
-            cafe_no: '6', // 카페 아이디를 문자열로 변경
-            cafe_like: isLiked ? 1 : 0, // 좋아요 상태를 1 또는 0으로 전송
-          }),
-          success: function (data) {
-            // 서버에서 성공적인 응답을 받은 경우 (옵션)
-            // 필요에 따라 서버 응답을 처리할 수 있습니다.
-          },
-          error: function () {
-            // 에러 처리 (옵션)
-            console.error('서버 응답 실패');
-          },
-        });
-      }
-    // 좋아요 버튼에 클릭 이벤트를 추가합니다
-    likeButton.addEventListener('click', likeCafe);
-    });
-
+    
   ///////////////////////////////////////////////////////////////////////////
   //이미지 표시함수
 

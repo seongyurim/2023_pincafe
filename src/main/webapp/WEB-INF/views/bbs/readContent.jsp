@@ -28,7 +28,7 @@
     <div id="jb_header">
       <div id="jp_header_title">
         <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
-        <div id="titleDiv"><h1 class="title" id="txtTitle">${vo.title}</h1></div>
+        <div id="titleDiv"><h1 class="title" id="txtTitle" name="title">${vo.title}</h1></div>
         <div id="hcDiv">
           <div class="h_container">
             <i id="heart" class="far fa-heart" onclick="likeCafe()"></i><span id="likeCount">&nbsp;0</span>           
@@ -72,7 +72,7 @@
         <div id="imageAndContentContainer">
           <img id="postImage" src="" alt="게시물 이미지">
           <div id="bulletinContent">
-            <p><textarea id="txtContent" cols="90" rows="15" readonly>${vo.content}</textarea></p>
+            <p><textarea id="txtContent" name="content" cols="90" rows="15" readonly>${vo.content}</textarea></p>
           </div>
         </div>
       </div>
@@ -186,29 +186,7 @@
 
         // 수정하기 버튼
         btnUpdate.addEventListener('click', ()=>{
-            // DB로 전송할 데이터: id, seq, title, content
-            let requestData = {
-                userId : '${vo.userId}',
-                seq : '${vo.seq}',
-                title : txtTitle.value,
-                content : txtContent.value
-            };
-            console.log(requestData);
-
-            $.ajax({
-                url : '/bbs/content',
-                type : 'POST',
-                data : requestData,
-                success : function(data) {
-                    if (data == "OK") {
-                        alert('게시물이 성공적으로 수정되었어요.');
-                        location.href = "/index";
-                    }
-                    else {
-                        alert('게시물 수정에 실패했어요.');
-                    }
-                }
-            });
+            location.href = "/bbs/updateContent?userId=${vo.userId}&seq=${vo.seq}";
         });
 
       // 게시글 삭제 버튼
@@ -270,7 +248,7 @@
       updateLikeCount();
 
       // 백엔드 API의 엔드포인트 URL을 적절하게 변경해주세요
-    const endpoint = 'http://localhost:9090/bbs/content';
+    const endpoint = 'http://localhost:9090/bbs/readContent';
 
         $.ajax({
           url: endpoint,
