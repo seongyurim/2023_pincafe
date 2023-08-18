@@ -1,0 +1,131 @@
+#titleDiv {
+    margin-left: 380px;
+}
+
+.title {
+    font-family: 'Noto Sans KR', sans-serif;
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+    margin-left: -125px;
+}
+
+#hcDiv {
+    margin-right: 400px;
+}
+
+/* 좋아요 아이콘 */
+.h_container {
+    background-color: #cac7c7;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
+    display: flex; /* 플렉스 박스로 변경 */
+    align-items: center; /* 세로 중앙 정렬 */
+    width: fit-content; /* 내용에 맞게 너비 설정 */
+    padding: 10px 12px; /* 여백 조정 */ 
+    /* margin-right: 200px;
+    margin-left: -250px; */
+}
+
+/* 좋아요 아이콘이 토글되면 빨간색으로 만들기 */
+.h_container:hover {
+    color: rgb(204, 69, 69);
+}
+
+#heart.is-liked {
+    color: rgb(204, 69, 69);
+}
+
+
+#jb-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-evenly;
+}
+
+#jb_header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #bcbcbc;
+    font-size: 20px;
+    justify-content: flex-start; /* 요소들을 왼쪽으로 정렬 */
+} 
+
+#jb_main {
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+#jp_header_title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+}
+
+#Cafe_name {
+    font-size: 24px;
+}
+
+#carouselDiv {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mycarousel {
+    max-width: 900px;
+    max-height: 700px;
+}
+
+#jb-content {
+    text-align: center; /* 내용을 가운데 정렬 */
+}
+
+#bbsDetail {
+    display: inline-block; /* 이미지와 내용을 가로로 나열 */
+    margin-top: 20px; /* 이미지와 내용 사이에 간격 추가 */
+}
+
+#imageAndContentContainer {
+    display: flex; /* 이미지와 내용을 가로로 나열 */
+    flex-direction: column; /* 요소들을 수직으로 정렬 (이미지 위, 내용 아래로 배치) */
+    align-items: center; /* 가로 축으로 가운데 정렬 */
+}
+
+#postImage {
+    max-width: 900px; /* 이미지의 최대 가로 폭 설정 */
+    max-height: 500px; /* 이미지의 최대 높이 설정 */
+}
+
+#bulletinContent {
+    padding-top: 20px; /* 이미지와 내용 사이에 간격 추가 */
+}
+
+.mybtn {
+    margin-right: 10px; /* 버튼 간 수평 간격 조정 */
+}
+
+#map {
+    width: 700px;
+    height:500px;
+    border-radius: 8px;
+}
+
+#cafeAddress {
+    width: 100%;
+    height: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 15px auto;
+    color: orangered;
+}
+
+#pinImg {
+    width: 18px;
+    height: 23px;
+    margin-right: 5px;
+}

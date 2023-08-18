@@ -1,130 +1,92 @@
-#titleDiv {
-    margin-left: 380px;
-}
-
-.title {
-    font-family: 'Noto Sans KR', sans-serif;
-    flex: 1;
-    text-align: center;
-    font-weight: bold;
-    margin-left: -125px;
-}
-
-#hcDiv {
-    margin-right: 400px;
-}
-
-/* 좋아요 아이콘 */
-.h_container {
-    background-color: #cac7c7;
+.master_container {
+    position: relative;
+    width: 860px;
+    margin: 6rem auto;
+    padding: 4rem 2.5rem;
+    border: 1px solid #dfdfdf;
     border-radius: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .1);
-    display: flex; /* 플렉스 박스로 변경 */
-    align-items: center; /* 세로 중앙 정렬 */
-    width: fit-content; /* 내용에 맞게 너비 설정 */
-    padding: 10px 12px; /* 여백 조정 */ 
-    /* margin-right: 200px;
-    margin-left: -250px; */
 }
 
-/* 좋아요 아이콘이 토글되면 빨간색으로 만들기 */
-.h_container:hover {
-    color: rgb(204, 69, 69);
+.titleArea {
+    position: relative;
+    border-bottom: 1px solid #dfdfdf;
+    padding-bottom: 20px;
 }
 
-#heart.is-liked {
-    color: rgb(204, 69, 69);
+#divi {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0DCAF0;
+    margin-bottom: 5px;
 }
 
-
-#jb-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content:space-evenly;
+#txtTitle {
+    margin-bottom: 25px;
 }
 
-#jb_header {
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    border: 1px solid #bcbcbc;
-    font-size: 20px;
-    justify-content: flex-start; /* 요소들을 왼쪽으로 정렬 */
-} 
-
-#jb_main {
-    margin: 20px auto;
-    display: flex;
-    justify-content: space-between;
-}
-
-#jp_header_title {
+.writerInfo {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex: 1;
 }
 
-#Cafe_name {
-    font-size: 24px;
+.profileArea {
+    flex-grow: 1;
 }
 
-#carouselDiv {
-    margin-top: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.profileImg {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 15px;
 }
 
-.mycarousel {
-    max-width: 900px;
-    max-height: 700px;
+.nickname {
+    margin-right: 6px;
+    font-size: 14px;
+    font-weight: 700;
 }
 
-#jb-content {
-    text-align: center; /* 내용을 가운데 정렬 */
+.profileAreaLower {
+    font-size: 13px;
+    color: #979797;
 }
 
-#txtContent {
-    border: none;
-    resize: none;
-    font-family: 'Noto Sans KR', sans-serif;
-    font-weight: bold;
-    text-align: center;
-    /* border: 2px dotted;
-    border-color: orangered; */
-}
-
-#bbsDetail {
-    display: inline-block; /* 이미지와 내용을 가로로 나열 */
-    margin-top: 20px; /* 이미지와 내용 사이에 간격 추가 */
-}
-
-#imageAndContentContainer {
-    display: flex; /* 이미지와 내용을 가로로 나열 */
-    flex-direction: column; /* 요소들을 수직으로 정렬 (이미지 위, 내용 아래로 배치) */
-    align-items: center; /* 가로 축으로 가운데 정렬 */
+.regDate {
+    margin-right: 5px;
 }
 
 #postImage {
-    max-width: 900px; /* 이미지의 최대 가로 폭 설정 */
-    max-height: 500px; /* 이미지의 최대 높이 설정 */
-}
-
-#bulletinContent {
-    padding-top: 20px; /* 이미지와 내용 사이에 간격 추가 */
-}
-
-#jb-footer {
-    display: flex;
-    justify-content: center; /* 가로 축으로 가운데 정렬 */
-    /* border: 1px solid #bcbcbc; */
-    box-sizing: border-box; /* 테두리를 기준으로 크기 설정 */
-    padding: 20px; /* 버튼과 테두리 사이에 간격 추가 */
+    margin: 0 auto;
 }
 
 .mybtn {
-    margin-right: 10px; /* 버튼 간 수평 간격 조정 */
+    margin-left: 5px;
+    font-weight: 700;
+}
+
+#pinImg {
+    width: 16px;
+    height: 21px;
+    margin-right: 5px;
+    filter: invert(65%) sepia(88%) saturate(1529%) hue-rotate(142deg) brightness(97%) contrast(93%);
+}
+
+#cafeAddress {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 30px auto 15px;
+    color: #0DCAF0;
+}
+
+#postImage {
+    max-width: 900px;
+    max-height: 500px;
 }
 
 .map-container {
@@ -139,22 +101,4 @@
     height:250px;
     box-sizing: border-box;
     border-radius: 8px;
-}
-
-#cafeAd {
-    display: flex;
-    justify-content: center;
-    font-family: 'Noto Sans KR', sans-serif;
-    width: 100%;
-    height: 20px;
-    font-size: 16px;
-    font-weight: bold;
-    margin: 15px auto;
-    color: orangered;
-}
-
-#pinImg {
-    width: 18px;
-    height: 23px;
-    margin-right: 5px;
 }

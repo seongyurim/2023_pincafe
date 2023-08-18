@@ -62,4 +62,9 @@
     WHERE userId = #{userId} AND userPw = #{userPw}
 </delete>
 
+<select id="getUserById" resultMap="userMap">
+    SELECT * FROM USER_TBL
+    WHERE userId = #{userId}
+</select>
+
 </mapper>

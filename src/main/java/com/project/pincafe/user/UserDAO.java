@@ -50,4 +50,10 @@ public class UserDAO {
     {
         return sqlSessionTemplate.delete("deleteUser", vo);
     }
+
+    // readContent 페이지에 작성자 닉네임, 프로필사진 띄우기
+    public UserTblVO getUserById (String id) throws Exception
+    {
+        return sqlSessionTemplate.selectOne("getUserById", id);
+    }
 }

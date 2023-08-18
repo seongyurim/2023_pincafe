@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.project.pincafe.common.SessionUtil;
 import com.project.pincafe.file.FileService;
 import com.project.pincafe.file.FileVO;
+import com.project.pincafe.user.UserDAO;
 import com.project.pincafe.user.UserTblVO;
 
 
@@ -27,6 +28,8 @@ public class BbsController {
     @Autowired
     BbsDAO bbsDAO;
 
+    @Autowired
+    UserDAO userDAO;
     
     // system에 config 객체를 뒤지게끔
     @Value("${file.upload-dir}")
@@ -57,6 +60,15 @@ public class BbsController {
         bbsMstVO.setRowCount(rowCount);
         bbsMstVO.setBbsList(list);
 
+        // 각 게시물의 작성자 아이디를 통해 작성자 닉네임을 가져와서 보여준다.
+        for (BbsTblVO bbs : list) {
+            UserTblVO author = userDAO.getUserById(bbs.getUserId());
+            if (author != null) {
+                String authorNickname = author.getName();
+                // bbs.setUserId(authorNickname);
+            }
+        }
+
         // 4. 결과를 반환한다.
         return bbsMstVO;        
     }
@@ -86,12 +98,13 @@ public class BbsController {
 
     @GetMapping("/bbs/readContent")
     public String readContent(@ModelAttribute("BbsTblVO") BbsTblVO vo,
-                            Model model) throws Exception {
+                              Model model) throws Exception {
         // vo로 userId, seq 값을 받았다.
 
         // 게시물 정보(userId, seq)에 맞는 게시물을 가지고 온다.
         // SELECT * FROM BBS_TBL WHERE USERID='jsh' AND QEQ=1
         BbsTblVO resultVO = bbsDAO.selectBbsContent(vo);
+        System.out.println(resultVO);
         
         // 세션 정보를 가지고 온다.
         // 게시글 작성자와 사용자가 동일하다면 게시글을 수정할 수 있어야 한다.
@@ -102,6 +115,16 @@ public class BbsController {
         if ((userTblVO == null) ||
             (!resultVO.getUserId().equals(userTblVO.getUserId()))) {
             bbsDAO.increaseViewCount(vo);
+        }
+
+        // 작성자 정보 가져오기
+        UserTblVO author = userDAO.getUserById(resultVO.getUserId());
+
+        if (author != null) {
+            String authorNickname = author.getName();
+            String authorProfileImg = author.getFileCode();
+            model.addAttribute("authorNickname", authorNickname);
+            model.addAttribute("authorProfileImg", authorProfileImg);
         }
 
         // 게시물 정보와 세션 정보를 모델에 저장한다.
