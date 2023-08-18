@@ -61,6 +61,29 @@ public class BbsController {
         return bbsMstVO;        
     }
 
+    // 검색 기능
+    @PostMapping("/bbs/searchedlist")
+    @ResponseBody
+    public BbsMstVO searchedlist(@ModelAttribute("BbsTblVO") BbsTblVO vo) throws Exception {
+        BbsMstVO bbsMstVO = new BbsMstVO();
+
+        // 1. 전체 row의 개수를 가지고 온다.
+        int rowCount = bbsDAO.selectBbsRowCount();
+        System.out.println(rowCount);
+        // System.out.println("rowCount = " + rowCount);
+
+        // 2. 페이지에 해당하는 BBS 데이터를 가지고 온다.
+        List<BbsTblVO> list = bbsDAO.selectBbsListSearched(vo);
+
+        System.out.println("list : " + list);
+        // 3. BbsMstVO에 저장하고 전송한다.
+        bbsMstVO.setRowCount(rowCount);
+        bbsMstVO.setSearchedList(list);
+
+        // 4. 결과를 반환한다.
+        return bbsMstVO;        
+    }
+
     @GetMapping("/bbs/readContent")
     public String readContent(@ModelAttribute("BbsTblVO") BbsTblVO vo,
                             Model model) throws Exception {

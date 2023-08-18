@@ -6,7 +6,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.project.pincafe.user.UserTblVO;
 
 @Repository
 public class BbsDAO {
@@ -44,7 +43,15 @@ public class BbsDAO {
         return sqlSessionTemplate.delete("deleteBbsContent", vo);
     }
 
+    // 조회수 증가시키기
     public void increaseViewCount(BbsTblVO vo) throws Exception {
         sqlSessionTemplate.update("increaseViewCount", vo);
+    }
+
+    // 게시판 검색 목록 조회하기
+    public List<BbsTblVO> selectBbsListSearched(BbsTblVO vo) throws Exception {
+
+        System.out.println("searchList : " + vo);
+        return sqlSessionTemplate.selectList("selectBbsListSearched", vo);
     }
 }

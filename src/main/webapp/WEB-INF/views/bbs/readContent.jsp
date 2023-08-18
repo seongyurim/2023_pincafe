@@ -22,10 +22,52 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link rel="stylesheet" href="/css/reset.css">
 <link rel="stylesheet" href="/css/readContent.css">
+<link rel="stylesheet" href="/css/content.css">
 
 </head>
 <body>
-    <div id="jb_header">
+
+  <div class="master_container">
+    <div class="mb-3 titleArea">
+      <h1 id="txtTitle" name="title">${vo.title}</h1>
+      <div class="writerInfo">
+        <div class="ImgArea">
+          <img class="profileImg" src="/imgs/member/thumbnail/${vo.fileCode}.jpg" alt="Writer's Profile Image">
+        </div>
+        <div class="profileArea">
+          <div class="profileAreaUpper">
+            <span class="nickname">${vo.userId}</span>
+          </div>
+          <div class="profileAreaLower">
+            <span class="regDate">${vo.regdate}</span>
+            <span class="countTxt">조회</span>
+            <span class="viewCount">${vo.viewCount}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mb-3"><img id="postImage" src="" alt="Posted Image"></div>
+    <div class="mb-3"><div class="txtContent" rows="3" name="content" readonly>${vo.content}</div>
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <div id="jb_header">
       <div id="jp_header_title">
         <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
         <div id="titleDiv"><h1 class="title" id="txtTitle" name="title">${vo.title}</h1></div>
@@ -35,10 +77,10 @@
           </div>
         </div>
       </div> 
-    </div>
+    </div> -->
 
     <!-- 이미지 캐러셀 -->
-    <div id="carouselDiv">
+    <!-- <div id="carouselDiv">
     <div id="carouselExampleIndicators" class="carousel slide">
       <div class="carousel-indicators">
         <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -65,9 +107,9 @@
         <span class="visually-hidden">Next</span>
       </button>
     </div> 
-    </div>
+    </div> -->
     <!-- 이미지 캐러셀 -->
-    <div id="jb-content">
+    <!-- <div id="jb-content">
       <div id="bbsDetail">
         <div id="imageAndContentContainer">
           <img id="postImage" src="" alt="게시물 이미지">
@@ -76,7 +118,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <!-- 지도 div -->
     <p id="cafeAd">

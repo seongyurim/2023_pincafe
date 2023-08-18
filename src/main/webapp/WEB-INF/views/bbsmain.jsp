@@ -24,13 +24,11 @@
     
     <!-- 검색창 -->
     <div id="searchSet" class="shadow">
-        <form action="/search" method="GET">
             <img src="/images/pinicon.png" id="pinicon">
             <div id="searchContainer">
                 <input type="text" name="keyword" class="container-md" id="searchbar" placeholder="카페 이름을 검색해보세요.">
                 <button type="submit" id="btnSearch"><img src="/images/searchicon.png" id="searchicon"></button>
             </div>
-        </form>
     </div>
 
     <!-- 게시판 테이블 -->
@@ -337,44 +335,38 @@
             btnIntro.setAttribute('href', '/introduction');
         });
 
-        // 검색
+        // 검색 기능
         btnSearch.addEventListener('click', ()=>{
-            // BBS 세팅을 위한 데이터를 오브젝트에 담기
             let requestData = {
-                page : page,
-                rowsPerPage : rowsPerPage // 현재 전역변수에 5로 설정되어 있음
+                keyword : searchbar.value
             };
 
-            // 오브젝트를 DB로 전달하기
+            console.log(requestData);
             $.ajax({
-                url : 'bbs/list',
+                url : 'bbs/searchedlist',
                 type : 'POST',
                 data : requestData,
-                success : function(data) { // 여기서 받는 데이터: rowCount, bbsList
+                success : function(data) {
                     
                     let bstr = '';
-                    const tblBody = document.querySelector('#tblBBS > tbody')
-
-                    // 전체 카운트를 저장한다.
+                    const tblBody = document.querySelector('#tblBBS > tbody');
                     rowCount = data.rowCount;
-
-                    // 테이블 body를 채워준다.
                     tblBody.innerHTML = '';
 
-                    for (let i = 0; i < data.bbsList.length; i++) {
+                    for (let i = 0; i < data.searchedList.length; i++) {
                         bstr = '';
                         bstr += '<tr>';
-                            bstr += '<td>' + data.bbsList[i].rowNum + '</td>';
-                            bstr += '<td>' + data.bbsList[i].divi + '</td>';
+                            bstr += '<td>' + data.searchedList[i].seq + '</td>';
+                            bstr += '<td>' + data.searchedList[i].divi + '</td>';
                             
-                            bstr += '<td><a href=\"/bbs/readContent?userId=' + data.bbsList[i].userId
-                                          + '&seq=' + data.bbsList[i].seq
-                                          + '\">' + data.bbsList[i].title
+                            bstr += '<td><a href=\"/bbs/readContent?userId=' + data.searchedList[i].userId
+                                          + '&seq=' + data.searchedList[i].seq
+                                          + '\">' + data.searchedList[i].title
                                           + '</a></td>';
 
-                            bstr += '<td>' + data.bbsList[i].userId + '</td>';
-                            bstr += '<td>' + data.bbsList[i].regdate + '</td>';
-                            bstr += '<td>' + data.bbsList[i].viewCount + '</td>';
+                            bstr += '<td>' + data.searchedList[i].userId + '</td>';
+                            bstr += '<td>' + data.searchedList[i].regdate + '</td>';
+                            bstr += '<td>' + data.searchedList[i].viewCount + '</td>';
                         bstr += '</tr>';
 
                     tblBody.innerHTML += bstr;

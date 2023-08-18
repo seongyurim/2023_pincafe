@@ -18,6 +18,7 @@
     <result property="lat"       column="LAT"/>
     <result property="lng"       column="LNG"/>
     <result property="viewCount" column="VIEWCOUNT"/>
+    <!-- <result property="keyword"   column="KEYWORD"/> -->
 </resultMap>
 
 <select id="selectBbsRowCount" resultType="integer"> <!-- 결과가 하나이므로 Type -->
@@ -92,13 +93,9 @@
     WHERE userId = #{userId} AND SEQ=#{seq}
 </delete>
 
-<select id="selectBbsContentSearched" resultMap="bbsMap">
-    SELECT * FROM BBS_TBL WHERE
-    <choose>
-        <when test="searchField == 'title'">
-            TITLE LIKE '%' || #{keyword} || '%'
-        </when>
-    </choose>
+<select id="selectBbsListSearched" resultMap="bbsMap">
+    SELECT * FROM BBS_TBL
+    WHERE TITLE LIKE '%' || #{keyword} || '%'
 </select>
 
 </mapper>
