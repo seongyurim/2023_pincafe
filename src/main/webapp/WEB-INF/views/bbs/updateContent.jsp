@@ -198,7 +198,7 @@
                 success : function(data) {
                     if (data == "OK") {
                         alert('게시물이 성공적으로 수정되었어요.');
-                        location.href = "/index";
+                        location.href = "/bbsmain";
                     }
                     else {
                         alert('게시물 수정에 실패했어요.');

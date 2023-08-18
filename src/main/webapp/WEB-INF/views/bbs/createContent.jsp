@@ -276,20 +276,28 @@
         // 이미지 파일 선택 시 미리보기 (1개 ver)
         $fileInput.addEventListener ('change', ()=>
         {
-            // clearPreviewBoxes();
             const files = $fileInput.files;
+            // 선택된 파일 가져오기
             if (files[0])
+            // 만약 선택된 파일이 존재한다면
             {
                 const reader = new FileReader();
+                // 파일을 읽을 수 있도록 FileReader 객체를 생성한다.
                 reader.onload = ({target})=>
+                // 파일을 읽었을 때 실행할 함수 정의
                 {
                     if ({target} == null)
+                    // { target }은 파일을 읽었을 때의 정보를 담고 있는 객체
+                    // 만약 target이 null이면
                     {
                         $previewBoxes[0].style.display = 'none';
+                        // 박스의 display 속성을 'none'으로 설정
                     }
                     $previewBoxes[0].src = target.result;
+                    // 박스의 src 속성을 읽어온 파일의 데이터 URL로 설정
                 };
                 reader.readAsDataURL($fileInput.files[0]);
+                // FileReader를 사용하여 선택된 파일을 데이터 URL 형태로 읽어오기
             }
         });
 
