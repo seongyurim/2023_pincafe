@@ -89,7 +89,7 @@
       </div>
       <div class="carousel-inner">
         <div class="mycarousel carousel-item active">
-          <img src="" id="postImage" class="d-block w-100" alt="...">
+          <img src="/upload/member/thumbnail/${vo.fileCode}.jpeg" id="postImage" class="d-block w-100" alt="...">
         </div>
         <div class="mycarousel carousel-item">
           <img src="/images/cat.jpeg" id="postImage2" class="d-block w-100" alt="...">
@@ -112,7 +112,7 @@
     <!-- <div id="jb-content">
       <div id="bbsDetail">
         <div id="imageAndContentContainer">
-          <img id="postImage" src="" alt="게시물 이미지">
+          <!-- <img id="postImage" src="" alt="게시물 이미지"> -->
           <div id="bulletinContent">
             <p><textarea id="txtContent" name="content" cols="90" rows="15" readonly>${vo.content}</textarea></p>
           </div>
