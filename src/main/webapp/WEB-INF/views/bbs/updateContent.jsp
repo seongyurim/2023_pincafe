@@ -189,26 +189,6 @@
             }
         }
 
-        // UI Setting
-        window.addEventListener('load', () => {
-
-          // 이미지를 첨부하지 않았다면 안보이게
-          if (!postImage.naturalWidth) {
-            postImage.style.display = 'none';
-          }
-
-          // 지도를 첨부하지 않았다면 안보이게
-          lat = parseFloat('${vo.lat}');
-          lng = parseFloat('${vo.lng}');
-
-          if ((lat === 0.0) && (lng === 0.0)) {
-            mapSet.style.display = 'none';
-          }
-          else {
-            selectMapList(lat, lng);
-          }
-        });
-
         // 지도를 그려주는 함수
         function selectMapList() {
 
@@ -320,7 +300,7 @@
     setSessionState();
     setSessionInfo();
     checkMyContent(); // 내 컨텐츠가 맞다면 myContent => true
-    setUiObject(); // 내 컨텐츠인 경우에만 수정 가능하게
+    selectMapList();
     
     ///////////////////////////////////////////////////////////////////////////
     //이미지 표시함수
