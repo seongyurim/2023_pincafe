@@ -1,7 +1,7 @@
 .master_container {
     position: relative;
     width: 860px;
-    margin: 6rem auto;
+    margin: 6rem auto 2rem;
     padding: 4rem 2.5rem;
     border: 1px solid #dfdfdf;
     border-radius: 20px;
@@ -99,4 +99,46 @@
     height:250px;
     box-sizing: border-box;
     border-radius: 8px;
+}
+
+#prevNextSet {
+    position: relative;
+    width: 860px;
+    margin: 2rem auto 6rem;
+    padding: 10px 30px;
+    border: 1px solid #dfdfdf;
+    border-radius: 20px;
+}
+
+.prevArea,
+.nextArea {
+    padding: 10px 0;
+}
+
+.prevArea {
+    border-bottom: 1px solid #dfdfdf;
+}
+
+.links span+span {
+    padding-left: 25px;
+}
+
+.links span {
+    position: relative;
+    display: inline-block;
+}
+
+.links span+span::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 10px;
+    width: 1px;
+    height: 13px;
+    border-radius: 0.5px;
+    background-color: #dadada;
+}
+
+.contentDetail {
+    font-weight: 700;
 }

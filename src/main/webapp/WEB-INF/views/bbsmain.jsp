@@ -35,10 +35,10 @@
     <table id="tblBBS" class="table container-sm table-hover" data-aos="fade-up">
         <thead>
             <th id="col1" style="width: 10%;">글번호</th>
-            <th id="col2" style="width: 10%;">지역</th>
+            <th id="col2" style="width: 15%;">지역</th>
             <th id="col3" style="width: 30%;">제목</th>
-            <th id="col4" style="width: 15%;">작성자</th>
-            <th id="col5" style="width: 25%;">작성일</th>
+            <th id="col4" style="width: 10%;">아이디</th>
+            <th id="col5" style="width: 25%;">등록일</th>
             <th id="col6" style="width: 10%;">조회</th>
         </thead>
         <tbody>            

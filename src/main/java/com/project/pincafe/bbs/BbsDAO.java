@@ -38,8 +38,7 @@ public class BbsDAO {
     }
 
     // 게시글 삭제하기
-    public int deleteBbsContent(BbsTblVO vo) throws Exception
-    {
+    public int deleteBbsContent(BbsTblVO vo) throws Exception {
         return sqlSessionTemplate.delete("deleteBbsContent", vo);
     }
 
@@ -50,8 +49,16 @@ public class BbsDAO {
 
     // 게시판 검색 목록 조회하기
     public List<BbsTblVO> selectBbsListSearched(BbsTblVO vo) throws Exception {
-
-        System.out.println("searchList : " + vo);
         return sqlSessionTemplate.selectList("selectBbsListSearched", vo);
+    }
+
+    // 다음글 조회
+    public BbsTblVO selectNextContent(BbsTblVO vo) throws Exception {
+        return sqlSessionTemplate.selectOne("selectNextContent", vo);
+    }
+
+    // 다음글 조회
+    public BbsTblVO selectPrevContent(BbsTblVO vo) throws Exception {
+        return sqlSessionTemplate.selectOne("selectPrevContent", vo);
     }
 }

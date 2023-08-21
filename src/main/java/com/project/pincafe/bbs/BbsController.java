@@ -43,7 +43,7 @@ public class BbsController {
 
     @PostMapping("/bbs/list")
     @ResponseBody // divi, page, rosPerPage
-    public BbsMstVO bbsList(@ModelAttribute("BbsTblVO") BbsTblVO vo) throws Exception {
+    public BbsMstVO bbsList(@ModelAttribute("BbsTblVO") BbsTblVO vo, Model model) throws Exception {
         BbsMstVO bbsMstVO = new BbsMstVO();
         // System.out.println(vo.getDivi());
         // System.out.println(vo.getPage());
@@ -65,6 +65,8 @@ public class BbsController {
             UserTblVO author = userDAO.getUserById(bbs.getUserId());
             if (author != null) {
                 String authorNickname = author.getName();
+                model.addAttribute("authorNickname", authorNickname);
+
                 // bbs.setUserId(authorNickname);
             }
         }
@@ -117,14 +119,24 @@ public class BbsController {
             bbsDAO.increaseViewCount(vo);
         }
 
-        // 작성자 정보 가져오기
-        UserTblVO author = userDAO.getUserById(resultVO.getUserId());
+        if (resultVO != null) {
+            // 작성자 정보 가져오기
+            UserTblVO author = userDAO.getUserById(resultVO.getUserId());
+            if (author != null) {
+                String authorNickname = author.getName();
+                String authorProfileImg = author.getFileCode();
+                model.addAttribute("authorNickname", authorNickname);
+                model.addAttribute("authorProfileImg", authorProfileImg);
+            }
 
-        if (author != null) {
-            String authorNickname = author.getName();
-            String authorProfileImg = author.getFileCode();
-            model.addAttribute("authorNickname", authorNickname);
-            model.addAttribute("authorProfileImg", authorProfileImg);
+            // 이전글 &다음글 정보 조회
+            BbsTblVO prevContent = bbsDAO.selectPrevContent(resultVO);
+            BbsTblVO nextContent = bbsDAO.selectNextContent(resultVO);
+            model.addAttribute("prevContent", prevContent);
+            model.addAttribute("nextContent", nextContent);
+        }
+        else {
+            System.out.println("해당 userId+seq에 맞는 글을 찾을 수 없습니다.");
         }
 
         // 게시물 정보와 세션 정보를 모델에 저장한다.
