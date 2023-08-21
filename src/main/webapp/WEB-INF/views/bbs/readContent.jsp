@@ -71,6 +71,22 @@
     </div>
   </div>
 
+  <div id="comment">
+    <table border="1" id="contentBBS" class=" table-hover">
+        <thead id="thead">
+            <th id="comment-contents">내용</th>
+            <th id="comment-id">아이디</th>
+            <th id="comment-date">날짜</th>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    댓글 작성 : <input type="text" id="cmWrite">
+    <button type="button" class="button" id="btnCM">댓글 등록</button>
+    <br><br>
+  </div>
+
     <!-- <div id="jb_header">
       <div id="jp_header_title">
         <a href="/index"><img src="/images/logo3.png" alt="PinCafe Logo"></a>
@@ -147,6 +163,9 @@
 
         let myContent = false;
 
+        // 댓글페이지
+        let commentPage = 500;
+
         const profileImg    = document.querySelector('#profileImg');
         const welcomeMsg    = document.querySelector('#welcomeMsg');
         const btnIntro      = document.querySelector('#btnIntro');
@@ -166,6 +185,11 @@
 
         const postImage      = document.querySelector('#postImage');
         const imageContainer = document.querySelector('#imageContainer');
+
+        const btnCM = document.querySelector('#btnCM');
+        const cmWrite = document.querySelector('#cmWrite');
+        const editButtons = document.querySelectorAll('.editBtn');
+        const deleteButtons = document.querySelectorAll('.deleteBtn');
 
         ////// 함수부 //////////////////////////////////////////////////////////////////
 
@@ -194,7 +218,63 @@
                 profileImg.style.display = 'none';
                 mydivider.style.display = 'none';
             }
+        };
+
+        // 댓글리스트 가져오기
+        const setCMbbs = function (page) {
+        let requestData = {
+            page: page,
+            commentPage: commentPage,
+            bbsSeq: '${vo.seq}',
+            bbsUserId: '${vo.userId}'
         }
+
+        console.log("댓글 데이터 가져오는지 : " + requestData.page);
+        console.log("댓글 데이터 가져오는지 : " + requestData.commentPage);
+
+        $.ajax({
+            url: '/cm/list',
+            type: 'POST',
+            data: requestData,
+            success: function (data)    //data :rowCount, bbsList
+            {
+                console.log("data : ");
+                console.log(data);
+                let bstr = '';
+                const tblBody = document.querySelector('#contentBBS > tbody');
+
+                // 전체 카운트를 저장.
+                rowCount = data.rowCount;
+
+                // 테이블 body를 채워준다.
+                tblBody.innerHTML = '';
+
+                console.log('${vo.seq}');
+                console.log('${vo.userId}');
+                console.log('${session.userId}');
+                console.log(data.cmList.length);
+                for (let i = 0; i < data.cmList.length; i++) {
+                    console.log("댓글채우기");
+
+                    bstr = '';
+                    bstr += '<tr>';
+                    // bstr += '<td>' + data.cmList[i].rowNum + '</td>';
+                    bstr += '<td>' + data.cmList[i].cmContent + '</td>';
+                    bstr += '<td>' + data.cmList[i].cmUserId + '</td>';
+                    bstr += '<td>' + data.cmList[i].cmRegDate + '</td>';
+                    // 추가: 수정 버튼
+                    bstr += '<td><button type="button" class="editBtn" data-cm-id="' + data.cmList[i].userId + '">수정</button></td>';
+        
+                    // 추가: 삭제 버튼
+                    bstr += '<td><button type="button" class="deleteBtn" data-cm-id="' + data.cmList[i].userId + '">삭제</button></td>';
+        
+                    bstr += '</tr>';
+                    tblBody.innerHTML += bstr;
+                }
+            }
+        });
+      };
+
 
         // UI Setting
         window.addEventListener('load', () => {
@@ -214,6 +294,9 @@
           else {
             selectMapList(lat, lng);
           }
+
+          // 댓글 리스트
+          setCMbbs(0);
         });
 
         // 지도를 그려주는 함수
@@ -329,6 +412,43 @@
         }
     });
 
+    // 댓글달기
+    btnCM.addEventListener('click', () => {
+                    if (cmWrite.value === '') 
+                    {
+                      alert ("댓글 내용을 작성해주세요.");
+                    }
+
+                    console.log("댓글 추가");
+
+                    let requestData = {
+                        cmUserId: '${session.userId}',
+                        cmContent: cmWrite.value,
+                        bbsSeq: '${vo.seq}',
+                        bbsUserId : '${vo.userId}',
+                        // name : '${session.name}'
+                    }
+
+                    console.log(requestData);
+                    $.ajax({
+                        url: '/cm/comment',
+                        type: 'POST',
+                        data: requestData,
+                        success: function (data) {
+                            console.log("data : " + data);
+                            if (data === "OK") {
+                                alert('댓글 작성 성공!');
+                                setCMbbs(0);
+                                cmWrite.value = "";
+                            }
+                            else {
+                                alert('댓글 작성 실패!');
+                            }
+                        }
+
+                    });
+
+
     ////// 호출부 //////////////////////////////////////////////////////////////////
 
     setSessionState();
@@ -402,7 +522,7 @@
         displayImage(imageUrl);
     });
 
-    })();
+    })})();
 
     </script>
 </body>
