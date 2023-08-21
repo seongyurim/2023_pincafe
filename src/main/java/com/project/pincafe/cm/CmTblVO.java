@@ -8,14 +8,13 @@ public class CmTblVO {
     private int page;
     private int commentPage;
     
-
-    // CMTBL
+    // 기본속성
     private int rowNum;
     private String cmUserId;
-    private String cmUserSeq;
+    private String cmSeq;
+    private String bbsUserId;
     private String bbsSeq;
     private String cmContent;
-    private String cmRegDate;
-    private String bbsUserId;
+    private String cmRegdate;
 
 }

@@ -16,39 +16,39 @@ public class CmDAO {
         return sqlSessionTemplate.selectOne("selectcmRowCount");
     }
 
-    public List<CmTblVO> selectcmList(CmTblVO vo) throws Exception
+    public List<CmTblVO> selectcmList(CmTblVO cmVO) throws Exception
     {
-        System.out.println("selectcmList : "+vo);
-        return sqlSessionTemplate.selectList("selectcmList", vo);
+        System.out.println("selectcmList : " + cmVO);
+        return sqlSessionTemplate.selectList("selectcmList", cmVO);
 
     }
 
-    public CmTblVO selectcmContent(CmTblVO vo) throws Exception
+    public CmTblVO selectcmContent(CmTblVO cmVO) throws Exception
     {
-        System.out.println("selectcmContent : "+vo);
-        return sqlSessionTemplate.selectOne("selectcmContent", vo);
+        System.out.println("selectcmContent : " + cmVO);
+        return sqlSessionTemplate.selectOne("selectcmContent", cmVO);
     }
 
 
-    public int updatecmContent(CmTblVO vo) throws Exception
+    public int updatecmContent(CmTblVO cmVO) throws Exception
     {
-        return sqlSessionTemplate.update("updatecmContent", vo);
+        return sqlSessionTemplate.update("updatecmContent", cmVO);
     }
 
-    public int insertComment(CmTblVO vo) throws Exception
+    public int insertComment(CmTblVO cmVO) throws Exception
     {
         System.out.println("댓글 달림");
-        return sqlSessionTemplate.insert("insertComment", vo);
+        return sqlSessionTemplate.insert("insertComment", cmVO);
     }
 
-    public int deletecmComment(CmTblVO vo) throws Exception
+    public int deletecmComment(CmTblVO cmVO) throws Exception
     {
-        return sqlSessionTemplate.delete("deletecmContent", vo);
+        return sqlSessionTemplate.delete("deletecmContent", cmVO);
     }
 
-    public int insertPartNum(CmTblVO vo) throws Exception
+    public int insertPartNum(CmTblVO cmVO) throws Exception
     {
-        return sqlSessionTemplate.insert("insertPartNum", vo);
+        return sqlSessionTemplate.insert("insertPartNum", cmVO);
     }
 
 

@@ -215,6 +215,7 @@
             console.log("주소 : ", ad);
             console.log("위도 : ", lat);
             console.log("경도 : ", lng);
+            
             if (txtTitle.value == "") {
                 alert('제목을 입력해주세요.');
                 return;

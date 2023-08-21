@@ -3,13 +3,13 @@
 <mapper namespace="com.project.pincafe.cm.CmDAO">
 
 <resultMap type="com.project.pincafe.cm.CmTblVO" id="cmMap">
-    <result property="rowNum"       column="rowNum" />
+    <result property="rowNum"       column="RN" />
     <result property="cmUserId"     column="cmUserId" />
-    <result property="cmUserSeq"    column="cmUserSeq"/>
+    <result property="cmSeq"        column="cmSeq"/>
+    <result property="bbsUserId"    column="bbsUserId"/>
     <result property="bbsSeq"       column="bbsSeq"/>
     <result property="cmContent"    column="cmContent"/>
-    <result property="cmRegDate"    column="cmRegDate"/>
-    <result property="bbsUserId"    column="bbsUserId"/>
+    <result property="cmRegdate"    column="cmRegdate"/>
 
 </resultMap>
 
@@ -18,31 +18,31 @@
 </select>
 
 <select id="selectcmList" resultMap="cmMap">
-    SELECT * FROM (SELECT rownum RN, comment_tbl.* FROM comment_tbl WHERE bbsSeq = #{bbsSeq} AND bbsUserId = #{bbsUserId} ORDER BY cmRegDate DESC)
+    SELECT * FROM (SELECT rownum RN, comment_tbl.* FROM comment_tbl WHERE bbsSeq = #{bbsSeq} AND bbsUserId = #{bbsUserId} ORDER BY cmRegdate DESC)
     WHERE RN <![CDATA[>=]]> (SELECT max(rowNum) - (#{page} + 1) * #{commentPage} + 1 FROM comment_tbl) AND 
           RN <![CDATA[<=]]> (SELECT max(rowNum) - #{page} * #{commentPage} FROM comment_tbl)
 </select>
 
 
 <select id="selectcmContent" resultMap="cmMap">
-    SELECT * FROM comment_tbl WHERE cmUserId = #{cmUserId} AND cmUserSeq = #{cmUserSeq}
+    SELECT * FROM comment_tbl WHERE cmUserId = #{cmUserId} AND cmSeq = #{cmSeq}
 </select>
 
 <update id="updatecmContent">
     UPDATE comment_tbl SET content = #{content} 
-    WHERE cmUserId = #{cmUserId} AND cmUserSeq = #{cmUserSeq}
+    WHERE cmUserId = #{cmUserId} AND cmSeq = #{cmSeq}
 </update>
 
 <insert id="insertComment">
-    INSERT INTO comment_tbl (cmUserId, cmUserSeq, bbsSeq, cmContent, cmRegDate, bbsUserId)
+    INSERT INTO comment_tbl (cmUserId, cmSeq, bbsSeq, cmContent, cmRegdate, bbsUserId)
     VALUES (#{cmUserId},
-    (SELECT NVL(max(cmUserSeq), 0) + 1 AS SEQ FROM comment_tbl WHERE cmUserId = #{cmUserId})
+    (SELECT NVL(max(cmSeq), 0) + 1 AS SEQ FROM comment_tbl WHERE cmUserId = #{cmUserId})
      , #{bbsSeq}, #{cmContent}, sysdate, #{bbsUserId})
 </insert>
 
 <delete id="deletecmComment">
     DELETE FROM comment_tbl 
-    WHERE cmUserId = #{cmUserId} AND cmUserSeq = #{cmUserSeq}
+    WHERE cmUserId = #{cmUserId} AND cmSeq = #{cmSeq}
 </delete>
 
 </mapper>

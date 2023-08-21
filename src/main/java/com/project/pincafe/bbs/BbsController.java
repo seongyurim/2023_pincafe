@@ -66,7 +66,6 @@ public class BbsController {
             if (author != null) {
                 String authorNickname = author.getName();
                 model.addAttribute("authorNickname", authorNickname);
-
                 // bbs.setUserId(authorNickname);
             }
         }

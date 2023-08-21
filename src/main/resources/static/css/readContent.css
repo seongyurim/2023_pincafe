@@ -1,7 +1,7 @@
 .master_container {
     position: relative;
     width: 860px;
-    margin: 6rem auto 2rem;
+    margin: 2rem auto 2rem;
     padding: 4rem 2.5rem;
     border: 1px solid #dfdfdf;
     border-radius: 20px;
@@ -69,6 +69,11 @@
     font-weight: 700;
 }
 
+#comment-contents {
+    padding-left: 4.5rem;
+    margin: 1.25rem 0;
+}
+
 #pinImg {
     width: 16px;
     height: 21px;
@@ -104,7 +109,7 @@
 #prevNextSet {
     position: relative;
     width: 860px;
-    margin: 2rem auto 6rem;
+    margin: 6rem auto 2rem;
     padding: 10px 30px;
     border: 1px solid #dfdfdf;
     border-radius: 20px;
@@ -115,7 +120,7 @@
     padding: 10px 0;
 }
 
-.prevArea {
+.nextArea {
     border-bottom: 1px solid #dfdfdf;
 }
 
@@ -141,4 +146,31 @@
 
 .contentDetail {
     font-weight: 700;
+}
+
+#comment_container {
+    position: relative;
+    width: 860px;
+    margin: 2rem auto 6rem;
+    padding: 2rem 30px;
+    border: 1px solid #dfdfdf;
+    border-radius: 20px;
+}
+
+.writeCM {
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+#cmWrite {
+    border-radius: 10px;
+    height: 60px;
+    padding: 1rem 1.5rem;
+}
+
+#btnCM {
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
 }
