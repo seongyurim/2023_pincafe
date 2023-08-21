@@ -18,7 +18,6 @@
     <result property="lat"       column="LAT"/>
     <result property="lng"       column="LNG"/>
     <result property="viewCount" column="VIEWCOUNT"/>
-    <!-- <result property="keyword"   column="KEYWORD"/> -->
 </resultMap>
 
 <select id="selectBbsRowCount" resultType="integer"> <!-- 결과가 하나이므로 Type -->
@@ -96,6 +95,30 @@
 <select id="selectBbsListSearched" resultMap="bbsMap">
     SELECT * FROM BBS_TBL
     WHERE TITLE LIKE '%' || #{keyword} || '%'
+</select>
+
+<!-- 다음글 조회 -->
+<select id="selectNextContent" resultMap="bbsMap">
+    SELECT *
+    FROM (
+        SELECT *
+        FROM BBS_TBL
+        WHERE TO_DATE(REGDATE, 'YYYY/MM/DD HH24:MI:SS') <![CDATA[<]]> TO_DATE(#{regdate}, 'YYYY/MM/DD HH24:MI:SS')
+        ORDER BY TO_DATE(REGDATE, 'YYYY/MM/DD HH24:MI:SS') ASC
+    )
+    WHERE ROWNUM = 1
+</select>
+
+<!-- 이전글 조회 -->
+<select id="selectPrevContent" resultMap="bbsMap">
+    SELECT *
+    FROM (
+        SELECT *
+        FROM BBS_TBL
+        WHERE TO_DATE(REGDATE, 'YYYY/MM/DD HH24:MI:SS') <![CDATA[>]]> TO_DATE(#{regdate}, 'YYYY/MM/DD HH24:MI:SS')
+        ORDER BY TO_DATE(REGDATE, 'YYYY/MM/DD HH24:MI:SS') DESC
+    )
+    WHERE ROWNUM = 1
 </select>
 
 </mapper>
