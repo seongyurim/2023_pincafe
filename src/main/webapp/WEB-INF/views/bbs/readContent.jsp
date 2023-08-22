@@ -125,9 +125,6 @@
         crossorigin="anonymous"></script>
 
       <script>
-        // (()=>{
-        // alert(1);
-
 
         // 위도, 경도 변수 설정
         let lat = 0;
@@ -210,91 +207,61 @@
           }
         }
 
-        // 댓글리스트 가져오기
-        const setCMbbs = function (page) {
-          let requestData = {
-            page: page,
-            commentPage: commentPage,
-            bbsUserId: '${vo.userId}',
-            bbsSeq: '${vo.seq}'
-          }
-
-
-          console.log("댓글 데이터 가져오는지 : " + requestData.page);
-          console.log("댓글 데이터 가져오는지 : " + requestData.commentPage);
-
-<<<<<<< HEAD
           // 댓글리스트 가져오기
-          const setCMbbs = function(page) {
+          const setCMbbs = function (page) {
             let requestData = {
               page: page,
               commentPage: commentPage,
               bbsUserId: '${vo.userId}',
               bbsSeq: '${vo.seq}'
             }
-=======
-          $.ajax({
-            url: '/cm/list',
-            type: 'POST',
-            data: requestData,
-            success: function (data) {
-              rowCount = data.rowCount;
-              const commentContainer = document.querySelector('#comment_container .comment_wrap');
-              commentContainer.innerHTML = '';
-              // console.log("data1 : " + data.cmList[0].cmUserId);
-              // console.log("data1 : " + data.cmList[0].cmContent);
->>>>>>> 95de60c97acf7280e400fddb84ef6b13c77b6c31
 
-              for (let i = 0; i < data.cmList.length; i++) {
-                const commentEntry = document.createElement('div');
-                commentEntry.classList.add('comment_entry');
 
-<<<<<<< HEAD
+            console.log("댓글 데이터 가져오는지 : " + requestData.page);
+            console.log("댓글 데이터 가져오는지 : " + requestData.commentPage);
+
             $.ajax({
               url: '/cm/list',
               type: 'POST',
               // url: '/bbs/readContent',
               // type: 'GET',
               data: requestData,
-              success: function(data) {
-                  rowCount = data.rowCount;
-                  const commentContainer = document.querySelector('#comment_container .comment_wrap');
-                  commentContainer.innerHTML = '';
+              success: function (data) {
+                rowCount = data.rowCount;
+                const commentContainer = document.querySelector('#comment_container .comment_wrap');
+                commentContainer.innerHTML = '';
 
-                  for (let i = 0; i < data.cmList.length; i++) {
-                    // console.log(cmAuthorNicknames);
-                    const commentEntry = document.createElement('div');
-                    commentEntry.classList.add('comment_entry');
+                for (let i = 0; i < data.cmList.length; i++) {
+                  // console.log(cmAuthorNicknames);
+                  const commentEntry = document.createElement('div');
+                  commentEntry.classList.add('comment_entry');
 
-                    commentEntry.innerHTML = `
-=======
-                commentEntry.innerHTML = `
->>>>>>> 95de60c97acf7280e400fddb84ef6b13c77b6c31
-                      <div class="writerInfo">
-                        <div class="ImgArea">
-                          <img class="profileImg" src="/imgs/member/thumbnail/0000.jpg">
+                  commentEntry.innerHTML = `
+                    <div class="writerInfo">
+                      <div class="ImgArea">
+                        <img class="profileImg" src="/imgs/member/thumbnail/0000.jpg">
+                      </div>
+                      <div class="profileArea">
+                        <div class="profileAreaUpper">
+                          <span class="nickname">\${data.cmList[i].cmUserId}</span>
                         </div>
-                        <div class="profileArea">
-                          <div class="profileAreaUpper">
-                            <span class="nickname">\${data.cmList[i].cmUserId}</span>
-                          </div>
-                          <div class="profileAreaLower">
-                            <span class="regDate">\${data.cmList[i].cmRegdate}</span>
-                          </div>
-                        </div>
-                        <div class="btnArea">
-                          <button type="button" class="mybtn btn btn-light btn-sm" data-cm-id="${data.cmList[i].cmUserId}">수정</button>
-                          <button type="button" id="cmDeleteBtn" class="cmDeleteBtn mybtn btn btn-light btn-sm" data-cm-seq="\${data.cmList[i].cmSeq}" data-cm-id="\${data.cmList[i].cmUserId}">삭제</button>
+                        <div class="profileAreaLower">
+                          <span class="regDate">\${data.cmList[i].cmRegdate}</span>
                         </div>
                       </div>
-                      <div class="comment_content">\${data.cmList[i].cmContent}</div>
-                    `;
+                      <div class="btnArea">
+                        <button type="button" class="mybtn btn btn-light btn-sm" data-cm-id="${data.cmList[i].cmUserId}">수정</button>
+                        <button type="button" id="cmDeleteBtn" class="cmDeleteBtn mybtn btn btn-light btn-sm" data-cm-seq="\${data.cmList[i].cmSeq}" data-cm-id="\${data.cmList[i].cmUserId}">삭제</button>
+                      </div>
+                    </div>
+                    <div class="comment_content">\${data.cmList[i].cmContent}</div>
+                  `;
 
-                commentContainer.appendChild(commentEntry);
+                  commentContainer.appendChild(commentEntry);
+                }
               }
-            }
-          });
-        };
+            });
+          };
 
 
         // UI Setting
@@ -548,14 +515,6 @@
           const cmSeq = event.target.getAttribute('data-cm-seq');
           const cmUserId = event.target.getAttribute('data-cm-id');
           if (event.target.classList.contains('cmDeleteBtn')) {
-            if (checkMyComment(cmUserId) === false) {
-              console.log("댓글 작성자 불일치");
-              // 수정 및 삭제 버튼을 숨기는 처리
-              const editButtons = event.target.closest('.btnArea').querySelectorAll('.mybtn');
-                    editButtons.forEach(button => {
-                      button.style.display = 'none';
-                    });
-            }
             console.log(cmSeq);
             console.log(cmUserId);
             let requestData = {
@@ -645,9 +604,6 @@
         setUiObject(); // 내 컨텐츠인 경우에만 수정 가능하게
         setCmUiObject(); // 내 댓글일 경우에만 수정 가능하게
         setNextPrevContent();
-
-
-      // })();
 
       </script>
   </body>
