@@ -1,5 +1,6 @@
 package com.project.pincafe.bbs;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.pincafe.cm.CmDAO;
+import com.project.pincafe.cm.CmTblVO;
 import com.project.pincafe.common.SessionUtil;
 import com.project.pincafe.file.FileService;
 import com.project.pincafe.file.FileVO;
@@ -30,6 +33,9 @@ public class BbsController {
 
     @Autowired
     UserDAO userDAO;
+
+    @Autowired
+    CmDAO cmDAO;
     
     // system에 config 객체를 뒤지게끔
     @Value("${file.upload-dir}")
@@ -99,13 +105,14 @@ public class BbsController {
 
     @GetMapping("/bbs/readContent")
     public String readContent(@ModelAttribute("BbsTblVO") BbsTblVO vo,
+                              @ModelAttribute("CmTblVO") CmTblVO cmVO,
                               Model model) throws Exception {
         // vo로 userId, seq 값을 받았다.
 
         // 게시물 정보(userId, seq)에 맞는 게시물을 가지고 온다.
         // SELECT * FROM BBS_TBL WHERE USERID='jsh' AND QEQ=1
         BbsTblVO resultVO = bbsDAO.selectBbsContent(vo);
-        System.out.println(resultVO);
+        System.out.println("작성글 정보: " + resultVO);
         
         // 세션 정보를 가지고 온다.
         // 게시글 작성자와 사용자가 동일하다면 게시글을 수정할 수 있어야 한다.
@@ -121,12 +128,20 @@ public class BbsController {
         if (resultVO != null) {
             // 작성자 정보 가져오기
             UserTblVO author = userDAO.getUserById(resultVO.getUserId());
+            System.out.println("작성자 정보: " + author);
             if (author != null) {
                 String authorNickname = author.getName();
                 String authorProfileImg = author.getFileCode();
                 model.addAttribute("authorNickname", authorNickname);
                 model.addAttribute("authorProfileImg", authorProfileImg);
             }
+
+            //////
+            // cmVO.setBbsUserId(resultVO.getUserId());
+            // cmVO.setBbsSeq(resultVO.getSeq());
+            // System.out.println(cmVO);
+            // List<CmTblVO> list = cmDAO.selectcmList(cmVO);
+            // System.out.println(list);
 
             // 이전글 &다음글 정보 조회
             BbsTblVO prevContent = bbsDAO.selectPrevContent(resultVO);
@@ -142,6 +157,33 @@ public class BbsController {
         // 즉 content.jsp에서 이 두 정보를 모두 이용한다. (myContent?!)
         model.addAttribute("vo", resultVO);    // content row 정보 보내기
         model.addAttribute("session", userTblVO); // 로그인한 유저의 정보 보내기
+
+
+        ////// 댓글에 사용자 닉네임, 프로필사진 가져오기
+        // CmTblVO currentCM = null;
+        // List<String> cmAuthorNicknames = new ArrayList<>();
+        // List<String> cmAuthorProfileImgs = new ArrayList<>();
+    
+        // for (int i = 0; i < list.size(); i++) {
+        //     CmTblVO cmTblVO = list.get(i);
+        //     currentCM = cmDAO.selectcmContent(cmTblVO);
+        //     System.out.println("현재 CmTblVO는: " + currentCM);
+    
+        //     if (resultVO != null) {
+        //         UserTblVO author = userDAO.getUserById(currentCM.getCmUserId());
+    
+        //         if (author != null) {
+        //             String cmAuthorNickname = author.getName();
+        //             String cmAuthorProfileImg = author.getFileCode();
+        //             cmAuthorNicknames.add(cmAuthorNickname);
+        //             cmAuthorProfileImgs.add(cmAuthorProfileImg);                   
+        //         }
+        //     }
+        // }
+        // model.addAttribute("cmAuthorNicknames", cmAuthorNicknames);
+        // model.addAttribute("cmAuthorProfileImgs", cmAuthorProfileImgs);
+        // System.out.println(cmAuthorNicknames);
+        // System.out.println(cmAuthorProfileImgs);
 
         return "/bbs/readContent";
     }

@@ -226,8 +226,6 @@
             let requestData = {
               page: page,
               commentPage: commentPage,
-              cmUserId: '${cmVO.userId}',
-              cmSeq: '${cmVO.seq}',
               bbsUserId: '${vo.userId}',
               bbsSeq: '${vo.seq}'
             }
@@ -238,15 +236,16 @@
             $.ajax({
               url: '/cm/list',
               type: 'POST',
+              // url: '/bbs/readContent',
+              // type: 'GET',
               data: requestData,
               success: function(data) {
-                  let bstr = '';
                   rowCount = data.rowCount;
-
                   const commentContainer = document.querySelector('#comment_container .comment_wrap');
                   commentContainer.innerHTML = '';
 
                   for (let i = 0; i < data.cmList.length; i++) {
+                    // console.log(cmAuthorNicknames);
                     const commentEntry = document.createElement('div');
                     commentEntry.classList.add('comment_entry');
 
@@ -257,10 +256,10 @@
                         </div>
                         <div class="profileArea">
                           <div class="profileAreaUpper">
-                            <span class="nickname">${data.cmList[i].cmUserId}</span>
+                            <span class="nickname">\${data.cmList[i].cmUserId}</span>
                           </div>
                           <div class="profileAreaLower">
-                            <span class="regDate">${data.cmList[i].cmRegdate}</span>
+                            <span class="regDate">\${data.cmList[i].cmRegdate}</span>
                           </div>
                         </div>
                         <div class="btnArea">
@@ -268,7 +267,7 @@
                           <button type="button" class="mybtn btn btn-light btn-sm" data-cm-id="${data.cmList[i].cmUserId}">삭제</button>
                         </div>
                       </div>
-                      <div class="comment_content">${data.cmList[i].cmContent}</div>
+                      <div class="comment_content">\${data.cmList[i].cmContent}</div>
                     `;
 
                     commentContainer.appendChild(commentEntry);

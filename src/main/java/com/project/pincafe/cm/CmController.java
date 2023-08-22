@@ -1,5 +1,6 @@
 package com.project.pincafe.cm;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class CmController {
     @Autowired
     UserDAO userDAO;
 
+
     @PostMapping("/cm/list")
     @ResponseBody  
     public CmMstVO cmList(@ModelAttribute("cmVO") CmTblVO cmVO, Model model) throws Exception
@@ -42,7 +44,33 @@ public class CmController {
         cmMstVO.setRowCount(rowCount);
         cmMstVO.setCmList(list);
 
-        return cmMstVO;        
+        //////
+        // CmTblVO resultVO = null;
+        // List<String> cmAuthorNicknames = new ArrayList<>();
+        // List<String> cmAuthorProfileImgs = new ArrayList<>();
+    
+        // for (int i = 0; i < list.size(); i++) {
+        //     CmTblVO cmTblVO = list.get(i);
+        //     resultVO = cmDAO.selectcmContent(cmTblVO);
+        //     System.out.println("현재 CmTblVO는: " + resultVO);
+    
+        //     if (resultVO != null) {
+        //         UserTblVO author = userDAO.getUserById(resultVO.getCmUserId());
+    
+        //         if (author != null) {
+        //             String cmAuthorNickname = author.getName();
+        //             String cmAuthorProfileImg = author.getFileCode();
+        //             cmAuthorNicknames.add(cmAuthorNickname);
+        //             cmAuthorProfileImgs.add(cmAuthorProfileImg);                   
+        //         }
+        //     }
+        // }
+        // model.addAttribute("cmAuthorNicknames", cmAuthorNicknames);
+        // model.addAttribute("cmAuthorProfileImgs", cmAuthorProfileImgs);
+        // System.out.println(cmAuthorNicknames);
+        // System.out.println(cmAuthorProfileImgs);
+
+        return cmMstVO;
     }
 
     @PostMapping("/cm/comment")
