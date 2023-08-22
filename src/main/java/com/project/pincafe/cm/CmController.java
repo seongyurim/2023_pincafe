@@ -26,7 +26,7 @@ public class CmController {
 
     @PostMapping("/cm/list")
     @ResponseBody  
-    public CmMstVO cmList(@ModelAttribute("cmVO") CmTblVO cmVO, Model model) throws Exception
+    public CmMstVO cmList(@ModelAttribute("CmTblVO") CmTblVO cmVO, Model model) throws Exception
     {
         System.out.println("현재 vo : " + cmVO);
         CmMstVO cmMstVO = new CmMstVO();
@@ -37,7 +37,7 @@ public class CmController {
 
         List<CmTblVO> list = cmDAO.selectcmList(cmVO);
         
-        System.out.println("댓글 리스트 : " + list);
+        // System.out.println("댓글 리스트 : " + list);
 
         cmMstVO.setRowCount(rowCount);
         cmMstVO.setCmList(list);
@@ -47,12 +47,13 @@ public class CmController {
 
     @PostMapping("/cm/comment")
     @ResponseBody         
-    public String comment(@ModelAttribute("cmVO") CmTblVO cmVO) throws Exception
+    public String comment(@ModelAttribute("CmTblVO") CmTblVO cmVO) throws Exception
     {
 
         CmMstVO cmMstVO = new CmMstVO();
         int rowCount = cmDAO.selectcmRowCount();
         System.out.println(rowCount);
+        System.out.println(cmVO);
 
         List<CmTblVO> list = cmDAO.selectcmList(cmVO);
         
@@ -70,6 +71,30 @@ public class CmController {
         }
         else {
             return "FAIL";
+        }
+    }
+
+     ////// 댓글 삭제 ////////////////////////////////////////////////////////////////
+    // post 댓글 삭제
+    @PostMapping("/cm/deleteComment")
+    @ResponseBody
+    public String cmDelete(@ModelAttribute("CmTblVO") CmTblVO cmVO) throws Exception
+    {
+        // 1. 게시물 정보(userId, seq)에 맞는 게시물을 가지고 오기
+        CmTblVO resultVO = cmDAO.selectcmComment(cmVO);
+        System.out.println("삭제구현(댓글번호) : " + resultVO.getCmSeq());
+        System.out.println("삭제구현(댓글회원) : " + resultVO.getCmUserId());
+
+        // 2. 게시글 삭제
+        int deleteCount = cmDAO.deletecmComment(resultVO);
+        System.out.println("삭제 댓글 개수 : " + deleteCount);
+
+        // 3. 게시글 삭제 체크
+        if (deleteCount == 1) {
+            return "success";
+        } else {
+            // 삭제 실패 시, 실패 메시지 보내기
+            return "fail";
         }
     }
 
