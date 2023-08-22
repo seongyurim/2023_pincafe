@@ -37,8 +37,8 @@
             <th id="col1" style="width: 10%;">글번호</th>
             <th id="col2" style="width: 15%;">지역</th>
             <th id="col3" style="width: 30%;">제목</th>
-            <th id="col4" style="width: 10%;">아이디</th>
-            <th id="col5" style="width: 25%;">등록일</th>
+            <th id="col4" style="width: 10%;">작성자</th>
+            <th id="col5" style="width: 25%;">작성일</th>
             <th id="col6" style="width: 10%;">조회</th>
         </thead>
         <tbody>            
@@ -53,7 +53,7 @@
         <button type="button" id="btn4" class="btns myBtn btn btn-outline-dark">4</button>
         <button type="button" id="btn5" class="btns myBtn btn btn-outline-dark">5</button>
         <button type="button" id="btnNext" class="myBtn btn btn-outline-dark">다음</button>
-        <button type="button" id="btnWrite" class="myBtn btn btn-outline-dark">글쓰기</button>
+        <button type="button" id="btnWrite" class="myBtn btn btn-dark">글쓰기</button>
     </div>
 
     <!-- Template Vendor JS Files -->
@@ -228,7 +228,6 @@
         btnJoin.addEventListener('click', ()=>{
             location.href = '/join';
         });
-
         
         // 이전 목록 버튼
         btnPrev.addEventListener('click', ()=> {

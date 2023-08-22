@@ -37,7 +37,7 @@ public class BbsController {
     @Autowired
     CmDAO cmDAO;
     
-    // system에 config 객체를 뒤지게끔
+    // system에게 config 객체를 탐색하게 만든다.
     @Value("${file.upload-dir}")
     private String uploadDir;
 
@@ -241,7 +241,9 @@ public class BbsController {
     public String createContent(@ModelAttribute("BbsTblVO") BbsTblVO vo,
                                 Model model) throws Exception {
         UserTblVO userTblVO = (UserTblVO)SessionUtil.getAttribute("USER");
+        System.out.println("userTblVO: " + userTblVO);
         model.addAttribute("session", userTblVO);
+
         return "/bbs/createContent";
     }
 
