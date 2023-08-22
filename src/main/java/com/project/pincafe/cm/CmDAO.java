@@ -23,10 +23,9 @@ public class CmDAO {
 
     }
 
-    public CmTblVO selectcmContent(CmTblVO cmVO) throws Exception
+    public CmTblVO selectcmComment(CmTblVO cmVO) throws Exception
     {
-        System.out.println("selectcmContent : " + cmVO);
-        return sqlSessionTemplate.selectOne("selectcmContent", cmVO);
+        return sqlSessionTemplate.selectOne("selectcmComment", cmVO);
     }
 
 
@@ -43,7 +42,7 @@ public class CmDAO {
 
     public int deletecmComment(CmTblVO cmVO) throws Exception
     {
-        return sqlSessionTemplate.delete("deletecmContent", cmVO);
+        return sqlSessionTemplate.delete("deletecmComment", cmVO);
     }
 
     public int insertPartNum(CmTblVO cmVO) throws Exception

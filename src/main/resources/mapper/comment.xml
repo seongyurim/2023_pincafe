@@ -6,8 +6,8 @@
     <result property="rowNum"       column="RN" />
     <result property="cmUserId"     column="cmUserId" />
     <result property="cmSeq"        column="cmSeq"/>
-    <result property="bbsUserId"    column="bbsUserId"/>
     <result property="bbsSeq"       column="bbsSeq"/>
+    <result property="bbsUserId"    column="bbsUserId"/>
     <result property="cmContent"    column="cmContent"/>
     <result property="cmRegdate"    column="cmRegdate"/>
 
@@ -24,7 +24,7 @@
 </select>
 
 
-<select id="selectcmContent" resultMap="cmMap">
+<select id="selectcmComment" resultMap="cmMap">
     SELECT * FROM comment_tbl WHERE cmUserId = #{cmUserId} AND cmSeq = #{cmSeq}
 </select>
 
