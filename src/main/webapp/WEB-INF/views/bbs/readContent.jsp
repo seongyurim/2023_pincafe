@@ -164,7 +164,7 @@
         const btnCM = document.querySelector('#btnCM');
         const cmWrite = document.querySelector('#cmWrite');
         // const editButtons = document.querySelectorAll('.editBtn');
-        const cmDeleteButtons = document.querySelectorAll('#cmDeleteBtn');
+        const cmDeleteButtons = document.querySelectorAll('.cmDeleteBtn');
 
         ////// 함수부 //////////////////////////////////////////////////////////////////
 
@@ -261,6 +261,8 @@
                 }
               }
             });
+            // checkMyComment(); // 내 댓글이면 myComment => true
+            // setCmUiObject(); // 내 댓글일 경우에만 수정 가능하게
           };
 
 
@@ -286,6 +288,8 @@
 
           // 댓글 리스트
           setCMbbs(0);
+          checkMyComment(); // 내 댓글이면 myComment => true
+          setCmUiObject(); // 내 댓글일 경우에만 수정 가능하게
         });
 
         // 지도를 그려주는 함수
@@ -328,55 +332,76 @@
         }
 
         // 현재 사용자와 댓글 작성자가 동일한지 확인한다.
+        // const checkMyComment = function (userId) {
+        //   console.log("checkMyComment실행");
+        //    // 현재 사용자와 댓글 작성자가 동일한 경우에만 true
+        //    return '${session.userId}' === userId;
+        // }
+
+        // cmDeleteButtons.forEach(button => {
+        //   // 각 버튼 요소에 대한 처리
+        //   const cmUserId = button.getAttribute('data-cm-id');
+        //   // 이하 버튼에 대한 처리
+        // });
+
+        // 현재 사용자와 댓글 작성자가 동일한지 확인하는 함수
         const checkMyComment = function (userId) {
-          console.log("checkMyComment실행");
-           // 현재 사용자와 댓글 작성자가 동일한 경우에만 true
-           return '${session.userId}' === userId;
+          return '${session.userId}' === userId;
         }
 
-        cmDeleteButtons.forEach(button => {
-          // 각 버튼 요소에 대한 처리
-          const cmUserId = button.getAttribute('data-cm-id');
-          // 이하 버튼에 대한 처리
-        });
-
-        // 댓글 수정 및 삭제버튼 나타내기 여부
+        // 댓글 수정 및 삭제 버튼 나타내기 여부
         const setCmUiObject = function () {
-          console.log("setCmUiObject실행");
-
-          console.log("cmDeleteButtons 배열 내용:");
-          cmDeleteButtons.forEach(button => {
-            console.log(button);
-          });
-
+          // const cmDeleteButtons = document.querySelectorAll('#cmDeleteBtn');
+          console.log("cmDeleteButtons : " + cmDeleteButtons[0]);
+          
           cmDeleteButtons.forEach(button => {
             const cmUserId = button.getAttribute('data-cm-id');
-            console.log(cmUserId);
+            
+            if (checkMyComment(cmUserId)) {
+              button.style.display = 'inline-block'; // 작성자와 세션 일치 시 버튼 표시
+            } else {
+              button.style.display = 'none'; // 작성자와 세션 불일치 시 버튼 숨김
+            }
           });
-          // console.log("현재 버튼 : ", cmDeleteButtons[0].data-cm-id);
-          // for (let i = 0; i < cmDeleteButtons.length; i++)
-          // {
-          //   if (checkMyComment(cmUserId) === true)
-          //   {
-          //     cmDeleteButtons[i].style.display = 'inline-block';
-          //   }
-          //   else (checkMyComment(cmUserId) === false)
-          //   {
-          //     cmDeleteButtons[i].style.display = 'none';
-          //   }
-          // }
-          // cmDeleteButtons.forEach(()) => {
-          //   if (comment.cmUserId === '${session.userId}') {
-          //     // 댓글 작성자와 세션 아이디 일치하는 경우
-          //     // 수정 및 삭제 버튼을 보이게 처리
-          //     comment.editButton.style.display = 'inline-block';
-          //   } else {
-          //     console.log("댓글 작성자 불일치");
-          //     // 댓글 작성자와 세션 아이디 불일치하는 경우
-          //     // 수정 및 삭제 버튼을 숨기게 처리
-          //     comment.editButton.style.display = 'none';
-          //   }
-          };
+        };
+
+        // // 댓글 수정 및 삭제버튼 나타내기 여부
+        // const setCmUiObject = function () {
+        //   console.log("setCmUiObject실행");
+        //   const cmDeleteButtons = document.querySelectorAll('.cmDeleteBtn');
+        //   console.log("cmDeleteButtons 배열 내용:");
+        //   // cmDeleteButtons.forEach(button => {
+        //   //   console.log(button);
+        //   // });
+
+        //   cmDeleteButtons.forEach(button => {
+        //     const cmUserId = button.getAttribute('data-cm-id');
+        //     console.log(cmUserId);
+        //   });
+        //   // console.log("현재 버튼 : ", cmDeleteButtons[0].data-cm-id);
+        //   // for (let i = 0; i < cmDeleteButtons.length; i++)
+        //   // {
+        //   //   if (checkMyComment(cmUserId) === true)
+        //   //   {
+        //   //     cmDeleteButtons[i].style.display = 'inline-block';
+        //   //   }
+        //   //   else (checkMyComment(cmUserId) === false)
+        //   //   {
+        //   //     cmDeleteButtons[i].style.display = 'none';
+        //   //   }
+        //   // }
+        //   // cmDeleteButtons.forEach(()) => {
+        //   //   if (comment.cmUserId === '${session.userId}') {
+        //   //     // 댓글 작성자와 세션 아이디 일치하는 경우
+        //   //     // 수정 및 삭제 버튼을 보이게 처리
+        //   //     comment.editButton.style.display = 'inline-block';
+        //   //   } else {
+        //   //     console.log("댓글 작성자 불일치");
+        //   //     // 댓글 작성자와 세션 아이디 불일치하는 경우
+        //   //     // 수정 및 삭제 버튼을 숨기게 처리
+        //   //     comment.editButton.style.display = 'none';
+        //   //   }
+        //   };
 
         // if (checkMyComment(cmUserId) === false) {
         //       console.log("댓글 작성자 불일치");
