@@ -2,29 +2,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-<title>Content</title>
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ue7v6d1q9l&submodules=geocoder"></script>
-<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
-<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ue7v6d1q9l"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+  <title>Content</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- 지도 첨부 -->
+  <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ue7v6d1q9l&submodules=geocoder"></script>
+  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ue7v6d1q9l"></script>
 
-<!-- Template Vendor CSS Files -->
-<link href="assets/vendor/aos/aos.css" rel="stylesheet">
-<link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-<link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Template Main CSS File -->
-<link rel="stylesheet" href="/assets/css/style.css">
+  <!-- Template Vendor CSS Files -->
+  <link href="../assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-<link rel="stylesheet" href="/css/reset.css">
-<link rel="stylesheet" href="/css/index.css">
-<link rel="stylesheet" href="/css/updateContent.css">
+  <!-- Template Main CSS File -->
+  <link rel="stylesheet" href="../assets/css/style.css">
+
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/index.css">
+  <link rel="stylesheet" href="../css/updateContent.css">
 </head>
 <body>
 
@@ -42,7 +44,7 @@
           <option value="Central">중부</option>
         </select>
         <div class="mb-3 titleArea">
-          <input type="text" id="txtTitle" class=form-control name="title" value="${vo.title}">
+          <input type="text" id="txtTitle" class="form-control" name="title" value="${vo.title}">
         </div>
       </div>
       <div class="mb-3"><img id="postImage" src="" alt="Posted Image"></div>
@@ -121,17 +123,15 @@
     </div> -->
 
     <!-- Template Vendor JS Files -->
-    <script src="assets/vendor/aos/aos.js"></script>
-    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script src="../assets/vendor/aos/aos.js"></script>
+    <script src="../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="../assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="../assets/vendor/php-email-form/validate.js"></script>
     
     <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
+    <script src="../assets/js/main.js"></script>
     
     <script src="/JS/jquery-3.7.0.min.js"></script>
-    <!-- 좋아요 하트 외부에서 가져오기 -->
-    <script src="https://kit.fontawesome.com/3929e16ef5.js" crossorigin="anonymous"></script>  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
     <script>
@@ -142,6 +142,7 @@
         let lat = 0;
         let lng = 0;
 
+        let sessionState = false;
         let myContent = false;
 
         const profileImg    = document.querySelector('#profileImg');
@@ -160,6 +161,11 @@
         const cafeAd     = document.querySelector('#cafeAd');
         const imageContainer = document.querySelector('#imageContainer');
 
+        const mapSet = document.querySelector('.mapSet');
+        const postImage = document.querySelector('#postImage');
+
+
+
         ////// 함수부 //////////////////////////////////////////////////////////////////
 
         // 현재 세션이 있는지 없는지 설정해준다.
@@ -170,6 +176,7 @@
             else {
                 sessionState = true;
             }
+            console.log(sessionState);
         }
         
         // 로그인 인포 설정
@@ -221,6 +228,26 @@
         }
 
         ////// 이벤트 핸들러 ///////////////////////////////////////////////////////////
+
+        window.addEventListener('DOMContentLoaded', () => {
+
+          // 이미지를 첨부하지 않았다면 안보이게
+          if (!postImage.naturalWidth) {
+            postImage.style.display = 'none';
+          }
+
+          // 지도를 첨부하지 않았다면 안보이게
+          lat = parseFloat('${vo.lat}');
+          lng = parseFloat('${vo.lng}');
+
+          if ((lat === 0.0) && (lng === 0.0)) {
+            mapSet.style.display = 'none';
+          }
+          else {
+            selectMapList(lat, lng);
+          }
+
+        });
 
         // 로그인 버튼
         btnLogin.addEventListener('click', ()=>{

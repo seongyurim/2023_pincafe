@@ -159,22 +159,22 @@
                 return false;
             }
 
-            // // 7. 이메일의 정규표현식 검증 // 테스트 후 주석 해제할 것 +++++++++++++++++++++++++++++++++++++++++++++++++++++
-            // let regex = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/);
-            // let testResult = regex.test(txtEmail.value);
-            // if (testResult === false) {
-            //     // console.log("REGEX FOR EMAIL = " + testResult);
-            //     alert('올바른 이메일 형태를 입력해주세요.');
-            //     txtEmail.focus();
-            //     return false;
-            // }
+            // 7. 이메일의 정규표현식 검증
+            let regex = new RegExp(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/);
+            let testResult = regex.test(txtEmail.value);
+            if (testResult === false) {
+                // console.log("REGEX FOR EMAIL = " + testResult);
+                alert('올바른 이메일 형태를 입력해주세요.');
+                txtEmail.focus();
+                return false;
+            }
 
-            // // 8. 주소를 입력했는지 확인
-            // if (finalAddress.length === 0) {
-            //     alert('주소를 입력해주세요.');
-            //     kakaoZip.focus();
-            //     return false;
-            // }
+            // 8. 주소를 입력했는지 확인
+            if (finalAddress.length === 0) {
+                alert('주소를 입력해주세요.');
+                kakaoZip.focus();
+                return false;
+            }
 
             // 9. 위의 검사를 모두 통과했으면 true
             return true;
@@ -293,23 +293,23 @@
                 return;
             }
 
-            // // 2. 값이 범위를 넘는 경우
-            // if ((txtUserId.value.length < 6) || (txtUserId.value.length > 12)) {
-            //     alert('아이디 길이는 6~12자만 가능합니다.');
-            //     idChecking = false;
-            //     txtUserId.focus();
-            //     return;
-            // }
+            // 2. 값이 범위를 넘는 경우
+            if ((txtUserId.value.length < 6) || (txtUserId.value.length > 12)) {
+                alert('아이디 길이는 6~12자만 가능합니다.');
+                idChecking = false;
+                txtUserId.focus();
+                return;
+            }
 
-            // // 3. 허용되지 않은 값이 있는 경우: 특수문자, 영대문자, 공백
-            // let regex = new RegExp(/^[a-z0-9]+$/);
-            // let testResult = regex.test(txtUserId.value);
-            // if (testResult == false) {
-            //     alert('아이디는 영소문자와 숫자만 사용할 수 있습니다.');
-            //     idChecking = false;
-            //     txtUserId.focus();
-            //     return;
-            // }
+            // 3. 허용되지 않은 값이 있는 경우: 특수문자, 영대문자, 공백
+            let regex = new RegExp(/^[a-z0-9]+$/);
+            let testResult = regex.test(txtUserId.value);
+            if (testResult == false) {
+                alert('아이디는 영소문자와 숫자만 사용할 수 있습니다.');
+                idChecking = false;
+                txtUserId.focus();
+                return;
+            }
 
             // 4. 서버로 데이터를 전송한다.
             let requestData = {

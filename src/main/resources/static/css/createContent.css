@@ -39,13 +39,6 @@
 
     /* 이미지가 들어갈 박스 (상위 클래스) */       
     .image-box {
-    width: 200px;
-    height: 200px;
-    margin: 10px;
-    box-sizing: border-box;
-    border: 1px solid gray;
-    border-radius: 15%;
-
     /* 이미지 꽉 차고 중앙정렬하고 기본 백그라운드컬러 설정 */
     background-size: contain;
     background-repeat: no-repeat;
@@ -54,21 +47,7 @@
     }
 
     /* 이미지가 들어갈 박스 */       
-    .previewBox 
-    {
-        width: 200px;
-        height: 200px;
-        margin: 10px;
-        box-sizing: border-box;
-        border: 1px solid gray;
-        border-radius: 15px;
 
-        /* 이미지 꽉 차고 중앙정렬하고 기본 백그라운드컬러 설정 */
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-color: #f0f0f0;
-    }
 
 
     /* 이미지 업로드 버튼 */
@@ -116,10 +95,6 @@
         border-radius: 5px;
     }
 
-    .mb-3 {
-        width: 100%; /* 100% 너비를 사용하여 수평으로 늘어나도록 함 */
-    }
-
     /* 본문 영역 */
     #txtContent {
         width: 100%; 
@@ -162,14 +137,6 @@
         margin: 15px auto;
     }
 
-    /* 버튼 디자인 */
-    #popupBtn {
-        justify-content: center; /* 가로 방향 가운데 정렬 */
-        width: 200px;
-        height: 50px;
-        padding: 10px 5px;
-    }
-
     /* 모달팝업을 감싸고 있는 최상위 부모 */
         #modalWrap {
         position: fixed; /* Stay in place */
@@ -187,7 +154,7 @@
     /* 모달 팝업창 */
     #modalBody {
         width: 600px;
-        height: 700px;
+        height: 550px;
         padding: 30px 30px;
         margin: 0 auto;
         border: none;

@@ -77,7 +77,7 @@
           </div>
         </div>
 
-        <div class="mb-3"><img id="postImage" src="" alt="Posted Image"></div>
+        <div class="mb-3"><img id="postImage" src="/imgs/member/thumbnail/${vo.fileCode}.jpg" alt="Posted Image"></div>
         <div class="mb-3">
           <div class="txtContent" rows="3" name="content" readonly>${vo.content}</div>
 
@@ -118,11 +118,7 @@
       <script src="../assets/js/main.js"></script>
 
       <script src="/JS/jquery-3.7.0.min.js"></script>
-      <!-- 좋아요 하트 외부에서 가져오기 -->
-      <script src="https://kit.fontawesome.com/3929e16ef5.js" crossorigin="anonymous"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-        crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
       <script>
 
@@ -130,7 +126,6 @@
         let lat = 0;
         let lng = 0;
 
-        let myContent = false;
         let myComment = false;
 
         let rowCount = 0; // 전체 댓글 건수
@@ -239,7 +234,7 @@
                   commentEntry.innerHTML = `
                     <div class="writerInfo">
                       <div class="ImgArea">
-                        <img class="profileImg" src="/imgs/member/thumbnail/0000.jpg">
+                        <img class="profileImg cmProfileImg" src="/imgs/member/thumbnail/0000.jpg">
                       </div>
                       <div class="profileArea">
                         <div class="profileAreaUpper">
@@ -261,15 +256,11 @@
                 }
               }
             });
-            // checkMyComment(); // 내 댓글이면 myComment => true
-            // setCmUiObject(); // 내 댓글일 경우에만 수정 가능하게
           };
-
 
         // UI Setting
         window.addEventListener('DOMContentLoaded', () => {
 
-          // alert(2);
           // 이미지를 첨부하지 않았다면 안보이게
           if (!postImage.naturalWidth) {
             postImage.style.display = 'none';
@@ -288,8 +279,24 @@
 
           // 댓글 리스트
           setCMbbs(0);
-          checkMyComment(); // 내 댓글이면 myComment => true
-          setCmUiObject(); // 내 댓글일 경우에만 수정 가능하게
+          // setCmUiObject(); // 내 댓글일 경우에만 수정 가능하게
+          // checkMyComment(); // 내 댓글이면 myComment => true
+
+          console.log("check")
+
+          // const cmDeleteButtons = document.querySelectorAll('.cmDeleteBtn');
+          
+          // cmDeleteButtons.forEach(button => {
+          //   const cmUserId = button.getAttribute('data-cm-id');
+            
+          //   if (checkMyComment(cmUserId)) {
+          //     button.style.display = 'inline-block'; // 작성자와 세션 일치 시 버튼 표시
+          //   } else {
+          //     button.style.display = 'none'; // 작성자와 세션 불일치 시 버튼 숨김
+          //   }
+          // });
+
+          // setCmUiObject(); // 내 댓글일 경우에만 수정 가능하게
         });
 
         // 지도를 그려주는 함수
@@ -344,26 +351,26 @@
         //   // 이하 버튼에 대한 처리
         // });
 
-        // 현재 사용자와 댓글 작성자가 동일한지 확인하는 함수
-        const checkMyComment = function (userId) {
-          return '${session.userId}' === userId;
-        }
+        // // 현재 사용자와 댓글 작성자가 동일한지 확인하는 함수
+        // const checkMyComment = function (userId) {
+        //   return '${session.userId}' === userId;
+        // }
 
-        // 댓글 수정 및 삭제 버튼 나타내기 여부
-        const setCmUiObject = function () {
-          // const cmDeleteButtons = document.querySelectorAll('#cmDeleteBtn');
-          console.log("cmDeleteButtons : " + cmDeleteButtons[0]);
+        // // 댓글 수정 및 삭제 버튼 나타내기 여부
+        // const setCmUiObject = function () {
+        //   const cmDeleteButtons = document.querySelectorAll('.cmDeleteBtn');
+        //   console.log("cmDeleteButtons : " + cmDeleteButtons[0]);
           
-          cmDeleteButtons.forEach(button => {
-            const cmUserId = button.getAttribute('data-cm-id');
+        //   cmDeleteButtons.forEach(button => {
+        //     const cmUserId = button.getAttribute('data-cm-id');
             
-            if (checkMyComment(cmUserId)) {
-              button.style.display = 'inline-block'; // 작성자와 세션 일치 시 버튼 표시
-            } else {
-              button.style.display = 'none'; // 작성자와 세션 불일치 시 버튼 숨김
-            }
-          });
-        };
+        //     if (checkMyComment(cmUserId)) {
+        //       button.style.display = 'inline-block'; // 작성자와 세션 일치 시 버튼 표시
+        //     } else {
+        //       button.style.display = 'none'; // 작성자와 세션 불일치 시 버튼 숨김
+        //     }
+        //   });
+        // };
 
         // // 댓글 수정 및 삭제버튼 나타내기 여부
         // const setCmUiObject = function () {
@@ -476,7 +483,7 @@
               success: function (data) {
                 if (data == "OK") {
                   alert('게시글이 삭제되었습니다.');
-                  location.href = "/index";
+                  location.href = "/bbsmain";
                 }
                 else {
                   alert('게시글 삭제에 실패했습니다. 다시 시도해주세요.');
@@ -491,7 +498,7 @@
         btnCM.addEventListener('click', () => {
           if (sessionState === false)
           {
-            if (confirm('로그인 후 댓글 작성이 가능합니다. 로그인 하시겠습니까?')) 
+            if (confirm('로그인 후 이용할 수 있습니다. 로그인하시겠어요?')) 
             {
               location.href = "/login";
             }
@@ -540,6 +547,10 @@
           const cmSeq = event.target.getAttribute('data-cm-seq');
           const cmUserId = event.target.getAttribute('data-cm-id');
           if (event.target.classList.contains('cmDeleteBtn')) {
+            if(cmUserId === '${session.userId}')
+            {
+
+            
             console.log(cmSeq);
             console.log(cmUserId);
             let requestData = {
@@ -569,6 +580,11 @@
                 }
               })
             };
+          }
+          else 
+          {
+            alert("댓글을 삭제할 수 없습니다.");
+          }
           }
         });
 
@@ -625,10 +641,11 @@
         setSessionState();
         setSessionInfo();
         checkMyContent(); // 내 컨텐츠가 맞다면 myContent => true
-        checkMyComment(); // 내 댓글이면 myComment => true
+        // checkMyComment(); // 내 댓글이면 myComment => true
         setUiObject(); // 내 컨텐츠인 경우에만 수정 가능하게
-        setCmUiObject(); // 내 댓글일 경우에만 수정 가능하게
+        // setCmUiObject(); // 내 댓글일 경우에만 수정 가능하게
         setNextPrevContent();
+
 
       </script>
   </body>
